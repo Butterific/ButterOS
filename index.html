@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <body style="background-image: url(./assets/background.png); background-size: cover; font-family: 'Comic Sans MS', 'Comic Sans';">
-    <script>
-      function updateTime() {
-        var currentTime = new Date().toLocaleString();
-        var timeText = document.querySelector("#timeElement");
-        timeText.innerHTML = currentTime;
-    }
-    setInterval(updateTime, 1000);
-    </script>
+  <head>
+  </head>
+  <body>
+    <link rel="stylesheet" href="index.css">
+    <!-- time sync -->
+    <script src="scripts/timesync.js"></script>
     <!-- topbar -->
     <div style="padding: 0px 10px; color: azure; display: flex; justify-content: space-between; backdrop-filter: blur(10px); background-color: rgba(0, 0, 0, 0.25); color: #fff; justify-content: space-between;  border-radius: 12px;">
-      <p><b>ButterOS</b></p> 
-      <p id="timeElement">9/12/2026 9:26 PM</p> 
+      <p id="topbartext"><b>ButterOS</b></p> 
+      <p id="timeElement topbartext">Loading time...</p> 
     </div>
     <!-- desktop -->
     <div style="background-color: azure; padding: 16px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 4mm ridge rgba(233, 237, 8, 0.6); border-radius: 12px;">
