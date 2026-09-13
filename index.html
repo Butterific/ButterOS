@@ -10,21 +10,35 @@
       <p class="topbartext" id="timeElement">Loading time...</p> 
     </div>
     <!-- desktop -->
-    <div class="welcome" id="window">
+    <div class="welcome window">
       <div class="windowheader">
-        <div id="windowdrag"> 
-          <img style="width: 20px; height: 20px" src="./assets/dragable.svg" />
+        <div class="windowdrag"> 
+          <img id="drag" src="./assets/dragable.svg" />
         </div>
-        <div id="windowclose" class="closebutton">
+        <div class="closebutton">
           <img src="./assets/windowbar/close.png"/>
         </div>
       </div>
-      <br>
-      <img style="height: 64px" src="./assets/logo.png" />
-      <h1>Welcome to ButterOS</h1>
-      <h2>Introduction:</h2>
-      <p>Welcome to <b>ButterOS</b>!</p>
-      <p>Get started by closing this window and clicking one of the apps on the <b>desktop</b>!</p>
+      <div class="window-box">
+        <img style="height: 64px" src="./assets/logo.png" />
+        <h1>Welcome to ButterOS</h1>
+        <h2>Introduction:</h2>
+        <p>Welcome to <b>ButterOS</b>!</p>
+        <p>Get started by closing this window and clicking one of the apps on the <b>desktop</b>!</p>
+      </div>
+    </div>
+    <div class="window">
+      <div class="windowheader">
+        <div class="windowdrag"> 
+          <img style="width: 20px; height: 20px" src="./assets/dragable.svg" />
+        </div>
+        <div class="closebutton">
+          <img src="./assets/windowbar/close.png"/>
+        </div>
+      </div>
+      <div class="window-box">
+        
+      </div>
     </div>
     <script src="scripts/windowcontrol.js"></script>
     <script src="scripts/windowdrag.js"></script>

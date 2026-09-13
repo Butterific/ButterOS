@@ -1,6 +1,6 @@
 // taken from https://jams.hackclub.com/batch/webOS/part-3
 // Make the DIV element draggable:
-dragElement(document.getElementById("window"));
+document.querySelectorAll(".window").forEach(dragElement);
 
 // Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
@@ -9,8 +9,7 @@ function dragElement(element) {
   var initialY = 0;
   var currentX = 0;
   var currentY = 0;
-  // modified this part so it searches for any element with it + header
-  var headerElement = element.querySelector("[id*='header']") || element.querySelector(".header") || element.firstElementChild;
+  var headerElement = element.querySelector(".windowheader");
 
     if (headerElement) {
         headerElement.onmousedown = startDragging;
