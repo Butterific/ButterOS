@@ -9,14 +9,17 @@
       <p class="topbartext"><b>ButterOS</b></p> 
       <p class="topbartext" id="timeElement">Loading time...</p> 
     </div>
-    <div id="desktopApps" style="padding-top: 16px; padding-left: 16px;">
-      <div style="text-align: center; padding: 16px; filter: drop-shadow(0 0 8px black); width: fit-content">
-      <img src="./assets/app-icons/calculator.png" style="width: 64px; height: 64px; border-radius: 16px;">
-      <p style="margin: 0px; color: #fff; ">Calculator</p>
+    <div id="desktopApps">
+      <div class="appicon" onclick="opencalcapp()">
+        <img src="./assets/app-icons/calculator.png" class="appiconimg">
+        <p class="apptext">Calculator</p>
+      </div>
+      <div class="appicon" onclick="opensimplyepic()">
+        <img src="./assets/app-icons/simplyepic.png" class="appiconimg">
+        <p class="apptext">SimplyEpic</p>
+      </div>
     </div>
-
-  </div>
-    <!-- desktop -->
+    <!-- desktop/welcomewindow -->
     <div class="welcome window">
       <div class="windowheader">
         <div class="windowdrag"> 
@@ -34,7 +37,8 @@
         <p>Get started by closing this window and clicking one of the apps on the <b>desktop</b>!</p>
       </div>
     </div>
-    <div class="window">
+    <!-- calculator app -->
+    <div class="window" id="calcapp" style="display: none;">
       <div class="windowheader">
         <div class="windowdrag"> 
           <img style="width: 20px; height: 20px" src="./assets/dragable.svg" />
@@ -47,8 +51,23 @@
         hiiiii
       </div>
     </div>
+    <!-- simplyepic app -->
+    <div class="window" id="sepic" style="display: none;">
+      <div class="windowheader">
+        <div class="windowdrag"> 
+          <img style="width: 20px; height: 20px" src="./assets/dragable.svg" />
+        </div>
+        <div class="closebutton">
+          <img src="./assets/windowbar/close.png"/>
+        </div>
+      </div>
+      <div class="window-box">
+        test
+      </div>
+    </div>
     <script src="scripts/windowcontrol.js"></script>
     <script src="scripts/windowdrag.js"></script>
     <script src="scripts/timesync.js"></script>
+    <script src="scripts/openapp.js"></script>
   </body>
 </html>
