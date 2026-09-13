@@ -4,6 +4,7 @@ body {
     font-family: 'Comic Sans MS', 'Comic Sans';
     background-repeat: no-repeat;
     min-height: 100vh;
+    overflow: hidden;
 }
 .topbartext {
     font-weight: 700; 
@@ -19,5 +20,14 @@ body {
     left: 50%; 
     transform: translate(-50%, -50%); 
     border: 4mm ridge rgba(233, 237, 8, 0.6); 
+    border-radius: 12px;
+}
+.topbar {
+    padding: 0px 10px; 
+    color: azure; 
+    display: flex; 
+    justify-content: space-between; 
+    backdrop-filter: blur(10px); 
+    background-color: rgba(0, 0, 0, 0.25); 
     border-radius: 12px;
 }

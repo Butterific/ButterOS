@@ -9,18 +9,14 @@ function dragElement(element) {
   var initialY = 0;
   var currentX = 0;
   var currentY = 0;
+  // modified this part so it searches for any element with it + header
+  var headerElement = element.querySelector("[id*='header']") || element.querySelector(".header") || element.firstElementChild;
 
-  // Step 3: Check if there is a special header element associated with the draggable element.
-  if (document.getElementById(element.id + "header")) {
-    // Step 4: If present, assign the `dragMouseDown` function to the header's `onmousedown` event.
-    // This allows you to drag the window around by its header.
-    document.getElementById(element.id + "header").onmousedown = startDragging;
-  } else {
-    // Step 5: If not present, assign the function directly to the draggable element's `onmousedown` event.
-    // This allows you to drag the window by holding down anywhere on the window.
-    element.onmousedown = startDragging;
-  }
-
+    if (headerElement) {
+        headerElement.onmousedown = startDragging;
+    } else {
+        element.onmousedown = startDragging;
+    }
   // Step 6: Define the `startDragging` function to capture the initial mouse position and set up event listeners.
   function startDragging(e) {
     e = e || window.event;
