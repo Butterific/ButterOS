@@ -11,11 +11,11 @@
     </div>
     <div id="desktopApps">
       <div class="appicon" onclick="opencalcapp()">
-        <img src="./assets/app-icons/calculator.png" class="appiconimg">
+        <img src="./assets/app-icons/calculator.png" class="appiconimg" draggable="false">
         <p class="apptext">Calculator</p>
       </div>
       <div class="appicon" onclick="opensimplyepic()">
-        <img src="./assets/app-icons/simplyepic.png" class="appiconimg">
+        <img src="./assets/app-icons/simplyepic.png" class="appiconimg" draggable="false"s>
         <p class="apptext">SimplyEpic</p>
       </div>
     </div>
@@ -30,6 +30,7 @@
         </div>
       </div>
       <div class="window-box">
+        <br>
         <img style="height: 64px" src="./assets/logo.png" />
         <h1>Welcome to ButterOS</h1>
         <h2>Introduction:</h2>
@@ -38,7 +39,7 @@
       </div>
     </div>
     <!-- calculator app -->
-    <div class="window" id="calcapp" style="display: none;">
+    <div class="window app-window" id="calcapp" style="display: none;">
       <div class="windowheader">
         <div class="windowdrag"> 
           <img style="width: 20px; height: 20px" src="./assets/dragable.svg" />
@@ -52,17 +53,17 @@
       </div>
     </div>
     <!-- simplyepic app -->
-    <div class="window" id="sepic" style="display: none;">
+    <div class="window app-window" id="sepic" style="display: none;">
       <div class="windowheader">
         <div class="windowdrag"> 
-          <img style="width: 20px; height: 20px" src="./assets/dragable.svg" />
+          <img style="width: 20px; height: 20px" src="./assets/dragable.svg" draggable="false"/>
         </div>
         <div class="closebutton">
           <img src="./assets/windowbar/close.png"/>
         </div>
       </div>
       <div class="window-box">
-        test
+        <iframe class="app-frame" src="apps/SimplyEpic.html"></iframe>
       </div>
     </div>
     <script src="scripts/windowcontrol.js"></script>
