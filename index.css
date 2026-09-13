@@ -9,3 +9,13 @@ body {
     padding: 4px 12px; 
     border-radius: 16px;
 }
+#welcome {
+    background-color: azure; 
+    padding: 16px; 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    border: 4mm ridge rgba(233, 237, 8, 0.6); 
+    border-radius: 12px;
+}
