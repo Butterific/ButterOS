@@ -31,3 +31,10 @@ body {
     background-color: rgba(0, 0, 0, 0.25); 
     border-radius: 12px;
 }
+#window {
+    user-select: none; 
+}
+/* added a simple thing so it targets elements with header in them eeeeee */
+[id*="header"] {
+  cursor: grab;
+}
