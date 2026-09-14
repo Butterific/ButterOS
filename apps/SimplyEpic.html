@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,64 +14,21 @@
             height: 100vh;
             background-color: #f8f8f8;
         }
-
-        #navbar {
-            background-color: #4285f4;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        #address-bar {
-            flex-grow: 2;
-            margin: 0 10px;
-            padding: 8px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        #go-button {
-            cursor: pointer;
-            color: white;
-            padding: 10px;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-
-        #browser-container {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        #browser-frame {
-            flex-grow: 1;
-            width: 100%;
-            border: none;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
     </style>
 </head>
 <body>
-    <div id="navbar">
-        <input type="text" id="address-bar" placeholder="Search with Google or enter URL (add Https)"> 
-        <button id="go-button" onclick="navigate()">Go</button>
-    </div>
-
-    <div id="browser-container">
-        <iframe id="browser-frame" src="https://www.google.com/webhp?igu=1"></iframe>
-    </div>
+    <script async src="https://cse.google.com/cse.js?cx=613eb6f6a738f49db"></script>
+    <div class="gcse-search"></div>
 
     <script>
-        function navigate() {
-            var url = document.getElementById('address-bar').value;
-            document.getElementById('browser-frame').src = url;
-        }
+        // Intercept all link clicks and open in popup
+        document.addEventListener('click', function(e) {
+            const target = e.target.closest('a');
+            if (target && target.href) {
+                e.preventDefault();
+                window.open(target.href, 'popup', 'width=800,height=600,scrollbars=yes,resizable=yes');
+            }
+        }, true);
     </script>
 </body>
 </html>
