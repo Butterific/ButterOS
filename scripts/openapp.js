@@ -6,9 +6,11 @@ function opensimplyepic() {
     counter += 1;
     sepic.style.display = "flex";
     sepic.style.zIndex = counter;
+    sepic.style.transform="translate(-50%, -50%)"; 
 }
 function opencalcapp() {
     counter += 1;
     calcapp.style.display = "flex";
     calcapp.style.zIndex = counter;
+    calcapp.style.transform="translate(-50%, -50%)"; 
 }
