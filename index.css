@@ -51,6 +51,9 @@ body {
   resize: both;
   min-width: 240px;
   min-height: 160px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .app-window .window-box {
   flex: 1;
