@@ -1,5 +1,6 @@
 var sepic = document.getElementById("sepic");
 var calcapp = document.getElementById("calcapp");
+var minecraftapp = document.getElementById("minecraftapp");
 var counter = 1
 
 function opensimplyepic() {
@@ -11,5 +12,9 @@ function opencalcapp() {
     counter += 1;
     calcapp.style.display = "flex";
     calcapp.style.zIndex = counter;
-    calcapp.style.transform="translate(-50%, -50%)"; 
+}
+function openmcapp() {
+    counter += 1;
+    minecraftapp.style.display = "flex";
+    minecraftapp.style.zIndex = counter;
 }
