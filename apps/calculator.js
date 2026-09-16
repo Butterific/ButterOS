@@ -4,6 +4,9 @@ function appendtodisplay(input) {
     if (display.value.includes('Error')) { 
     display.value = display.value.replace('Error', ''); 
     }
+    if (display.value.includes('undefined')) { 
+    display.value = display.value.replace('undefined', ''); 
+    }
     display.style.color = '#1cd880';
     display.value += input;
 }
