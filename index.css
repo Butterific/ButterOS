@@ -58,8 +58,8 @@ body {
   transform: translate(-50%, -50%);
 }
 #calcapp {
-  width: min(675px, 88vw);
-  height: min(1105px, 96vh);
+  width: min(506.25px, 66vw);
+  height: min(828.75px, 72vh);
 }
 .app-window .window-box {
   flex: 1;
