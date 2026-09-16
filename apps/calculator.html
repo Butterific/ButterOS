@@ -7,25 +7,26 @@
 </head>
 <body>
     <div class="calculator">
-        <input id="display" readonly>
+        <input id="display" pattern="[0-9\s!@#$%^&*()_\-+={[}\]|:;'<>,.?\/~`]+" 
+  oninput="this.value = this.value.replace(/[^0-9!@#$%^&*()_\-+={[}\]|:;'<>,.?\/~`]/g, '');">
         <div id="keys">
-            <button onclick="appendtodisplay('+')">+</button>
+            <button onclick="appendtodisplay('+')" class="operator-btn">+</button>
             <button onclick="appendtodisplay('7')">7</button>
             <button onclick="appendtodisplay('8')">8</button>
             <button onclick="appendtodisplay('9')">9</button>
-            <button onclick="appendtodisplay('-')">-</button>
+            <button onclick="appendtodisplay('-')" class="operator-btn">-</button>
             <button onclick="appendtodisplay('4')">4</button>
             <button onclick="appendtodisplay('5')">5</button>
             <button onclick="appendtodisplay('6')">6</button>
-            <button onclick="appendtodisplay('*')">*</button>
+            <button onclick="appendtodisplay('*')" class="operator-btn">*</button>
             <button onclick="appendtodisplay('1')">1</button>
             <button onclick="appendtodisplay('2')">2</button>
             <button onclick="appendtodisplay('3')">3</button>
-            <button onclick="appendtodisplay('/')">/</button>
+            <button onclick="appendtodisplay('/')" class="operator-btn">/</button>
             <button onclick="appendtodisplay('0')">0</button>
             <button onclick="appendtodisplay('.')">.</button>
             <button onclick="calculate()">=</button>
-            <button onclick="clearDisplay()">C</button>
+            <button onclick="clearDisplay()" class="operator-btn">C</button>
         </div>
     </div>
 </body>
