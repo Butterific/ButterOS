@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>ButterOS</title>
+    <!-- favicon -->
     <link rel="icon" type="image/png" href="./assets/logo.png">
   </head>
   <body>
@@ -22,7 +23,6 @@
         <img src="./assets/app-icons/simplyepic.png" class="appiconimg" draggable="false"s>
         <p class="apptext">SimplyEpic</p>
       </div>
-          <!-- minecraft app icon -->
     <!-- <div class="appicon" onclick="openmcapp()">
       <img src="./assets/app-icons/minecraft.png" class="appiconimg" draggable="false"s>
       <p class="apptext">Minecraft</p>
@@ -33,6 +33,7 @@
     <div class="welcome window">
       <div class="windowheader">
         <div class="windowdrag"> 
+          <!-- toolbar -->
           <img id="drag" src="./assets/dragable.svg" />
         </div>
         <div class="closebutton">
@@ -41,6 +42,7 @@
       </div>
       <div class="window-box">
         <br>
+        <!-- intro -->
         <img style="height: 64px" src="./assets/logo.png" />
         <h1>Welcome to ButterOS</h1>
         <h2>Introduction:</h2>
@@ -76,9 +78,13 @@
         <iframe class="app-frame" src="apps/SimplyEpic.html"></iframe>
       </div>
     </div>
+    <!-- window taskbar script -->
     <script src="scripts/windowcontrol.js"></script>
+    <!-- window drag script -->
     <script src="scripts/windowdrag.js"></script>
+    <!-- time sync for toolbar -->
     <script src="scripts/timesync.js"></script>
+    <!-- open apps -->
     <script src="scripts/openapp.js"></script>
   </body>
 </html>
