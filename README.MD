@@ -4,11 +4,8 @@
 
 An interactive web opertating system running via html and css with cool apps and features!
 
-## Test it on Slack
-Go on the slack and visit `#bot-spam` and run any command!
-## Quick Start
-Simple quick start guide to help you setup the bot and get it running!
-
+## Test it Out
+[Click here](http://butteros.butterlabs.app/)
 ### Requirements
  - A hosting provider or a server to host the website, thats it!
 
@@ -16,9 +13,7 @@ Simple quick start guide to help you setup the bot and get it running!
 A working server with static html/css/js support
 
 ## How it Works
- The bot uses socket mode which means it connects to Slack using a websocket. When a user sends a /command, it sends a request to the server side with the code where it processes and sends a response.
-  - The bot uses the `profanease` library for the moderation to filter bad words when using the `/emoji-bot-convert` command.
-  - The bot uses the `axios` library for web requests for the `/emoji-bot-cat-fact` command. 
+The website/WebOS is powered by 2 key components, the windowdrag and appopen script files. whenever you click on a app button, it uses a function to change the display property for all windows to show them. All windows are loaded by defualt when you launch the page!
 
 
 
@@ -27,14 +22,23 @@ The WebOS currently features `2` app:
  - `Calculator` - Calculates stuff 
  - `SimplyEpic` - Google search but no ai and only searches academic sites (3 to be exact)
 
+## Future Plans
+ - Add support with [Streamables](https://streamables.butterlabs.app/) inorder to build a cloud based music app using stream codes. 
+ - Remake the toolbar from scratch because its not much different from the guide
+ - add support for connecting to other butterlabs services 
 ## Credits
-  - Special thanks to [this](https://www.reddit.com/r/copypasta/comments/1cf5dg7/emoji_alphabet_emojis_that_look_like_or_contain/) reddit post for the Emoji substitution list
-  - Special thanks to the [Profanease](https://www.npmjs.com/package/profanease) library for the moderation features 
-  - HUGE thanks to [this github project](https://github.com/nploc1209/TeXpress/blob/main/README.md) for helping me what a good readme loos like
+  - Special thanks to [Brocode](https://youtu.be/I5kj-YsmWjM) for the calculator guide!
+  - Special thanks to [this](https://jams.hackclub.com/batch/webOS) guide for the basic guide on making the toolbar and windows (however the app system and window open/close were made custom by me) 
+  - HUGE thanks to [this github project](https://github.com/nploc1209/TeXpress/blob/main/README.md) for helping me what a good readme looks like
 
 ## Important Links
  - [Stardance project](https://stardance.hackclub.com/projects/61558)
 ## AI Usage
  - Little to no ai was used in this project. The only ai is the vs code autofill
+## Gallery
+![Image1](assets/readme/image.png)
+![Image2](assets/readme/image2.png)
+![Image2](assets/readme/image3.png)
+
 # This bot was made for HackClub Stardance 2026
 ![Stardance logo](assets/stardance.avif)
