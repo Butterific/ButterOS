@@ -1,8 +1,8 @@
-<img src="assets/bot_pfp.png" width="150" alt="SlackMoji Pfp">
+<img src="assets/logo.png" width="150" alt="butteros logo">
 
-# SlackMoji
+# ButterOS
 
-A Slack bot designed to help you mess around and have fun with emojis along with other cool things!
+An interactive web opertating system running via html and css with cool apps and features!
 
 ## Test it on Slack
 Go on the slack and visit `#bot-spam` and run any command!
@@ -10,37 +10,10 @@ Go on the slack and visit `#bot-spam` and run any command!
 Simple quick start guide to help you setup the bot and get it running!
 
 ### Requirements
- - A Slack bot with socket mode enabled and that has the following Bot Token Scopes: `app_mentions:read`, `channels:read`, `chat:write`
- - The following slash commands created on the bot page 
- ```text
-/emoji-bot-ping
-/emoji-bot-fire
-/emoji-bot-cat-fact
-/emoji-bot-help
-/emoji-bot-convert
-/emoji-bot-about
- ```
-
- - Node.js/NPM
+ - A hosting provider or a server to host the website, thats it!
 
 ### Prerequisites
-Make sure you have a .env with the following set:
-```env
-SLACK_BOT_TOKEN=your_slack_bot_token
-SLACK_APP_TOKEN=your_slack_app_token
-```
-### Setup
-Windows
-```powershell
-  npm install
-  node index.js
-```
-MacOS/Linux
-```bash
-  npm install
-  node index.js
-```
-<small>I dont know why I put linux and windows, they are LITERALLY the same thing 🥀</small>
+A working server with static html/css/js support
 
 ## How it Works
  The bot uses socket mode which means it connects to Slack using a websocket. When a user sends a /command, it sends a request to the server side with the code where it processes and sends a response.
@@ -49,14 +22,10 @@ MacOS/Linux
 
 
 
-## Commands
-The bot currently features `6` commands:
- - `/emoji-bot-ping` - Checks the bots latency
- - `/emoji-bot-cat-fact` - Get a cat fact from the `https://catfact.ninja/fact` api
- - `/emoji-bot-fire` - Replies a single '🔥' emoji (joke command)
- - `/emoji-bot-help` - Shows the help message
- - `/emoji-bot-convert` - Returns the provided text in emoji form
- - `/emoji-bot-about` - Displays info about the bot
+## Apps
+The WebOS currently features `2` app:
+ - `Calculator` - Calculates stuff 
+ - `SimplyEpic` - Google search but no ai and only searches academic sites (3 to be exact)
 
 ## Credits
   - Special thanks to [this](https://www.reddit.com/r/copypasta/comments/1cf5dg7/emoji_alphabet_emojis_that_look_like_or_contain/) reddit post for the Emoji substitution list
@@ -64,8 +33,7 @@ The bot currently features `6` commands:
   - HUGE thanks to [this github project](https://github.com/nploc1209/TeXpress/blob/main/README.md) for helping me what a good readme loos like
 
 ## Important Links
- - [Stardance project](https://stardance.hackclub.com/projects/3697)
- - [Slack Dev Portal](https://slack.dev/)
+ - [Stardance project](https://stardance.hackclub.com/projects/61558)
 ## AI Usage
  - Little to no ai was used in this project. The only ai is the vs code autofill
 # This bot was made for HackClub Stardance 2026
