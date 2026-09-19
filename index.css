@@ -61,6 +61,12 @@ body {
   width: min(506.25px, 66vw);
   height: min(828.75px, 72vh);
 }
+#music {
+  /* height: 50vh;
+  aspect-ratio: 24 / 13.5; */
+  width: 64.49vw;
+  height: 83.25dvh;
+}
 .app-window .window-box {
   flex: 1;
   overflow: auto;
