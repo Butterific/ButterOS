@@ -3,21 +3,26 @@ html, body {
     height: 100%;
     overflow: hidden;
     background-color: black;
+      &::-webkit-scrollbar {
+    display: none;
+  }
 }
- 
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
- 
+
 body {
     display: flex;
     flex-direction: column;
     gap: 15px;
     padding: 15px;
+    height: 100vh;
+    overflow: hidden; 
 }
- 
+
 input {
     padding: 10px;
     font-size: 16px;
@@ -25,8 +30,9 @@ input {
     border-radius: 5px;
     background-color: #222;
     color: white;
+    flex-shrink: 0;
 }
- 
+
 .inputbtn {
     background-color: #15b835;
     color: white;
@@ -36,9 +42,16 @@ input {
     cursor: pointer;
     font-size: 16px;
     align-self: flex-start;
+    flex-shrink: 0;
 }
- 
+
 .inputbtn:hover {
     background-color: #0fa02a;
 }
- 
+
+iframe {
+    display: block;
+    border: none;
+    width: 100%;
+    flex: 1;
+}
