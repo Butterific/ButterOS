@@ -41,4 +41,4 @@ This WebOS currently features `2` app:
 ![Image2](assets/readme/image3.png)
 
 # This website was made for HackClub Stardance 2026
-![Stardance logo](assets/stardance.avif)
+![Stardance logo](assets/readme/stardance.avif)
