@@ -23,6 +23,10 @@
         <img src="./assets/app-icons/simplyepic.png" class="appiconimg" draggable="false"s>
         <p class="apptext">SimplyEpic</p>
       </div>
+      <div class="appicon" onclick="openmusic()">
+        <img src="./assets/app-icons/music.png" class="appiconimg" draggable="false"s>
+        <p class="apptext">Music</p>
+      </div>
     </div>
 
     <!-- desktop/welcomewindow -->
@@ -72,6 +76,20 @@
       </div>
       <div class="window-box">
         <iframe class="app-frame" src="apps/SimplyEpic.html"></iframe>
+      </div>
+    </div>
+    <!-- music app -->
+    <div class="window app-window" id="music" style="display: none;">
+      <div class="windowheader">
+        <div class="windowdrag"> 
+          <img style="width: 20px; height: 20px" src="./assets/dragable.svg" draggable="false"/>
+        </div>
+        <div class="closebutton">
+          <img src="./assets/windowbar/close.png"/>
+        </div>
+      </div>
+      <div class="window-box">
+        <iframe class="app-frame" src="apps/music.html"></iframe>
       </div>
     </div>
     <!-- window taskbar script -->
