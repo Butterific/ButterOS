@@ -1,0 +1,10 @@
+{
+  "liveServer.settings.CustomBrowser": "chrome",
+  "liveServer.settings.AdvanceCustomBrowserCmdLine": "",
+  "liveServer.settings.NoneRootStatusBarItemMoreOptionsCommand": "",
+  "liveServer.settings.ignoreFiles": [
+    ".git/**",
+    ".gitignore",
+    "*.md"
+  ]
+}

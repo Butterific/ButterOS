@@ -4,27 +4,11 @@
     <title>ButterOS Music</title>
     <link rel="stylesheet" href="music/music.css">
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      
-      html, body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
-      
-      iframe {
-        display: block;
-        border: none;
-        width: 100%;
-        height: 100%;
-      }
     </style>
   </head>
   <body>
+    <input type="text" id="playlistinput" placeholder="Enter playlist name">
+    <button id="loadplaylistbutton">Load Playlist</button> 
     <iframe 
       src="https://streamables.butterlabs.app/embed/playlist/test1" 
       title="Playlist test1" 
