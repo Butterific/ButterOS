@@ -50,7 +50,7 @@ body {
 .app-window {
   resize: both;
   width: min(800px, 90vw);
-  height: min(600px, 80vh);
+  height: min(650px, 80vh);
   min-width: 240px;
   min-height: 160px;
   top: 50%;
