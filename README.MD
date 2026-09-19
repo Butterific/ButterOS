@@ -40,5 +40,5 @@ This WebOS currently features `2` app:
 ![Image2](assets/readme/image2.png)
 ![Image2](assets/readme/image3.png)
 
-# This bot was made for HackClub Stardance 2026
+# This website was made for HackClub Stardance 2026
 ![Stardance logo](assets/stardance.avif)
