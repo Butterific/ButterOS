@@ -1,7 +1,7 @@
 const inpt = document.getElementById("playlistinput");
 const btn = document.getElementById("loadplaylistbutton");
 const iframe = document.querySelector("iframe");
-btn.addEventListener("click", () => { 
+btn.addEventListener("click", () => {
     const playlistname = inpt.value.trim();
     if (playlistname) {
         iframe.src = `https://streamables.butterlabs.app/embed/playlist/${playlistname}`;
