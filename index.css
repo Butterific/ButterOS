@@ -96,6 +96,27 @@ body {
   background-color: silver;
   backdrop-filter: blur(4px);
 }
+.windowdrag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+.windowicon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.windowtitle {
+  overflow: hidden;
+  color: #202020;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: none;
+}
 .appicon {
   display: flex;
   flex-direction: column;
@@ -147,11 +168,6 @@ body {
   height: 100%;
   display: block;
 }
-#drag {
-  width: 20px; 
-  height: 20px
-}
-
 /* apps */
 #sepic {
   display: none;
