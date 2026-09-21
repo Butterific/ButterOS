@@ -1,6 +1,7 @@
 var sepic = document.getElementById("sepic");
 var calcapp = document.getElementById("calcapp");
 var music = document.getElementById("music");
+var info = document.getElementById("info");
 var counter = 1
 // open simply epic
 function opensimplyepic() {
@@ -19,4 +20,10 @@ function openmusic() {
     counter += 1;
     music.style.display = "flex";
     music.style.zIndex = counter;
+}
+// open info
+function openinfo() {
+    counter += 1;
+    info.style.display = "flex";
+    info.style.zIndex = counter;
 }
