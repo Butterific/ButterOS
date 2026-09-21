@@ -18,13 +18,14 @@ The website/WebOS is powered by 2 key components, the windowdrag and appopen scr
 
 
 ## Apps
-This WebOS currently features `3` apps:
+This WebOS currently features `4` apps:
  - `Calculator` - Calculates stuff 
  - `SimplyEpic` - Google search but no ai and only searches academic sites (3 to be exact)
  - `ButterOS Music` - Cloud based music app
+ - `Info` - Returns info about the project
 
 ## Future Plans
- - Add support with [Streamables](https://streamables.butterlabs.app/) inorder to build a cloud based music app using stream codes. 
+ ~~- Add support with [Streamables](https://streamables.butterlabs.app/) inorder to build a cloud based music app using stream codes.~~ - FINISHED!!
  - Remake the toolbar from scratch because its not much different from the guide
  - add support for connecting to other butterlabs services 
 ## Credits
