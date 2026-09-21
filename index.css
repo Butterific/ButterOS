@@ -62,8 +62,6 @@ body {
   height: min(828.75px, 72vh);
 }
 #music {
-  /* height: 50vh;
-  aspect-ratio: 24 / 13.5; */
   width: 64.49vw;
   height: 83.25dvh;
 }
