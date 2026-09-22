@@ -60,6 +60,33 @@
         .line-dim { 
             color: var(--dim-color); 
         }
+        .line-rainbow,
+        .line-gradient {
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            background-size: 300% 100%;
+            animation: terminal-gradient 5s linear infinite;
+        }
+        .line-rainbow {
+            background-image: linear-gradient(
+                105deg,
+                #ff1744,
+                #ff9100,
+                #ffe600,
+                #00e676,
+                #00b0ff,
+                #7c4dff,
+                #ff1744
+            );
+        }
+        .line-gradient {
+            background-image: linear-gradient(105deg, var(--line-gradient));
+        }
+        @keyframes terminal-gradient {
+            from { background-position: 0% 0%; }
+            to { background-position: 100% 0%; }
+        }
         .input-line {
             display: flex;
             align-items: center;
@@ -106,6 +133,8 @@
             error: (text) => this.appendLine(text, 'line-error'),
             accent: (text) => this.appendLine(text, 'line-accent'),
             dim: (text) => this.appendLine(text, 'line-dim'),
+            rainbow: (text) => this.appendLine(text, 'rainbow'),
+            gradient: (text, colors) => this.appendLine(text, `gradient/${colors.join('/')}`),
             clear: () => this.clearLines(),
             getPrompt: () => this.promptStr,
             setPrompt: (str) => {
@@ -126,7 +155,21 @@
         }
         appendLine(text, className = '') {
                 const div = document.createElement('div');
-                div.className = 'line ' + className;
+                const classTokens = className.split(/\s+/).filter(Boolean);
+                const gradientToken = classTokens.find(token => token.toLowerCase().startsWith('gradient/'));
+                const gradientColors = gradientToken
+                    ? gradientToken.split('/').slice(1).filter(color => /^#(?:[0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(color))
+                    : [];
+                const hasGradient = gradientColors.length >= 2;
+                const hasRainbow = classTokens.includes('rainbow');
+                const regularClasses = classTokens.filter(token => token !== 'rainbow' && !token.toLowerCase().startsWith('gradient/'));
+
+                div.className = ['line', ...regularClasses].join(' ');
+                if (hasRainbow) div.classList.add('line-rainbow');
+                if (hasGradient) {
+                    div.classList.add('line-gradient');
+                    div.style.setProperty('--line-gradient', gradientColors.join(', '));
+                }
                 div.textContent = text;
                 this.termBody.insertBefore(div, this.activeInputLine);
                 window.scrollTo(0, document.body.scrollHeight);
@@ -223,6 +266,16 @@
                 });
             }
         });
+        terminal.registerCommand({
+            name: 'styles',
+            description: 'Displays examples for animated terminal text',
+            execute: (args, term) => {
+                term.write("terminal.appendLine('text', 'rainbow');", 'line-dim');
+                term.write("terminal.appendLine('text', 'gradient/#ff0055/#00e5ff/#ffe600');", 'line-dim');
+                term.write("term.rainbow('text');", 'line-dim');
+                term.write("term.gradient('text', ['#ff0055', '#00e5ff', '#ffe600']);", 'line-dim');
+            }
+        });
         // cls command that clears the terminal screen
         terminal.registerCommand({
             name: 'cls',
@@ -258,8 +311,8 @@
             }
         });
         function initTerminal() {
-            terminal.appendLine('Welcome to ButterOS CMD\n', 'line-accent');
-            terminal.appendLine('(c) Microsoft Corporation. All rights reserved.\n');
+            terminal.appendLine('Welcome to ButterOS CMD\n', 'rainbow');
+            terminal.appendLine('(c) ButterLabs | All rights reserved.\n');
             terminal.appendLine('Type "help" to view available commands.\n', 'line-dim');
             document.getElementById('cmdInput').focus();
         }
