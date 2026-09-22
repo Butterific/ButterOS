@@ -65,7 +65,8 @@
             color: transparent;
             background-clip: text;
             -webkit-background-clip: text;
-            background-size: 300% 100%;
+            background-repeat: repeat-x;
+            background-size: 400px 100%;
             animation: terminal-gradient 5s linear infinite;
         }
         .line-rainbow {
@@ -77,6 +78,7 @@
                 #00e676,
                 #00b0ff,
                 #7c4dff,
+                #ff1744,
                 #ff1744
             );
         }
@@ -84,8 +86,8 @@
             background-image: linear-gradient(105deg, var(--line-gradient));
         }
         @keyframes terminal-gradient {
-            from { background-position: 0% 0%; }
-            to { background-position: 100% 0%; }
+            from { background-position: 0 0; }
+            to { background-position: -400px 0; }
         }
         .input-line {
             display: flex;
@@ -168,7 +170,8 @@
                 if (hasRainbow) div.classList.add('line-rainbow');
                 if (hasGradient) {
                     div.classList.add('line-gradient');
-                    div.style.setProperty('--line-gradient', gradientColors.join(', '));
+                    const gradientCycle = gradientColors.join(', ');
+                    div.style.setProperty('--line-gradient', `${gradientCycle}, ${gradientColors[0]}`);
                 }
                 div.textContent = text;
                 this.termBody.insertBefore(div, this.activeInputLine);
@@ -307,7 +310,7 @@
             name: 'ver',
             description: 'Displays operating system version',
             execute: (args, term) => {
-                term.write('Web Command Prompt [Version 1.0.0]');
+                term.write('ButterOS Version 1.0.0');
             }
         });
         function initTerminal() {
