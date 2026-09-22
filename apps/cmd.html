@@ -6,12 +6,39 @@
     <style>
         /* Finnialy learned how to use css varibles */
         :root{
-            --bg-color: #1e1e1e;
-            --text-color: #ffffff;
-            --prompt-color: #2e2e2e;
-            --dim-color: #ffffff;
-            --error-color: #4CAF50;
-            --accent-color: #ffffff;
+            --bg-color: #000000;
+            --text-color: #06f56a;
+            --prompt-color: #00e1fe;
+            --dim-color: #2fa23c;
+            --error-color: #ff1100;
+            --accent-color: #ffc800;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html, body  {
+            /* hide the scroll bar because it looks ugly */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        /* some code ai gave just incase scroll bar dosent hide */
+        ::-webkit-scrollbar,
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar,
+        *::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+        }
+        body {
+            /* use the css variables that i made eariler */
+        background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: comic sans ms, monospace;
+            padding: 20px;
         }
     </style>
 </head>
