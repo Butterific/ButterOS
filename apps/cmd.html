@@ -47,6 +47,34 @@
             word-break: break-word;
             white-space: pre-wrap;
         }
+        .line-prompt, .prompt-label { 
+            color: var(--prompt-color); 
+            font-weight: bold; 
+        }
+        .line-error { 
+            color: var(--error-color); 
+        }
+        .line-accent { 
+            color: var(--accent-color); 
+        }
+        .line-dim { 
+            color: var(--dim-color); 
+        }
+        .input-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .cmd-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: inherit;
+            font: inherit;
+            caret-color: var(--text-color);
+        }
     </style>
 </head>
 <body>
