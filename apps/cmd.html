@@ -84,18 +84,18 @@
             <input type="text" id="cmdInput" class="cmd-input" autocomplete="off" spellcheck="false" autofocus />
         </div>
     </div>
-    <script>
-         class terminalengine {
+ <script>
+          class TerminalEngine {
             constructor() {
-                this.promptstr = "system@butterlabs.app>";
+              this.promptStr = "system@butterlabs.app>";
                 this.history = [];
-                this.historyindex = -1;
+              this.historyIdx = -1;
                 this.commands = new Map();
 
-                this.termbody = document.getElementById("termbody");
-                this.actinptline = document.getElementById("actinputline");
-                this.cmdinput = document.getElementById("cmdInput");
-                this.prmptpath = document.getElementById("promptPath");
+              this.termBody = document.getElementById("termbody");
+              this.activeInputLine = document.getElementById("actinputline");
+                this.cmdInput = document.getElementById("cmdInput");
+              this.promptPath = document.getElementById("promptPath");
 
                 this.setupEventListeners();
                 this.updatePromptDisplay();
@@ -155,10 +155,10 @@
                         this.appendLine(`Error executing command: ${e.message}`, 'line-error');
                     }
                 } else {
-                    this.appendLine(`'${cmdName}' is not recognized as an internal command. Type "help" for a list of commands.`, 'line-error');
+                    this.appendLine(`'${cmdName}' is not recognized as an internal command`, 'line-error');
                 }
             }
-        Autocomplete() {
+        handleTabAutocomplete() {
                 const currentVal = this.cmdInput.value;
                 if (!currentVal) return;
 
@@ -258,7 +258,7 @@
             }
         });
         function initTerminal() {
-            terminal.appendLine('<h1>Welcome to ButterOS CMD</h1>\n', 'line-accent');
+            terminal.appendLine('Welcome to ButterOS CMD\n', 'line-accent');
             terminal.appendLine('(c) Microsoft Corporation. All rights reserved.\n');
             terminal.appendLine('Type "help" to view available commands.\n', 'line-dim');
             document.getElementById('cmdInput').focus();
