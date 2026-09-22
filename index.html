@@ -33,6 +33,11 @@
         <img src="./assets/app-icons/about.png" class="appiconimg" draggable="false"s>
         <p class="apptext">Info</p>
       </div>
+      <!-- cmd app -->
+      <div class="appicon" onclick="opencmd()">
+        <img src="./assets/app-icons/cmd.png" class="appiconimg" draggable="false"s>
+        <p class="apptext">CMD</p>
+      </div>
     </div>
 
     <!-- desktop/welcomewindow -->
@@ -114,6 +119,21 @@
       </div>
       <div class="window-box">
         <iframe class="app-frame" src="apps/info.html"></iframe>
+      </div>
+    </div>
+    <!-- cmd app -->
+    <div class="window app-window" id="cmd" style="display: none;">
+      <div class="windowheader">
+        <div class="windowdrag"> 
+          <img class="windowicon" src="./assets/app-icons/cmd.png" alt="" draggable="false"/>
+          <span class="windowtitle">CMD</span>
+        </div>
+        <div class="closebutton">
+          <img src="./assets/windowbar/close.png" alt="Close window"/>
+        </div>
+      </div>
+      <div class="window-box">
+        <iframe class="app-frame" src="apps/cmd.html"></iframe>
       </div>
     </div>
     <!-- window taskbar script -->
