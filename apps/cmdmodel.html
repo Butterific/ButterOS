@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Command Prompt</title>
+    <style>
+        :root {
+            --bg-color: #0c0c0c;
+            --text-color: #00ff66;
+            --prompt-color: #00e5ff;
+            --dim-color: #007733;
+            --error-color: #ff3366;
+            --accent-color: #ffcc00;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;  /* IE and Edge */
+        }
+
+        ::-webkit-scrollbar,
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar,
+        *::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font: 15px/1.4 'Consolas', 'Courier New', Courier, monospace;
+            height: 100vh;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .line {
+            line-height: 1.4;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+
+        .line-prompt, .prompt-label { color: var(--prompt-color); font-weight: bold; }
+        .line-error { color: var(--error-color); }
+        .line-accent { color: var(--accent-color); }
+        .line-dim { color: var(--dim-color); }
+
+        .input-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .cmd-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: inherit;
+            font: inherit;
+            caret-color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terminal-body" id="termBody">
+        <div class="input-line" id="activeInputLine">
+            <span class="prompt-label" id="promptPath">C:\&gt;</span>
+            <input type="text" id="cmdInput" class="cmd-input" autocomplete="off" spellcheck="false" autofocus />
+        </div>
+    </div>
+
+    <script>
+        class TerminalEngine {
+            constructor() {
+                this.promptStr = 'C:\\>';
+                this.history = [];
+                this.historyIdx = -1;
+                this.commands = new Map();
+
+                this.termBody = document.getElementById('termBody');
+                this.activeInputLine = document.getElementById('activeInputLine');
+                this.cmdInput = document.getElementById('cmdInput');
+                this.promptPath = document.getElementById('promptPath');
+
+                this.setupEventListeners();
+                this.updatePromptDisplay();
+            }
+
+            get API() {
+                return {
+                    write: (text, className = '') => this.appendLine(text, className),
+                    error: (text) => this.appendLine(text, 'line-error'),
+                    accent: (text) => this.appendLine(text, 'line-accent'),
+                    dim: (text) => this.appendLine(text, 'line-dim'),
+                    clear: () => this.clearLines(),
+                    getPrompt: () => this.promptStr,
+                    setPrompt: (str) => {
+                        this.promptStr = str;
+                        this.updatePromptDisplay();
+                    },
+                    commands: this.commands
+                };
+            }
+
+            /**
+             * Easy API method to add new commands!
+             * @param {Object} config Command configuration object
+             */
+            registerCommand({ name, description, usage = '', aliases = [], execute }) {
+                const cmdObj = { name, description, usage, execute };
+                this.commands.set(name.toLowerCase(), cmdObj);
+                aliases.forEach(alias => this.commands.set(alias.toLowerCase(), cmdObj));
+            }
+
+            updatePromptDisplay() {
+                this.promptPath.textContent = this.promptStr;
+            }
+
+            appendLine(text, className = '') {
+                const div = document.createElement('div');
+                div.className = 'line ' + className;
+                div.textContent = text;
+                this.termBody.insertBefore(div, this.activeInputLine);
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+
+            clearLines() {
+                const lines = this.termBody.querySelectorAll('.line');
+                lines.forEach(l => l.remove());
+            }
+
+            processCommand(rawInput) {
+                const input = rawInput.trim();
+                if (!input) return;
+
+                this.appendLine(`${this.promptStr} ${input}`, 'line-prompt');
+                this.history.push(input);
+                this.historyIdx = this.history.length;
+
+                const parts = input.split(/\s+/);
+                const cmdName = parts[0].toLowerCase();
+                const args = parts.slice(1);
+
+                const cmdObj = this.commands.get(cmdName);
+                if (cmdObj) {
+                    try {
+                        cmdObj.execute(args, this.API);
+                    } catch (e) {
+                        this.appendLine(`Error executing command: ${e.message}`, 'line-error');
+                    }
+                } else {
+                    this.appendLine(`'${cmdName}' is not recognized as an internal command. Type "help" for a list of commands.`, 'line-error');
+                }
+            }
+
+            handleTabAutocomplete() {
+                const currentVal = this.cmdInput.value;
+                if (!currentVal) return;
+
+                const parts = currentVal.split(/\s+/);
+                if (parts.length === 1) {
+                    const matches = Array.from(this.commands.keys()).filter(c => c.startsWith(parts[0].toLowerCase()));
+                    const uniqueMatches = [...new Set(matches)];
+                    if (uniqueMatches.length === 1) {
+                        this.cmdInput.value = uniqueMatches[0] + ' ';
+                    } else if (uniqueMatches.length > 1) {
+                        this.appendLine(`\nAvailable commands: ${uniqueMatches.join(', ')}`, 'line-dim');
+                    }
+                }
+            }
+
+            setupEventListeners() {
+                this.cmdInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        const val = this.cmdInput.value;
+                        this.cmdInput.value = '';
+                        this.processCommand(val);
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (this.historyIdx > 0) {
+                            this.historyIdx--;
+                            this.cmdInput.value = this.history[this.historyIdx] || '';
+                        }
+                    } else if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        if (this.historyIdx < this.history.length - 1) {
+                            this.historyIdx++;
+                            this.cmdInput.value = this.history[this.historyIdx] || '';
+                        } else {
+                            this.historyIdx = this.history.length;
+                            this.cmdInput.value = '';
+                        }
+                    } else if (e.key === 'Tab') {
+                        e.preventDefault();
+                        this.handleTabAutocomplete();
+                    }
+                });
+
+                document.body.addEventListener('click', () => {
+                    this.cmdInput.focus();
+                });
+            }
+        }
+
+        const terminal = new TerminalEngine();
+
+        terminal.registerCommand({
+            name: 'help',
+            description: 'Displays a list of available commands',
+            execute: (args, term) => {
+                term.accent('=== AVAILABLE COMMANDS ===');
+                const registered = new Map();
+                
+                term.commands.forEach((cmdObj) => registered.set(cmdObj.name, cmdObj));
+
+                registered.forEach((cmdObj) => {
+                    const usageStr = cmdObj.usage ? ` ${cmdObj.usage}` : '';
+                    term.write(`  ${(cmdObj.name + usageStr).padEnd(20)} - ${cmdObj.description}`);
+                });
+            }
+        });
+
+        terminal.registerCommand({
+            name: 'cls',
+            description: 'Clears the terminal screen',
+            aliases: ['clear'],
+            execute: (args, term) => {
+                term.clear();
+            }
+        });
+
+        terminal.registerCommand({
+            name: 'echo',
+            description: 'Prints text to terminal',
+            usage: '<text>',
+            execute: (args, term) => {
+                term.write(args.join(' '));
+            }
+        });
+
+        terminal.registerCommand({
+            name: 'date',
+            description: 'Displays current date and time',
+            execute: (args, term) => {
+                term.accent(new Date().toString());
+            }
+        });
+
+        terminal.registerCommand({
+            name: 'ver',
+            description: 'Displays operating system version',
+            execute: (args, term) => {
+                term.write('Web Command Prompt [Version 1.0.0]');
+            }
+        });
+
+        function initTerminal() {
+            terminal.appendLine('Web Command Prompt [Version 1.0.0]');
+            terminal.appendLine('(c) Microsoft Corporation. All rights reserved.\n');
+            terminal.appendLine('Type "help" to view available commands.\n', 'line-dim');
+            document.getElementById('cmdInput').focus();
+        }
+
+        initTerminal();
+    </script>
+</body>
+</html>
