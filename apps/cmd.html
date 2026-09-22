@@ -35,10 +35,17 @@
         }
         body {
             /* use the css variables that i made eariler */
-        background-color: var(--bg-color);
+            background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: comic sans ms, monospace;
-            padding: 20px;
+            font: 15px/1.4 'comic sans ms', 'Courier New', Courier, monospace;
+            height: 100vh;
+            padding: 16px;
+            overflow-y: auto;
+        }
+        .line {
+            line-height: 1.4;
+            word-break: break-word;
+            white-space: pre-wrap;
         }
     </style>
 </head>
