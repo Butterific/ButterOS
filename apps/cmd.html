@@ -587,13 +587,16 @@
     }
 
     load() {
+        const defaultFiles = {
+            'welcome.txt': 'Welcome to ButterOS! Files created here persist across page refreshes.',
+            'snake.js': `for(s=[[4,4]],f=[2,2],d=[1,0],w=8;;){g=Array.from({length:w},(_,y)=>Array.from({length:w},(_,x)=>s.some(([sx,sy])=>sx==x&&sy==y)?(s[0][0]==x&&s[0][1]==y?'O':'#'):(f[0]==x&&f[1]==y?'@':'.')).join(' ')).join('\\n');k=prompt(g+'\\nScore: '+(s.length-1)+'\\nEnter W, A, S, or D (or press Enter to keep moving):');if(k===null)break;k=(k||'').toLowerCase()[0];if(k=='w')d=[0,-1];if(k=='s')d=[0,1];if(k=='a')d=[-1,0];if(k=='d')d=[1,0];h=[s[0][0]+d[0],s[0][1]+d[1]];if(h[0]<0||h[0]>=w||h[1]<0||h[1]>=w||s.some(([x,y])=>x==h[0]&&y==h[1])){alert('Game Over! Final Score: '+(s.length-1));break;}s.unshift(h);if(h[0]==f[0]&&h[1]==f[1]){do{f=[0|Math.random()*w,0|Math.random()*w]}while(s.some(([x,y])=>x==f[0]&&y==f[1]))}else s.pop()}`
+        };
+
         try {
             const data = localStorage.getItem(this.storageKey);
-            return data ? JSON.parse(data) : {
-                'welcome.txt': 'Welcome to ButterOS! Files created here persist across page refreshes.'
-            };
+            return { ...defaultFiles, ...(data ? JSON.parse(data) : {}) };
         } catch (e) {
-            return {};
+            return defaultFiles;
         }
     }
 
