@@ -489,6 +489,33 @@
                 }
             }
         });
+        // download file
+        terminal.registerCommand({
+            name: 'download',
+            description: 'Download a file from the virtual filesystem',
+            usage: '<filename>',
+            execute: (args, term) => {
+                const filename = args[0];
+                if (!filename) return term.error('Usage: download <filename>');
+
+                if (!fs.exists(filename)) {
+                    return term.error(`File not found: '${filename}'`);
+                }
+
+                const content = fs.read(filename);
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                term.accent(`Downloaded ${filename}`);
+            }
+        });
         // excicut javascript
         terminal.registerCommand({
             name: 'execute',
@@ -519,6 +546,29 @@
                 }
             }
         });
+        // curl command that saves a file to the file system
+        terminal.registerCommand({
+            name: 'curl',
+            description: 'Fetch a file from a URL and save it to the virtual filesystem',
+            usage: '<url> <filename>',
+            execute: async (args, term) => {
+                const [url, filename] = args;
+                if (!url || !filename) return term.error('Usage: curl <url> <filename>');
+
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
+                    }
+                    const content = await response.text();
+                    fs.write(filename, content);
+                    term.accent(`Saved ${filename} from ${url}`);
+                } catch (error) {
+                    term.error(`Error fetching ${url}: ${error.message}`);
+                }
+            }
+        });
+
         function initTerminal() {
             terminal.appendLine('Welcome to ButterOS CMD\n', 'rainbow');
             terminal.appendLine('(c) ButterLabs | All rights reserved.\n');
