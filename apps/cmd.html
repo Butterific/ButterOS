@@ -95,13 +95,30 @@
             gap: 8px;
             margin-top: 8px;
         }
-        .cmd-input {
+        .input-wrap {
+            position: relative;
             flex: 1;
+        }
+        .cmd-ghost,
+        .cmd-input {
             background: transparent;
             border: none;
             outline: none;
             color: inherit;
             font: inherit;
+        }
+        .cmd-ghost {
+            position: absolute;
+            inset: 0;
+            color: var(--dim-color);
+            opacity: 0.65;
+            pointer-events: none;
+            white-space: pre;
+        }
+        .cmd-input {
+            position: relative;
+            z-index: 1;
+            width: 100%;
             caret-color: var(--text-color);
         }
     </style>
@@ -110,7 +127,10 @@
     <div class="terminal-body" id="termbody">
         <div class="input-line" id="actinputline">
             <span class="prompt-label" id="promptPath">system@butterlabs.app&gt;</span>
-            <input type="text" id="cmdInput" class="cmd-input" autocomplete="off" spellcheck="false" autofocus />
+            <div class="input-wrap">
+                <span class="cmd-ghost" id="cmdGhost" aria-hidden="true"></span>
+                <input type="text" id="cmdInput" class="cmd-input" autocomplete="off" spellcheck="false" autofocus />
+            </div>
         </div>
     </div>
  <script>
@@ -124,6 +144,7 @@
               this.termBody = document.getElementById("termbody");
               this.activeInputLine = document.getElementById("actinputline");
                 this.cmdInput = document.getElementById("cmdInput");
+                this.cmdGhost = document.getElementById("cmdGhost");
               this.promptPath = document.getElementById("promptPath");
 
                 this.setupEventListeners();
@@ -205,18 +226,28 @@
                 }
             }
         handleTabAutocomplete() {
+                if (this.cmdGhost.dataset.completion) {
+                    this.cmdInput.value = this.cmdGhost.dataset.completion + ' ';
+                    this.updateAutocomplete();
+                }
+            }
+            updateAutocomplete() {
                 const currentVal = this.cmdInput.value;
-                if (!currentVal) return;
-
                 const parts = currentVal.split(/\s+/);
-                if (parts.length === 1) {
-                    const matches = Array.from(this.commands.keys()).filter(c => c.startsWith(parts[0].toLowerCase()));
-                    const uniqueMatches = [...new Set(matches)];
-                    if (uniqueMatches.length === 1) {
-                        this.cmdInput.value = uniqueMatches[0] + ' ';
-                    } else if (uniqueMatches.length > 1) {
-                        this.appendLine(`\nAvailable commands: ${uniqueMatches.join(', ')}`, 'line-dim');
-                    }
+                const commandPart = parts.length === 1 ? parts[0].toLowerCase() : '';
+                const matches = commandPart
+                    ? [...new Set(Array.from(this.commands.keys()).filter(c => c.startsWith(commandPart)))]
+                    : [];
+
+                this.cmdGhost.textContent = '';
+                this.cmdGhost.dataset.completion = '';
+                if (matches.length === 1 && matches[0] !== commandPart) {
+                    const completion = matches[0];
+                    const prefix = document.createElement('span');
+                    prefix.style.visibility = 'hidden';
+                    prefix.textContent = commandPart;
+                    this.cmdGhost.append(prefix, document.createTextNode(completion.slice(commandPart.length)));
+                    this.cmdGhost.dataset.completion = completion;
                 }
             }
 
@@ -225,27 +256,33 @@
                     if (e.key === 'Enter') {
                         const val = this.cmdInput.value;
                         this.cmdInput.value = '';
+                        this.updateAutocomplete();
                         this.processCommand(val);
                     } else if (e.key === 'ArrowUp') {
                         e.preventDefault();
                         if (this.historyIdx > 0) {
                             this.historyIdx--;
                             this.cmdInput.value = this.history[this.historyIdx] || '';
+                            this.updateAutocomplete();
                         }
                     } else if (e.key === 'ArrowDown') {
                         e.preventDefault();
                         if (this.historyIdx < this.history.length - 1) {
                             this.historyIdx++;
                             this.cmdInput.value = this.history[this.historyIdx] || '';
+                            this.updateAutocomplete();
                         } else {
                             this.historyIdx = this.history.length;
                             this.cmdInput.value = '';
+                            this.updateAutocomplete();
                         }
                     } else if (e.key === 'Tab') {
                         e.preventDefault();
                         this.handleTabAutocomplete();
                     }
                 });
+
+                this.cmdInput.addEventListener('input', () => this.updateAutocomplete());
 
                 document.body.addEventListener('click', () => {
                     this.cmdInput.focus();
@@ -311,6 +348,34 @@
             description: 'Displays operating system version',
             execute: (args, term) => {
                 term.write('ButterOS Version 1.0.0');
+            }
+        });
+        // eval command that evaluates an equatlion
+        terminal.registerCommand({
+            name: 'eval',
+            description: 'Evaluates a mathematical expression',
+            usage: '<expression>',
+            execute: (args, term) => {
+                try {
+                    const result = eval(args.join(' '));
+                    term.write(result.toString());
+                } catch (error) {
+                    term.error('Error evaluating expression');
+                }
+            }
+        });
+        // eval command that evaluates an equatlion
+        terminal.registerCommand({
+            name: 'evaluate',
+            description: 'Evaluates a mathematical expression',
+            usage: '<expression>',
+            execute: (args, term) => {
+                try {
+                    const result = eval(args.join(' '));
+                    term.write(result.toString());
+                } catch (error) {
+                    term.error('Error evaluating expression');
+                }
             }
         });
         function initTerminal() {
