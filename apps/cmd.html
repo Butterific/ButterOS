@@ -378,6 +378,117 @@
                 }
             }
         });
+        terminal.registerCommand({
+            name: 'theme',
+            description: 'Change terminal theme',
+            usage: '<matrix|cyberpunk|classic|amber>',
+            execute: (args, term) => {
+            const themes = {
+                matrix: { bg: '#0d0208', text: '#00ff66', prompt: '#003b00', accent: '#00ff66' },
+                cyberpunk: { bg: '#1a1c23', text: '#ff79c6', prompt: '#8be9fd', accent: '#f1fa8c' },
+                classic: { bg: '#000000', text: '#ffffff', prompt: '#aaaaaa', accent: '#ffff00' },
+                amber: { bg: '#1e1000', text: '#ffb000', prompt: '#ff8000', accent: '#fff000' }
+            };
+            const choice = args[0]?.toLowerCase();
+            if (themes[choice]) {
+                const root = document.documentElement;
+                root.style.setProperty('--bg-color', themes[choice].bg);
+                root.style.setProperty('--text-color', themes[choice].text);
+                root.style.setProperty('--prompt-color', themes[choice].prompt);
+                root.style.setProperty('--accent-color', themes[choice].accent);
+                term.accent(`Theme changed to ${choice}`);
+            } else {
+                term.error(`Available themes: ${Object.keys(themes).join(', ')}`);
+            }
+        }
+        });
+        // List files
+terminal.registerCommand({
+    name: 'ls',
+    description: 'List all files in the virtual directory',
+    execute: (args, term) => {
+        const files = fs.list();
+        if (files.length === 0) {
+            term.dim('Directory is empty.');
+            return;
+        }
+        term.accent('==== Files ====');
+        files.forEach(file => term.write(`  ${file}`));
+    }
+});
+
+// Create an empty file
+terminal.registerCommand({
+    name: 'touch',
+    description: 'Create a new empty file',
+    usage: '<filename>',
+    execute: (args, term) => {
+        const filename = args[0];
+        if (!filename) return term.error('Usage: touch <filename>');
+        
+        if (fs.exists(filename)) {
+            term.dim(`Updated timestamp on ${filename}`);
+        } else {
+            fs.write(filename, '');
+            term.accent(`Created file: ${filename}`);
+        }
+    }
+});
+
+// Read file contents
+terminal.registerCommand({
+    name: 'cat',
+    description: 'Display content of a file',
+    usage: '<filename>',
+    execute: (args, term) => {
+        const filename = args[0];
+        if (!filename) return term.error('Usage: cat <filename>');
+
+        if (!fs.exists(filename)) {
+            return term.error(`File not found: '${filename}'`);
+        }
+        const content = fs.read(filename);
+        term.write(content || '(empty file)');
+    }
+});
+
+// Simple text editor via browser prompt window
+terminal.registerCommand({
+    name: 'edit',
+    description: 'Edit a file content using a popup editor',
+    usage: '<filename>',
+    execute: (args, term) => {
+        const filename = args[0];
+        if (!filename) return term.error('Usage: edit <filename>');
+
+        const currentContent = fs.exists(filename) ? fs.read(filename) : '';
+        const newContent = prompt(`Editing '${filename}':`, currentContent);
+
+        if (newContent !== null) { // Null means the user hit 'Cancel'
+            fs.write(filename, newContent);
+            term.accent(`Saved ${filename}`);
+        } else {
+            term.dim('Edit canceled.');
+        }
+    }
+});
+
+// Delete a file
+terminal.registerCommand({
+    name: 'rm',
+    description: 'Delete a file',
+    usage: '<filename>',
+    execute: (args, term) => {
+        const filename = args[0];
+        if (!filename) return term.error('Usage: rm <filename>');
+
+        if (fs.remove(filename)) {
+            term.accent(`Removed ${filename}`);
+        } else {
+            term.error(`File not found: '${filename}'`);
+        }
+    }
+});
         function initTerminal() {
             terminal.appendLine('Welcome to ButterOS CMD\n', 'rainbow');
             terminal.appendLine('(c) ButterLabs | All rights reserved.\n');
@@ -385,6 +496,62 @@
             document.getElementById('cmdInput').focus();
         }
         initTerminal();
+        // file sys tem 
+        class VirtualFileSystem {
+    constructor(storageKey = 'butterOS_fs') {
+        this.storageKey = storageKey;
+        this.files = this.load();
+    }
+
+    load() {
+        try {
+            const data = localStorage.getItem(this.storageKey);
+            return data ? JSON.parse(data) : {
+                'welcome.txt': 'Welcome to ButterOS! Files created here persist across page refreshes.'
+            };
+        } catch (e) {
+            return {};
+        }
+    }
+
+
+    save() {
+        try {
+            localStorage.setItem(this.storageKey, JSON.stringify(this.files));
+        } catch (e) {
+            console.error('Failed to sync filesystem to storage', e);
+        }
+    }
+
+    exists(filename) {
+        return Object.prototype.hasOwnProperty.call(this.files, filename);
+    }
+
+    write(filename, content = '') {
+        this.files[filename] = content;
+        this.save();
+    }
+
+    read(filename) {
+        return this.files[filename];
+    }
+
+    remove(filename) {
+        if (this.exists(filename)) {
+            delete this.files[filename];
+            this.save();
+            return true;
+        }
+        return false;
+    }
+
+    list() {
+        return Object.keys(this.files);
+    }
+}
+
+
+const fs = new VirtualFileSystem();
     </script>
 </body>
 </html>

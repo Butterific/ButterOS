@@ -36,7 +36,9 @@ This WebOS currently features `4` apps:
 ## Important Links
  - [Stardance project](https://stardance.hackclub.com/projects/61558)
 ## AI Usage
- - Little to no ai was used in this project. The only ai is the vs code autofill
+ - mostly vs code autofill
+ - calculator css
+ - terminal file system
 ## Gallery
 ![Image1](assets/readme/image.png)
 ![Image2](assets/readme/image2.png)
