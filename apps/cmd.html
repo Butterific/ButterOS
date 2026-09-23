@@ -516,35 +516,38 @@
                 term.accent(`Downloaded ${filename}`);
             }
         });
-        // excicut javascript
+        function executeJavaScript(args, term) {
+            try {
+                const filename = args.length === 1 ? args[0] : '';
+                if (filename.toLowerCase().endsWith('.js')) {
+                    if (!fs.exists(filename)) {
+                        return term.error(`File not found: '${filename}'`);
+                    }
+                    const result = eval(fs.read(filename));
+                    term.write(result !== undefined ? result.toString() : 'undefined');
+                    return;
+                }
+
+                const result = eval(args.join(' '));
+                term.write(result !== undefined ? result.toString() : 'undefined');
+            } catch (error) {
+                term.error(`Error executing JavaScript: ${error.message}`);
+            }
+        }
+
+        // Execute JavaScript code or a js file 
         terminal.registerCommand({
             name: 'execute',
-            description: 'Execute JavaScript code',
-            usage: '<code>',
-            execute: (args, term) => {
-                try {
-                    const code = args.join(' ');
-                    const result = eval(code);
-                    term.write(result !== undefined ? result.toString() : 'undefined');
-                } catch (error) {
-                    term.error(`Error executing JavaScript: ${error.message}`);
-                }
-            }
+            description: 'Execute JavaScript code or a .js file',
+            usage: '<code|filename.js>',
+            execute: executeJavaScript
         });
-        // allas
+        // Alias for execute.
         terminal.registerCommand({
             name: 'js',
-            description: 'Execute JavaScript code',
-            usage: '<code>',
-            execute: (args, term) => {
-                try {
-                    const code = args.join(' ');
-                    const result = eval(code);
-                    term.write(result !== undefined ? result.toString() : 'undefined');
-                } catch (error) {
-                    term.error(`Error executing JavaScript: ${error.message}`);
-                }
-            }
+            description: 'Execute JavaScript code or a .js file',
+            usage: '<code|filename.js>',
+            execute: executeJavaScript
         });
         // curl command that saves a file to the file system
         terminal.registerCommand({
