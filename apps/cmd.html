@@ -402,93 +402,123 @@
             }
         }
         });
-        // List files
-terminal.registerCommand({
-    name: 'ls',
-    description: 'List all files in the virtual directory',
-    execute: (args, term) => {
-        const files = fs.list();
-        if (files.length === 0) {
-            term.dim('Directory is empty.');
-            return;
-        }
-        term.accent('==== Files ====');
-        files.forEach(file => term.write(`  ${file}`));
-    }
-});
+                // List files
+        terminal.registerCommand({
+            name: 'ls',
+            description: 'List all files in the virtual directory',
+            execute: (args, term) => {
+                const files = fs.list();
+                if (files.length === 0) {
+                    term.dim('Directory is empty.');
+                    return;
+                }
+                term.accent('==== Files ====');
+                files.forEach(file => term.write(`  ${file}`));
+            }
+        });
 
-// Create an empty file
-terminal.registerCommand({
-    name: 'touch',
-    description: 'Create a new empty file',
-    usage: '<filename>',
-    execute: (args, term) => {
-        const filename = args[0];
-        if (!filename) return term.error('Usage: touch <filename>');
-        
-        if (fs.exists(filename)) {
-            term.dim(`Updated timestamp on ${filename}`);
-        } else {
-            fs.write(filename, '');
-            term.accent(`Created file: ${filename}`);
-        }
-    }
-});
+        // Create an empty file
+        terminal.registerCommand({
+            name: 'touch',
+            description: 'Create a new empty file',
+            usage: '<filename>',
+            execute: (args, term) => {
+                const filename = args[0];
+                if (!filename) return term.error('Usage: touch <filename>');
+                
+                if (fs.exists(filename)) {
+                    term.dim(`Updated timestamp on ${filename}`);
+                } else {
+                    fs.write(filename, '');
+                    term.accent(`Created file: ${filename}`);
+                }
+            }
+        });
 
-// Read file contents
-terminal.registerCommand({
-    name: 'cat',
-    description: 'Display content of a file',
-    usage: '<filename>',
-    execute: (args, term) => {
-        const filename = args[0];
-        if (!filename) return term.error('Usage: cat <filename>');
+        // Read file contents
+        terminal.registerCommand({
+            name: 'cat',
+            description: 'Display content of a file',
+            usage: '<filename>',
+            execute: (args, term) => {
+                const filename = args[0];
+                if (!filename) return term.error('Usage: cat <filename>');
 
-        if (!fs.exists(filename)) {
-            return term.error(`File not found: '${filename}'`);
-        }
-        const content = fs.read(filename);
-        term.write(content || '(empty file)');
-    }
-});
+                if (!fs.exists(filename)) {
+                    return term.error(`File not found: '${filename}'`);
+                }
+                const content = fs.read(filename);
+                term.write(content || '(empty file)');
+            }
+        });
 
-// Simple text editor via browser prompt window
-terminal.registerCommand({
-    name: 'edit',
-    description: 'Edit a file content using a popup editor',
-    usage: '<filename>',
-    execute: (args, term) => {
-        const filename = args[0];
-        if (!filename) return term.error('Usage: edit <filename>');
+        // Simple text editor via browser prompt window
+        terminal.registerCommand({
+            name: 'edit',
+            description: 'Edit a file content using a popup editor',
+            usage: '<filename>',
+            execute: (args, term) => {
+                const filename = args[0];
+                if (!filename) return term.error('Usage: edit <filename>');
 
-        const currentContent = fs.exists(filename) ? fs.read(filename) : '';
-        const newContent = prompt(`Editing '${filename}':`, currentContent);
+                const currentContent = fs.exists(filename) ? fs.read(filename) : '';
+                const newContent = prompt(`Editing '${filename}':`, currentContent);
 
-        if (newContent !== null) { // Null means the user hit 'Cancel'
-            fs.write(filename, newContent);
-            term.accent(`Saved ${filename}`);
-        } else {
-            term.dim('Edit canceled.');
-        }
-    }
-});
+                if (newContent !== null) { // Null means the user hit 'Cancel'
+                    fs.write(filename, newContent);
+                    term.accent(`Saved ${filename}`);
+                } else {
+                    term.dim('Edit canceled.');
+                }
+            }
+        });
 
-// Delete a file
-terminal.registerCommand({
-    name: 'rm',
-    description: 'Delete a file',
-    usage: '<filename>',
-    execute: (args, term) => {
-        const filename = args[0];
-        if (!filename) return term.error('Usage: rm <filename>');
+        // Delete a file
+        terminal.registerCommand({
+            name: 'rm',
+            description: 'Delete a file',
+            usage: '<filename>',
+            execute: (args, term) => {
+                const filename = args[0];
+                if (!filename) return term.error('Usage: rm <filename>');
 
-        if (fs.remove(filename)) {
-            term.accent(`Removed ${filename}`);
-        } else {
-            term.error(`File not found: '${filename}'`);
-        }
-    }
-});
+                if (fs.remove(filename)) {
+                    term.accent(`Removed ${filename}`);
+                } else {
+                    term.error(`File not found: '${filename}'`);
+                }
+            }
+        });
+        // excicut javascript
+        terminal.registerCommand({
+            name: 'execute',
+            description: 'Execute JavaScript code',
+            usage: '<code>',
+            execute: (args, term) => {
+                try {
+                    const code = args.join(' ');
+                    const result = eval(code);
+                    term.write(result !== undefined ? result.toString() : 'undefined');
+                } catch (error) {
+                    term.error(`Error executing JavaScript: ${error.message}`);
+                }
+            }
+        });
+        // allas
+        terminal.registerCommand({
+            name: 'js',
+            description: 'Execute JavaScript code',
+            usage: '<code>',
+            execute: (args, term) => {
+                try {
+                    const code = args.join(' ');
+                    const result = eval(code);
+                    term.write(result !== undefined ? result.toString() : 'undefined');
+                } catch (error) {
+                    term.error(`Error executing JavaScript: ${error.message}`);
+                }
+            }
+        });
         function initTerminal() {
             terminal.appendLine('Welcome to ButterOS CMD\n', 'rainbow');
             terminal.appendLine('(c) ButterLabs | All rights reserved.\n');
