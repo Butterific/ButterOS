@@ -387,7 +387,20 @@
                 matrix: { bg: '#0d0208', text: '#00ff66', prompt: '#003b00', accent: '#00ff66' },
                 cyberpunk: { bg: '#1a1c23', text: '#ff79c6', prompt: '#8be9fd', accent: '#f1fa8c' },
                 classic: { bg: '#000000', text: '#ffffff', prompt: '#aaaaaa', accent: '#ffff00' },
-                amber: { bg: '#1e1000', text: '#ffb000', prompt: '#ff8000', accent: '#fff000' }
+                amber: { bg: '#1e1000', text: '#ffb000', prompt: '#ff8000', accent: '#fff000' },
+                dracula: { bg: '#1e1f29', text: '#f8f8f2', prompt: '#ff79c6', accent: '#8be9fd' },
+                solarized: { bg: '#002b36', text: '#839496', prompt: '#b58900', accent: '#268bd2' },
+                monokai: { bg: '#272822', text: '#f8f8f2', prompt: '#f92672', accent: '#66d9ef' },
+                ocean: { bg: '#1b2b34', text: '#c0c5ce', prompt: '#6699cc', accent: '#99c794' },
+                forest: { bg: '#0b3d0b', text: '#a8e6a2', prompt: '#4caf50', accent: '#81c784' },
+                night: { bg: '#0c0c0c', text: '#e0e0e0', prompt: '#ff4081', accent: '#448aff' },
+                pastel: { bg: '#fdf6e3', text: '#657b83', prompt: '#b58900', accent: '#2aa198' },
+                neon: { bg: '#0f0f0f', text: '#39ff14', prompt: '#ff073a', accent: '#00ffff' },
+                retro: { bg: '#1a1a1a', text: '#00ff00', prompt: '#ff00ff', accent: '#ffff00' },
+                winter: { bg: '#e0f7fa', text: '#006064', prompt: '#00acc1', accent: '#4dd0e1' },
+                summer: { bg: '#fff3e0', text: '#ff6f00', prompt: '#ff8f00', accent: '#ffd54f' },
+                spring: { bg: '#c8e6c9', text: '#2e7d32', prompt: '#43a047', accent: '#81c784' },
+                autumn: { bg: '#fff8e1', text: '#ff6f00', prompt: '#ff8f00', accent: '#ffd54f' },
             };
             const choice = args[0]?.toLowerCase();
             if (themes[choice]) {
@@ -569,6 +582,46 @@
                 } catch (error) {
                     term.error(`Error fetching ${url}: ${error.message}`);
                 }
+            }
+        });
+        // reset file system
+        terminal.registerCommand({
+            name: 'resetfs',
+            description: 'Reset the virtual filesystem to its default state',
+            execute: (args, term) => {
+                if (confirm('Are you sure you want to reset the virtual filesystem? This will delete all files.')) {
+                    localStorage.removeItem(fs.storageKey);
+                    fs.files = fs.load();
+                    term.accent('Virtual filesystem has been reset.');
+                } else {
+                    term.dim('Reset canceled.');
+                }
+            }
+        });
+        // upload file to vfs
+        terminal.registerCommand({
+            name: 'upload',
+            description: 'Upload a file to the virtual filesystem',
+            usage: '<filename>',
+            execute: (args, term) => {
+                const filename = args[0];
+                if (!filename) return term.error('Usage: upload <filename>');
+
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '*/*';
+                input.onchange = (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                            fs.write(filename, reader.result);
+                            term.accent(`Uploaded ${filename}`);
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
             }
         });
 
