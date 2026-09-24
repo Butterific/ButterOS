@@ -18,11 +18,12 @@ The website/WebOS is powered by 2 key components, the windowdrag and appopen scr
 
 
 ## Apps
-This WebOS currently features `4` apps:
+This WebOS currently features `5` apps:
  - `Calculator` - Calculates stuff 
  - `SimplyEpic` - Google search but no ai and only searches academic sites (3 to be exact)
  - `ButterOS Music` - Cloud based music app
  - `Info` - Returns info about the project
+ - `CMD` - The butterOS command line
 
 ## Future Plans
  ~~- Add support with [Streamables](https://streamables.butterlabs.app/) inorder to build a cloud based music app using stream codes.~~ - FINISHED!!
@@ -43,6 +44,9 @@ This WebOS currently features `4` apps:
 ![Image1](assets/readme/image.png)
 ![Image2](assets/readme/image2.png)
 ![Image2](assets/readme/image3.png)
+![Image3](assets/readme/image4.png)
+![Image4](assets/readme/image5.png)
+
 
 # This website was made for HackClub Stardance 2026
 ![Stardance logo](assets/readme/stardance.avif)
