@@ -325,7 +325,7 @@
                 term.clear();
             }
         });
-        
+
         // echo command that prints text to the terminal
         terminal.registerCommand({
             name: 'echo',
@@ -403,6 +403,41 @@
                 summer: { bg: '#fff3e0', text: '#ff6f00', prompt: '#ff8f00', accent: '#ffd54f' },
                 spring: { bg: '#c8e6c9', text: '#2e7d32', prompt: '#43a047', accent: '#81c784' },
                 autumn: { bg: '#fff8e1', text: '#ff6f00', prompt: '#ff8f00', accent: '#ffd54f' },
+                aurora: { bg: '#2e3b4e', text: '#ffffff', prompt: '#ff4081', accent: '#448aff' },
+                basic: { bg: '#000000', text: '#00ff00', prompt: '#00ff00', accent: '#00ff00' },
+                banana: { bg: '#fffacd', text: '#ffeb3b', prompt: '#fbc02d', accent: '#ff9800' },
+                apple: { bg: '#f0f0f0', text: '#333333', prompt: '#007aff', accent: '#ff2d55' },
+                grape: { bg: '#f3e5f5', text: '#4a148c', prompt: '#7b1fa2', accent: '#9c27b0' },
+                orange: { bg: '#fff3e0', text: '#e65100', prompt: '#ff6f00', accent: '#ff9800' },
+                blueberry: { bg: '#e3f2fd', text: '#0d47a1', prompt: '#1976d2', accent: '#2196f3' },
+                raspberry: { bg: '#fce4ec', text: '#880e4f', prompt: '#ad1457', accent: '#e91e63' },
+                lemon: { bg: '#fffde7', text: '#f57f17', prompt: '#fbc02d', accent: '#ffeb3b' },
+                lime: { bg: '#f9fbe7', text: '#33691e', prompt: '#689f38', accent: '#8bc34a' },
+                cherry: { bg: '#ffebee', text: '#b71c1c', prompt: '#d32f2f', accent: '#f44336' },
+                peach: { bg: '#fff3e0', text: '#e65100', prompt: '#ff6f00', accent: '#ff9800' },
+                tomato: { bg: '#ffebee', text: '#b71c1c', prompt: '#d32f2f', accent: '#f44336' },
+                lavender: { bg: '#f3e5f5', text: '#4a148c', prompt: '#7b1fa2', accent: '#9c27b0' },
+                mint: { bg: '#e0f2f1', text: '#004d40', prompt: '#00796b', accent: '#009688' },
+                sapphire: { bg: '#e3f2fd', text: '#0d47a1', prompt: '#1976d2', accent: '#2196f3' },
+                ruby: { bg: '#ffebee', text: '#b71c1c', prompt: '#d32f2f', accent: '#f44336' },
+                emerald: { bg: '#e8f5e9', text: '#1b5e20', prompt: '#2e7d32', accent: '#4caf50' },
+                onyx: { bg: '#212121', text: '#ffffff', prompt: '#ff4081', accent: '#448aff' },
+                diamond: { bg: '#e0f7fa', text: '#006064', prompt: '#00acc1', accent: '#4dd0e1' },
+                crystal: { bg: '#f0f4c3', text: '#33691e', prompt: '#689f38', accent: '#8bc34a' },
+                obsidian: { bg: '#1c1c1c', text: '#ffffff', prompt: '#ff4081', accent: '#448aff' },
+                diode: { bg: '#000000', text: '#00ff00', prompt: '#00ff00', accent: '#00ff00' },
+                neon: { bg: '#0f0f0f', text: '#39ff14', prompt: '#ff073a', accent: '#00ffff' },
+                cyber: { bg: '#0d0d0d', text: '#00ffff  ', prompt: '#ff00ff', accent: '#ff00ff' },
+                comcic: { bg: '#f0f0f0', text: '#000000', prompt: '#ff0000', accent: '#0000ff' },
+                electric: { bg: '#000000', text: '#ffff00', prompt: '#ff00ff', accent: '#00ffff' },
+                'emerald-dark': { bg: '#1b5e20', text: '#a5d6a7', prompt: '#4caf50', accent: '#81c784' },
+                'sapphire-dark': { bg: '#0d47a1', text: '#90caf9', prompt: '#2196f3', accent: '#64b5f6' },
+                'ruby-dark': { bg: '#b71c1c', text: '#ef9a9a', prompt: '#f44336', accent: '#e57373' },
+                sunset: { bg: '#ffccbc', text: '#bf360c', prompt: '#ff5722', accent: '#ff7043' },
+                dawn: { bg: '#fff9c4', text: '#f57f17', prompt: '#ffeb3b', accent: '#fff176' },
+                moonlight: { bg: '#e0f7fa', text: '#006064', prompt: '#00acc1', accent: '#4dd0e1' },
+                sonion: { bg: '#1a1a1a', text: '#00ff00', prompt: '#ff00ff', accent: '#ffff00' },
+                
             };
             const choice = args[0]?.toLowerCase();
             if (themes[choice]) {
