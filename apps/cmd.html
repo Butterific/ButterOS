@@ -452,7 +452,28 @@
             }
         }
         });
-                // List files
+        // ai command that uses local ai to answer questions
+        terminal.registerCommand({
+            name: 'ai',
+            description: 'Ask a question to the local AI',
+            usage: '<question>',
+            execute: (args, term) => {
+                const question = args.join(' ');
+                if (!question) return term.error('Usage: ai <question>');
+
+                // Simulate AI response (replace this with actual AI logic)
+                const response = `no`;
+                term.write(response);
+            }
+        });
+        // 67 command
+        terminal.registerCommand({
+            name: '67',
+            description: '67',
+            execute: (args, term) => {
+                term.accent('67 ahahaaha');
+            }
+        // List files
         terminal.registerCommand({
             name: 'ls',
             description: 'List all files in the virtual directory',
