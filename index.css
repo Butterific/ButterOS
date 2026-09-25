@@ -6,6 +6,26 @@ body {
     min-height: 100vh;
     overflow: hidden;
 }
+html, body {
+  cursor: url('assets/cursor/wii-open.cur'), auto !important;
+}
+
+button, a, .appicon, .closebutton, [id*="header"] {
+  cursor: url('assets/cursor/Wii_hand2.cur'), pointer !important;
+}
+
+.windowdrag, .windowheader {
+  cursor: url('assets/cursor/wii-move.cur'), move !important;
+}
+
+.appicon:hover {
+  cursor: url('assets/cursor/Wii_hand4.cur'), pointer !important;
+}
+
+.closebutton:hover {
+  cursor: url('assets/cursor/Wii_hand4.cur'), pointer !important;
+}
+
 /* status bar with os name and time */
 .topbartext {
     font-weight: 700; 
@@ -90,7 +110,7 @@ body {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  cursor: grab;
+  cursor: url('assets/cursors/wii-move.cur'), move;
   justify-content: space-between;
   border-radius: 12px;
   background-color: silver;
@@ -134,6 +154,7 @@ body {
 }
 .appicon:hover {
   filter: drop-shadow(0 0 8px rgb(196, 193, 9)); 
+  cursor: url('assets/cursors/Wii_hand4.cur'), pointer;
 }
 .apptext {
   width: 100%;
@@ -150,7 +171,7 @@ body {
 }
 /* added a simple thing so it targets elements with header in them */
 [id*="header"] {
-  cursor: grab;
+  cursor: url('assets/cursors/wii-move.cur'), move;
 }
 .closebutton {
   background-color: rgba(256, 256, 256, 0.125); 
@@ -158,10 +179,11 @@ body {
   border-radius: 16px;
   width: 20px;
   height: 20px;
-  cursor: pointer;
+  cursor: url('assets/cursors/Wii_hand3.cur'), pointer;
 }
 .closebutton:hover {
     background-color: darkred;
+    cursor: url('assets/cursors/Wii_hand4.cur'), pointer;
 }
 .closebutton img {
   width: 100%;
