@@ -325,6 +325,7 @@
                 term.clear();
             }
         });
+        
         // echo command that prints text to the terminal
         terminal.registerCommand({
             name: 'echo',
@@ -378,6 +379,7 @@
                 }
             }
         });
+        // theme command that changes the terminal theme
         terminal.registerCommand({
             name: 'theme',
             description: 'Change terminal theme',
@@ -485,7 +487,29 @@
                 }
             }
         });
+        // Rename a file
+        terminal.registerCommand({
+            name: 'mv',
+            description: 'Rename a file',
+            usage: '<oldfilename> <newfilename>',
+            execute: (args, term) => {
+                const [oldFilename, newFilename] = args;
+                if (!oldFilename || !newFilename) return term.error('Usage: mv <oldfilename> <newfilename>');
 
+                if (!fs.exists(oldFilename)) {
+                    return term.error(`File not found: '${oldFilename}'`);
+                }
+
+                if (fs.exists(newFilename)) {
+                    return term.error(`File already exists: '${newFilename}'`);
+                }
+
+                const content = fs.read(oldFilename);
+                fs.write(newFilename, content);
+                fs.remove(oldFilename);
+                term.accent(`Renamed ${oldFilename} to ${newFilename}`);
+            }
+        });
         // Delete a file
         terminal.registerCommand({
             name: 'rm',
