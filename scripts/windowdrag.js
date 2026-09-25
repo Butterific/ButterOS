@@ -9,42 +9,35 @@ function dragElement(element) {
   var initialY = 0;
   var currentX = 0;
   var currentY = 0;
-  var posX = 0;
-  var posY = 0;
-  var rafId = null;
-  var handle = element.querySelector(".windowheader") || element;
+  var headerElement = element.querySelector(".windowheader") || element;
 
-  handle.onpointerdown = startDragging;
+  headerElement.onpointerdown = startDragging;
 
   // Step 6: Define the `startDragging` function to capture the initial position and set up event listeners.
   function startDragging(e) {
-    // Let clicks on buttons, close controls, links, or inputs pass through naturally
+    // Ignore clicks on buttons, inputs, links, or close controls
     if (e.target.closest("button, a, input, .close, .x-button, .win-btn")) {
       return;
     }
 
     e.preventDefault();
 
-    // Lock cursor input to handle so fast movement never loses tracking or snaps
-    if (handle.setPointerCapture) {
-      handle.setPointerCapture(e.pointerId);
+    // Lock cursor input so fast mouse moves never drop tracking
+    if (headerElement.setPointerCapture) {
+      headerElement.setPointerCapture(e.pointerId);
     }
-
-    // Grab current window offset before drag begins
-    posX = element.offsetLeft;
-    posY = element.offsetTop;
 
     // Step 7: Get the mouse cursor position at startup.
     initialX = e.clientX;
     initialY = e.clientY;
 
-    // Step 8: Set up event listeners on window for seamless tracking at high speeds
+    // Step 8: Set up event listeners for instant pointer tracking.
     window.addEventListener("pointermove", elementDrag);
     window.addEventListener("pointerup", stopDragging);
     window.addEventListener("pointercancel", stopDragging);
   }
 
-  // Step 9: Define the `elementDrag` function to calculate the new position based on pointer movement.
+  // Step 9: Define the `elementDrag` function to calculate the new position of the element based on mouse movement.
   function elementDrag(e) {
     e.preventDefault();
 
@@ -54,36 +47,21 @@ function dragElement(element) {
     initialX = e.clientX;
     initialY = e.clientY;
 
-    posX -= currentX;
-    posY -= currentY;
-
-    // Step 11: Render updates synchronized with monitor refresh rate
-    if (!rafId) {
-      rafId = requestAnimationFrame(function() {
-        element.style.left = posX + "px";
-        element.style.top = posY + "px";
-        rafId = null;
-      });
-    }
+    // Step 11: Update the element's position instantly to snap to cursor
+    element.style.left = (element.offsetLeft - currentX) + "px";
+    element.style.top = (element.offsetTop - currentY) + "px";
   }
 
   // Step 12: Define the `stopDragging` function to stop tracking pointer movement.
   function stopDragging(e) {
-    if (handle.releasePointerCapture && e.pointerId !== undefined) {
+    if (headerElement.releasePointerCapture && e.pointerId !== undefined) {
       try {
-        handle.releasePointerCapture(e.pointerId);
-      } catch (err) {
-        // Handle gracefully if already released
-      }
+        headerElement.releasePointerCapture(e.pointerId);
+      } catch (err) {}
     }
 
     window.removeEventListener("pointermove", elementDrag);
     window.removeEventListener("pointerup", stopDragging);
     window.removeEventListener("pointercancel", stopDragging);
-
-    if (rafId) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-    }
   }
 }
