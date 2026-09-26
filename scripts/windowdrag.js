@@ -9,6 +9,7 @@ function dragElement(element) {
   var initialY = 0;
   var currentX = 0;
   var currentY = 0;
+<<<<<<< HEAD
   var headerElement = element.querySelector(".windowheader") || element;
 
   headerElement.onpointerdown = startDragging;
@@ -39,13 +40,37 @@ function dragElement(element) {
 
   // Step 9: Define the `elementDrag` function to calculate the new position of the element based on mouse movement.
   function elementDrag(e) {
-    e.preventDefault();
+=======
+  var headerElement = element.querySelector(".windowheader");
 
+    if (headerElement) {
+        headerElement.onmousedown = startDragging;
+    } else {
+        element.onmousedown = startDragging;
+    }
+  // Step 6: Define the `startDragging` function to capture the initial mouse position and set up event listeners.
+  function startDragging(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // Step 7: Get the mouse cursor position at startup.
+    initialX = e.clientX;
+    initialY = e.clientY;
+    // Step 8: Set up event listeners for mouse movement (`elementDrag`) and mouse button release (`closeDragElement`).
+    document.onmouseup = stopDragging;
+    document.onmousemove = dragElement;
+  }
+
+  // Step 9: Define the `elementDrag` function to calculate the new position of the element based on mouse movement.
+  function dragElement(e) {
+    e = e || window.event;
+>>>>>>> parent of 6eef6d3 (improve the overall quality and feel of window dragging)
+    e.preventDefault();
     // Step 10: Calculate the new cursor position.
     currentX = initialX - e.clientX;
     currentY = initialY - e.clientY;
     initialX = e.clientX;
     initialY = e.clientY;
+<<<<<<< HEAD
 
     // Step 11: Update the element's position instantly to snap to cursor
     element.style.left = (element.offsetLeft - currentX) + "px";
@@ -63,5 +88,16 @@ function dragElement(element) {
     window.removeEventListener("pointermove", elementDrag);
     window.removeEventListener("pointerup", stopDragging);
     window.removeEventListener("pointercancel", stopDragging);
+=======
+    // Step 11: Update the element's new position by modifying its `top` and `left` CSS properties.
+    element.style.top = (element.offsetTop - currentY) + "px";
+    element.style.left = (element.offsetLeft - currentX) + "px";
+  }
+
+  // Step 12: Define the `stopDragging` function to stop tracking mouse movement by removing the event listeners.
+  function stopDragging() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+>>>>>>> parent of 6eef6d3 (improve the overall quality and feel of window dragging)
   }
 }
