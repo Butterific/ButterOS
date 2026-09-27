@@ -1,50 +1,51 @@
-// taken from https://jams.hackclub.com/batch/webOS/part-3
-// Make the DIV element draggable:
 document.querySelectorAll(".window").forEach(dragElement);
 
-// Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
-  // Step 2: Set up variables to keep track of the element's position.
-  var initialX = 0;
-  var initialY = 0;
-  var currentX = 0;
-  var currentY = 0;
+  let startX;
+  let startY;
+  let startLeft;
+  let startTop;
+  let isDragging = false;
   var headerElement = element.querySelector(".windowheader");
 
-    if (headerElement) {
-        headerElement.onmousedown = startDragging;
-    } else {
-        element.onmousedown = startDragging;
-    }
-  // Step 6: Define the `startDragging` function to capture the initial mouse position and set up event listeners.
+  (headerElement || element).addEventListener("pointerdown", startDragging);
+
   function startDragging(e) {
-    e = e || window.event;
+    if (e.button !== 0 || e.target.closest(".closebutton")) {
+      return;
+    }
+
     e.preventDefault();
-    // Step 7: Get the mouse cursor position at startup.
-    initialX = e.clientX;
-    initialY = e.clientY;
-    // Step 8: Set up event listeners for mouse movement (`elementDrag`) and mouse button release (`closeDragElement`).
-    document.onmouseup = stopDragging;
-    document.onmousemove = dragElement;
+    const bounds = element.getBoundingClientRect();
+    startX = e.clientX;
+    startY = e.clientY;
+    startLeft = bounds.left;
+    startTop = bounds.top;
+    isDragging = true;
+    element.style.left = `${startLeft}px`;
+    element.style.top = `${startTop}px`;
+    element.style.transform = "none";
+    e.currentTarget.setPointerCapture(e.pointerId);
+    e.currentTarget.addEventListener("pointermove", moveWindow);
+    e.currentTarget.addEventListener("pointerup", stopDragging, { once: true });
+    e.currentTarget.addEventListener("pointercancel", stopDragging, { once: true });
   }
 
-  // Step 9: Define the `elementDrag` function to calculate the new position of the element based on mouse movement.
-  function dragElement(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // Step 10: Calculate the new cursor position.
-    currentX = initialX - e.clientX;
-    currentY = initialY - e.clientY;
-    initialX = e.clientX;
-    initialY = e.clientY;
-    // Step 11: Update the element's new position by modifying its `top` and `left` CSS properties.
-    element.style.top = (element.offsetTop - currentY) + "px";
-    element.style.left = (element.offsetLeft - currentX) + "px";
+  function moveWindow(e) {
+    if (!isDragging) {
+      return;
+    }
+
+    const maxLeft = Math.max(0, window.innerWidth - element.offsetWidth);
+    const maxTop = Math.max(0, window.innerHeight - element.offsetHeight);
+    const left = Math.min(maxLeft, Math.max(0, startLeft + e.clientX - startX));
+    const top = Math.min(maxTop, Math.max(0, startTop + e.clientY - startY));
+    element.style.left = `${left}px`;
+    element.style.top = `${top}px`;
   }
 
-  // Step 12: Define the `stopDragging` function to stop tracking mouse movement by removing the event listeners.
-  function stopDragging() {
-    document.onmouseup = null;
-    document.onmousemove = null;
+  function stopDragging(e) {
+    isDragging = false;
+    e.currentTarget.removeEventListener("pointermove", moveWindow);
   }
 }
