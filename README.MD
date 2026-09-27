@@ -32,7 +32,7 @@ This WebOS currently features `5` apps:
 ## Credits
   - Special thanks to [Brocode](https://youtu.be/I5kj-YsmWjM) for the calculator guide!
   - Special thanks to [this](https://jams.hackclub.com/batch/webOS) guide for the basic guide on making the toolbar and windows (however the app system and window open/close were made custom by me) 
-  - HUGE thanks to [this github project](https://github.com/nploc1209/TeXpress/blob/main/README.md) for helping me what a good readme looks like
+  - HUGE thanks to [this github project](https://github.com/nploc1209/TeXpress/blob/main/README.md) for helping me model my readme
 
 ## Important Links
  - [Stardance project](https://stardance.hackclub.com/projects/61558)
