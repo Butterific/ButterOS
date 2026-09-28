@@ -26,10 +26,16 @@ This WebOS currently features `5` apps:
  - `CMD` - The butterOS command line
 
 ## Future Plans
- ~~- Add support with [Streamables](https://streamables.butterlabs.app/) inorder to build a cloud based music app using stream codes.~~ - FINISHED!!
  - Remake the toolbar from scratch because its not much different from the guide
  - add support for connecting to other butterlabs services 
-## Credits
+ - Add a notepad app
+ - add a working timer app
+ - add a pong app/game
+ - add some more apps in general because it kind of feels empty
+ - revamp the design 
+ - add a file system app that connects to the file system in the cmd
+ - fix the bugs mentioned in the ratings on stardance
+## Creditsn
   - Special thanks to [Brocode](https://youtu.be/I5kj-YsmWjM) for the calculator guide!
   - Special thanks to [this](https://jams.hackclub.com/batch/webOS) guide for the basic guide on making the toolbar and windows (however the app system and window open/close were made custom by me) 
   - HUGE thanks to [this github project](https://github.com/nploc1209/TeXpress/blob/main/README.md) for helping me model my readme
