@@ -3,6 +3,7 @@ var calcapp = document.getElementById("calcapp");
 var music = document.getElementById("music");
 var info = document.getElementById("info");
 var cmd = document.getElementById("cmd");
+var notes = document.getElementById("notes");
 var counter = 1
 // open simply epic
 function opensimplyepic() {
@@ -33,4 +34,10 @@ function opencmd() {
     counter += 1;
     cmd.style.display = "flex";
     cmd.style.zIndex = counter;
+}
+// open notes
+function opennotes() {
+    counter += 1;
+    notes.style.display = "flex";
+    notes.style.zIndex = counter;
 }

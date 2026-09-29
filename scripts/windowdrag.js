@@ -14,7 +14,7 @@ function dragElement(element) {
     if (e.button !== 0 || e.target.closest(".closebutton")) {
       return;
     }
-
+    
     e.preventDefault();
     const bounds = element.getBoundingClientRect();
     startX = e.clientX;
