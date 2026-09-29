@@ -19,12 +19,13 @@ The website/WebOS is powered by 2 key components, the windowdrag and appopen scr
 
 
 ## Apps
-This WebOS currently features `5` apps:
+This WebOS currently features `6` apps:
  - `Calculator` - Calculates stuff 
  - `SimplyEpic` - Google search but no ai and only searches academic sites (3 to be exact)
  - `ButterOS Music` - Cloud based music app
  - `Info` - Returns info about the project
  - `CMD` - The butterOS command line
+ - `Notes` - The butterOS notes app
 
 ## Future Plans
  - Remake the toolbar from scratch because its not much different from the guide
@@ -36,7 +37,7 @@ This WebOS currently features `5` apps:
  - revamp the design 
  - add a file system app that connects to the file system in the cmd
  - fix the bugs mentioned in the ratings on stardance
-## Creditsn
+## Credits
   - Special thanks to [Brocode](https://youtu.be/I5kj-YsmWjM) for the calculator guide!
   - Special thanks to [this](https://jams.hackclub.com/batch/webOS) guide for the basic guide on making the toolbar and windows (however the app system and window open/close were made custom by me) 
   - HUGE thanks to [this github project](https://github.com/nploc1209/TeXpress/blob/main/README.md) for helping me model my readme
