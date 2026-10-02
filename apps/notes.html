@@ -2,18 +2,20 @@
 <head>
   <title>Notes</title>
   <style>
-    .sidebar {
-      width: 200px;
-      height: 100vh;
-      background-color: #f4e5e5;
-      position: fixed;
-      left: 0;
-      top: 0;
-      padding: 20px;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #noteInput {
+      width: 300px;
+      padding: 10px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body> 
     <input type="text" id="noteInput" placeholder="Type your note here...">
     <button id="saveNoteButton">Save Note</button>
+    <ul id="notesList"></ul>
+    <script src="note/notes.js"></script>
 </body>
