@@ -38,5 +38,6 @@ saveNoteButton.addEventListener('click', () => {
     savenotestocache();
   }
 });
-
+// assign note ids to each new note for deleting idk
+let noteId = 0;
 loadNotesFromCache();
