@@ -12,19 +12,22 @@
       margin-bottom: 10px;
     }
     #sidebar {
+      padding: 10px;
       width: 200px;
       float: left;
       margin-right: 20px;
+      border-radius: 25px;
+      background-color: rgba(0,0, 0,0.1);
     }
   </style>
 </head>
 <body> 
     <input type="text" id="noteInput" placeholder="Type your note here...">
     <button id="saveNoteButton">Save Note</button>
+    <button id="deleteNoteButton">Delete Note</button>
     <sidebar id="sidebar">
         <h3>Notes</h3>
         <ul id="notesList"></ul>
     </sidebar>
-    <ul id="notesList"></ul>
     <script src="note/notes.js"></script>
 </body>
