@@ -11,3 +11,14 @@ saveNoteButton.addEventListener('click', () => {
     noteInput.value = '';
   }
 });
+
+function savenotestocache() {
+  const notes = [];
+  document.querySelectorAll('#notesList li').forEach((li) => {
+    notes.push(li.textContent);
+  });
+  localStorage.setItem('notes', JSON.stringify(notes));
+  
+}
+savenotestocache();
+
