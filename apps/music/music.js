@@ -35,5 +35,37 @@ btn3.addEventListener("click", async () => {
             body: formData
         });
         iframe.src=`https://streamables.butterlabs.app/embed/${name2}`;
+        saveSongToCache(name2);
     }
 });
+// save uploaded song ids to a cache so that they can be loaded later
+const songCache = new Map();
+// load song ids from cache on page load
+window.addEventListener("load", () => {
+    const cachedSongs = localStorage.getItem("songs");
+    if (cachedSongs) {
+        const songIds = JSON.parse(cachedSongs);
+        songIds.forEach((id) => {
+            songCache.set(id, true);
+        });
+    }
+    // load the first song in the cache if it exists
+    if (songCache.size > 0) {
+        const firstSongId = songCache.keys().next().value;
+        iframe.src = `https://streamables.butterlabs.app/embed/${firstSongId}`;
+    }
+    // display the list of cached songs
+    const songList = document.getElementById("songlist");
+    if (songList) {
+        songCache.forEach((value, key) => {
+            const songItem = document.createElement("div");
+            songItem.textContent = key;
+            songList.appendChild(songItem);
+        });
+    }
+});
+const saveSongToCache = (songId) => {
+    songCache.set(songId, true);
+    const songIds = Array.from(songCache.keys());
+    localStorage.setItem("songs", JSON.stringify(songIds));
+};
