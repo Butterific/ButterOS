@@ -19,14 +19,18 @@
     <button  id="musicupload">Upload Music</button> 
     <!-- reminder -->
     <h6 style="color: gray;">Note down your track names inorder to load them later!</h6>
+    <section id="cached-songs" aria-labelledby="cached-songs-title">
+      <h2 id="cached-songs-title">Cached Songs</h2>
+      <div id="songlist">
+        <p class="empty-song-list">No cached songs yet.</p>
+      </div>
+    </section>
     <iframe 
       src="https://streamables.butterlabs.app/embed/playlist/test1" 
       title="Playlist test1" 
       allow="autoplay"
       referrerpolicy="no-referrer">
     </iframe>
-    <!-- display cache song list -->
-    <div id="songlist"></div>
     <script src="music/music.js"></script>
   </body>
 </html>

@@ -112,3 +112,43 @@ iframe {
   background: var(--surface);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
 }
+
+#cached-songs {
+  flex: 0 0 auto;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+#cached-songs h2 {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+#songlist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cached-song {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 1000px;
+  background: var(--surface-hover);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+}
+
+.cached-song:hover,
+.cached-song:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.empty-song-list {
+  color: var(--muted);
+  font-size: 0.9rem;
+}

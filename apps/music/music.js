@@ -36,10 +36,38 @@ btn3.addEventListener("click", async () => {
         });
         iframe.src=`https://streamables.butterlabs.app/embed/${name2}`;
         saveSongToCache(name2);
+        // alert upload errors
+        alert("Track uploaded successfully!");
+    } else {
+        alert("Please select a file to upload.");
     }
 });
 // save uploaded song ids to a cache so that they can be loaded later
 const songCache = new Map();
+
+const renderSongList = () => {
+    const songList = document.getElementById("songlist");
+    if (!songList) return;
+
+    songList.replaceChildren();
+    songCache.forEach((value, key) => {
+        const songItem = document.createElement("button");
+        songItem.type = "button";
+        songItem.className = "cached-song";
+        songItem.textContent = key;
+        songItem.addEventListener("click", () => {
+            iframe.src = `https://streamables.butterlabs.app/embed/${key}`;
+        });
+        songList.appendChild(songItem);
+    });
+
+    if (songCache.size === 0) {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.className = "empty-song-list";
+        emptyMessage.textContent = "No cached songs yet.";
+        songList.appendChild(emptyMessage);
+    }
+};
 // load song ids from cache on page load
 window.addEventListener("load", () => {
     const cachedSongs = localStorage.getItem("songs");
@@ -54,18 +82,12 @@ window.addEventListener("load", () => {
         const firstSongId = songCache.keys().next().value;
         iframe.src = `https://streamables.butterlabs.app/embed/${firstSongId}`;
     }
-    // display the list of cached songs
-    const songList = document.getElementById("songlist");
-    if (songList) {
-        songCache.forEach((value, key) => {
-            const songItem = document.createElement("div");
-            songItem.textContent = key;
-            songList.appendChild(songItem);
-        });
-    }
+    renderSongList();
 });
 const saveSongToCache = (songId) => {
     songCache.set(songId, true);
     const songIds = Array.from(songCache.keys());
     localStorage.setItem("songs", JSON.stringify(songIds));
+    renderSongList();
 };
+
