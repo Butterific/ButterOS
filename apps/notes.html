@@ -30,8 +30,9 @@
         <ul id="notesList"></ul>
     </sidebar>
     <script>
-      const noteInput = document.getElementById('noteInput');
+const noteInput = document.getElementById('noteInput');
 const saveNoteButton = document.getElementById('saveNoteButton');
+const deleteNoteButton = document.getElementById('deleteNoteButton');
 const notesList = document.getElementById('notesList');
 
 function savenotestocache() {
@@ -70,8 +71,21 @@ saveNoteButton.addEventListener('click', () => {
     savenotestocache();
   }
 });
-// assign note ids to each new note for deleting idk
-let noteId = 0;
+deleteNoteButton.addEventListener('click', () => {
+  const selectedNote = notesList.querySelector('li.selected');
+  if (selectedNote) {
+    notesList.removeChild(selectedNote);
+    savenotestocache();
+  }
+});
+notesList.addEventListener('click', (event) => {
+  if (event.target.tagName === 'LI') {
+    notesList.querySelectorAll('li').forEach((li) => {
+      li.classList.remove('selected');
+    });
+    event.target.classList.add('selected');
+  }
+});
 loadNotesFromCache();
 
     </script>
