@@ -54,6 +54,8 @@ This WebOS currently features `6` apps:
 ![Image2](assets/readme/image3.png)
 ![Image3](assets/readme/image4.png)
 ![Image4](assets/readme/image5.png)
+![Image6](assets/readme/image6.png)
+
 
 
 # This website was made for HackClub Stardance 2026
