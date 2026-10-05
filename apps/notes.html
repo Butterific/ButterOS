@@ -5,22 +5,25 @@
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
-      background-color: white;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgb(242, 255, 0) 100%);
     }
     #noteInput {
       width: 300px;
       padding: 10px;
       margin-bottom: 10px;
+      padding: 10px;
     }
     #saveNoteButton { 
       border: solid 1px #ccc;
       border-radius: 5px;
+      padding: 10px;
     }
     #deleteNoteButton { 
       border: solid 1px #ccc;
       border-radius: 5px;
       color: white;
       background-color: red;
+      padding: 10px;
     }
     #saveNoteButton:hover { 
       border: solid 1px #ccc;
@@ -33,6 +36,18 @@
       border-radius: 5px;
       color: white;
       background-color: rgb(181, 50, 50);
+    }
+    #saveNoteButton:active { 
+      border: solid 1px #ccc;
+      border-radius: 5px;
+      background-color: rgb(28, 99, 28);
+      color: white;
+    }
+    #deleteNoteButton:active { 
+      border: solid 1px #ccc;
+      border-radius: 5px;
+      color: white;
+      background-color: rgb(112, 31, 31);
     }
     #sidebar {
       padding: 10px;
@@ -61,9 +76,23 @@ const notesList = document.getElementById('notesList');
 function savenotestocache() {
   const notes = [];
   notesList.querySelectorAll('li').forEach((li) => {
-    notes.push(li.textContent);
+    notes.push(li.dataset.note);
   });
   localStorage.setItem('notes', JSON.stringify(notes));
+}
+
+function addNoteToList(note) {
+  const li = document.createElement('li');
+  li.dataset.note = note;
+  li.textContent = note;
+  notesList.appendChild(li);
+  renumberNotes();
+}
+
+function renumberNotes() {
+  notesList.querySelectorAll('li').forEach((li, index) => {
+    li.textContent = `${index + 1}. ${li.dataset.note}`;
+  });
 }
 
 function loadNotesFromCache() {
@@ -78,26 +107,27 @@ function loadNotesFromCache() {
   }
 
   notes.forEach((note) => {
-    const li = document.createElement('li');
-    li.textContent = note;
-    notesList.appendChild(li);
+    addNoteToList(note);
   });
 }
 
 saveNoteButton.addEventListener('click', () => {
   const note = noteInput.value;
   if (note) {
-    const li = document.createElement('li');
-    li.textContent = note;
-    notesList.appendChild(li);
+    addNoteToList(note);
     noteInput.value = '';
     savenotestocache();
   }
 });
 deleteNoteButton.addEventListener('click', () => {
-  const selectedNote = notesList.querySelector('li.selected');
+  const noteNumber = Number.parseInt(noteInput.value.trim(), 10);
+  const selectedNote = Number.isInteger(noteNumber) && noteNumber > 0
+    ? notesList.querySelectorAll('li')[noteNumber - 1]
+    : notesList.querySelector('li.selected');
   if (selectedNote) {
     notesList.removeChild(selectedNote);
+    renumberNotes();
+    noteInput.value = '';
     savenotestocache();
   }
 });
