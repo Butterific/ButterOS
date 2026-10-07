@@ -7,7 +7,7 @@ body {
     overflow: hidden;
 }
 html, body {
-  cursor: url('assets/cursor/wii-open.cur'), auto !important;
+  cursor: url('assets/cursor/hand.cur'), auto !important;
 }
 
 button, a, .appicon, .closebutton, [id*="header"] {
@@ -15,7 +15,7 @@ button, a, .appicon, .closebutton, [id*="header"] {
 }
 
 .windowdrag, .windowheader {
-  cursor: url('assets/cursor/wii-move.cur'), move !important;
+  cursor: url('assets/cursor/move.cur'), move !important;
 }
 
 .appicon:hover {
@@ -110,7 +110,7 @@ button, a, .appicon, .closebutton, [id*="header"] {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  cursor: url('assets/cursors/wii-move.cur'), move;
+  cursor: url('assets/cursor/move.cur'), move;
   justify-content: space-between;
   border-radius: 12px;
   background-color: silver;
@@ -154,7 +154,7 @@ button, a, .appicon, .closebutton, [id*="header"] {
 }
 .appicon:hover {
   filter: drop-shadow(0 0 8px rgb(196, 193, 9)); 
-  cursor: url('assets/cursors/Wii_hand4.cur'), pointer;
+  cursor: url('assets/cursor/Wii_hand4.cur'), pointer;
 }
 .apptext {
   width: 100%;
@@ -171,7 +171,7 @@ button, a, .appicon, .closebutton, [id*="header"] {
 }
 /* added a simple thing so it targets elements with header in them */
 [id*="header"] {
-  cursor: url('assets/cursors/wii-move.cur'), move;
+  cursor: url('assets/cursor/move.cur'), move;
 }
 .closebutton {
   background-color: rgba(256, 256, 256, 0.125); 
@@ -179,11 +179,11 @@ button, a, .appicon, .closebutton, [id*="header"] {
   border-radius: 16px;
   width: 20px;
   height: 20px;
-  cursor: url('assets/cursors/Wii_hand3.cur'), pointer;
+  cursor: url('assets/cursor/Wii_hand3.cur'), pointer;
 }
 .closebutton:hover {
     background-color: darkred;
-    cursor: url('assets/cursors/Wii_hand4.cur'), pointer;
+    cursor: url('assets/cursor/Wii_hand4.cur'), pointer;
 }
 .closebutton img {
   width: 100%;
