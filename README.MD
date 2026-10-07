@@ -36,6 +36,7 @@ This WebOS currently features `6` apps:
  - revamp the design 
  - add a file system app that connects to the file system in the cmd
  - fix the bugs mentioned in the ratings on stardance
+ - add a boot animation
 ## Credits
   - Special thanks to [Brocode](https://youtu.be/I5kj-YsmWjM) for the calculator guide!
   - Special thanks to [this](https://jams.hackclub.com/batch/webOS) guide for the basic guide on making the toolbar and windows (however the app system and window open/close were made custom by me) 
