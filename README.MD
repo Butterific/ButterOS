@@ -30,7 +30,6 @@ This WebOS currently features `6` apps:
 ## Future Plans
  - Remake the toolbar from scratch because its not much different from the guide
  - add support for connecting to other butterlabs services 
- - Add a notepad app
  - add a working timer app
  - add a pong app/game
  - add some more apps in general because it kind of feels empty
