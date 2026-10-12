@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Golden Starry Night</title>
+  <style>
+    :root { color-scheme: dark; background: #080b14; }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body { display: grid; place-items: center; }
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 56.25vw;
+      max-height: 100vh;
+      max-width: 177.7778vh;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(ellipse 43% 26% at 50% 66%, rgba(239, 174, 65, .29), transparent 74%),
+        radial-gradient(ellipse 70% 54% at 50% 103%, rgba(147, 80, 36, .34), transparent 75%),
+        linear-gradient(180deg, #080b18 0%, #111422 39%, #211d23 70%, #090b11 100%);
+    }
+    .stars, .stars::before, .stars::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .stars { opacity: .8; background-image:
+      radial-gradient(1px 1px at 7% 11%, #fff2c6 96%, transparent), radial-gradient(1.4px 1.4px at 16% 24%, #ffe9a6 96%, transparent), radial-gradient(1px 1px at 28% 9%, #fff 96%, transparent), radial-gradient(1.2px 1.2px at 38% 21%, #f8d98c 96%, transparent), radial-gradient(1px 1px at 51% 8%, #fff5d7 96%, transparent), radial-gradient(1.6px 1.6px at 64% 17%, #ffe9af 96%, transparent), radial-gradient(1px 1px at 74% 7%, #fff 96%, transparent), radial-gradient(1px 1px at 88% 19%, #ffeab2 96%, transparent), radial-gradient(1.2px 1.2px at 94% 34%, #fff2cb 96%, transparent), radial-gradient(1px 1px at 12% 43%, #fff 96%, transparent), radial-gradient(1.5px 1.5px at 23% 38%, #f9df9f 96%, transparent), radial-gradient(1px 1px at 35% 49%, #fff4d6 96%, transparent), radial-gradient(1px 1px at 47% 35%, #fff 96%, transparent), radial-gradient(1.2px 1.2px at 57% 45%, #ffdfa0 96%, transparent), radial-gradient(1px 1px at 69% 34%, #fff 96%, transparent), radial-gradient(1.3px 1.3px at 81% 46%, #ffe8ba 96%, transparent), radial-gradient(1px 1px at 91% 55%, #fff 96%, transparent), radial-gradient(1.5px 1.5px at 4% 58%, #ffedbf 96%, transparent), radial-gradient(1px 1px at 31% 63%, #fff4d7 96%, transparent), radial-gradient(1px 1px at 72% 61%, #fff 96%, transparent);
+      animation: stars-breathe 10s ease-in-out infinite;
+    }
+    .stars::before { opacity: .56; background-image:
+      radial-gradient(1px 1px at 3% 30%, #ffdb88 96%, transparent), radial-gradient(1px 1px at 19% 5%, #fff 96%, transparent), radial-gradient(1px 1px at 33% 31%, #fff0bf 96%, transparent), radial-gradient(1px 1px at 43% 12%, #fff 96%, transparent), radial-gradient(1px 1px at 59% 26%, #ffe3a4 96%, transparent), radial-gradient(1px 1px at 78% 25%, #fff 96%, transparent), radial-gradient(1px 1px at 97% 11%, #ffe8b7 96%, transparent), radial-gradient(1px 1px at 14% 53%, #fff 96%, transparent), radial-gradient(1px 1px at 53% 56%, #fff2ce 96%, transparent), radial-gradient(1px 1px at 86% 57%, #fff 96%, transparent);
+      animation: stars-breathe 10s ease-in-out -3s infinite;
+    }
+    .stars::after { opacity: .24; background-image:
+      radial-gradient(1px 1px at 9% 18%, #fff 96%, transparent), radial-gradient(1px 1px at 25% 17%, #fff 96%, transparent), radial-gradient(1px 1px at 41% 29%, #fff 96%, transparent), radial-gradient(1px 1px at 61% 11%, #fff 96%, transparent), radial-gradient(1px 1px at 83% 14%, #fff 96%, transparent), radial-gradient(1px 1px at 95% 45%, #fff 96%, transparent), radial-gradient(1px 1px at 19% 46%, #fff 96%, transparent), radial-gradient(1px 1px at 67% 51%, #fff 96%, transparent), radial-gradient(1.2px 1.2px at 5% 7%, #fff1c4 96%, transparent), radial-gradient(1px 1px at 11% 32%, #fff 96%, transparent), radial-gradient(1px 1px at 21% 13%, #ffedbd 96%, transparent), radial-gradient(1px 1px at 29% 27%, #fff 96%, transparent), radial-gradient(1.3px 1.3px at 36% 8%, #ffedbd 96%, transparent), radial-gradient(1px 1px at 45% 17%, #fff 96%, transparent), radial-gradient(1px 1px at 55% 5%, #fff 96%, transparent), radial-gradient(1px 1px at 63% 28%, #fff2cf 96%, transparent), radial-gradient(1px 1px at 72% 16%, #fff 96%, transparent), radial-gradient(1.2px 1.2px at 79% 33%, #ffedbd 96%, transparent), radial-gradient(1px 1px at 89% 8%, #fff 96%, transparent), radial-gradient(1px 1px at 98% 25%, #fff 96%, transparent), radial-gradient(1px 1px at 7% 48%, #fff 96%, transparent), radial-gradient(1px 1px at 26% 54%, #fff 96%, transparent), radial-gradient(1px 1px at 40% 44%, #fff1c4 96%, transparent), radial-gradient(1px 1px at 49% 58%, #fff 96%, transparent), radial-gradient(1px 1px at 59% 53%, #fff 96%, transparent), radial-gradient(1px 1px at 77% 49%, #fff1c4 96%, transparent), radial-gradient(1px 1px at 85% 39%, #fff 96%, transparent), radial-gradient(1px 1px at 93% 58%, #fff 96%, transparent);
+      animation: stars-breathe 10s ease-in-out -6s infinite;
+    }
+    .milky-way {
+      position: absolute;
+      inset: 9% -15% 19%;
+      opacity: .65;
+      transform: rotate(-18deg);
+      background:
+        radial-gradient(ellipse 14% 70% at 49% 50%, rgba(255, 229, 166, .18), transparent 74%),
+        radial-gradient(ellipse 28% 68% at 50% 51%, rgba(246, 191, 105, .1), transparent 73%),
+        linear-gradient(105deg, transparent 38%, rgba(255, 241, 204, .035) 47%, rgba(255, 223, 160, .09) 50%, rgba(255, 241, 204, .035) 53%, transparent 62%);
+      filter: blur(19px);
+      animation: milky-drift 10s ease-in-out infinite;
+    }
+    .nebula {
+      position: absolute;
+      inset: 29% -9% 9%;
+      opacity: .83;
+      filter: blur(25px) saturate(1.12);
+      background:
+        radial-gradient(ellipse 29% 23% at 22% 48%, rgba(175, 104, 49, .34), transparent 75%),
+        radial-gradient(ellipse 34% 27% at 43% 60%, rgba(225, 157, 64, .3), transparent 74%),
+        radial-gradient(ellipse 30% 24% at 70% 43%, rgba(199, 131, 54, .26), transparent 76%),
+        radial-gradient(ellipse 32% 16% at 55% 78%, rgba(241, 187, 85, .22), transparent 73%),
+        radial-gradient(ellipse 55% 17% at 48% 47%, rgba(224, 172, 99, .13), transparent 79%);
+      animation: nebula-breathe 10s ease-in-out infinite;
+    }
+    .dust {
+      position: absolute;
+      inset: 30% 0 11%;
+      opacity: .32;
+      background-image:
+        radial-gradient(1px 1px at 10% 40%, #ffdb95 98%, transparent), radial-gradient(1px 1px at 16% 62%, #fff2d2 98%, transparent), radial-gradient(1px 1px at 28% 35%, #f7c76a 98%, transparent), radial-gradient(1px 1px at 39% 74%, #fff1c9 98%, transparent), radial-gradient(1px 1px at 53% 39%, #ffe0a2 98%, transparent), radial-gradient(1px 1px at 68% 63%, #fff2d2 98%, transparent), radial-gradient(1px 1px at 79% 31%, #ffd991 98%, transparent), radial-gradient(1px 1px at 92% 55%, #fff2d2 98%, transparent);
+      filter: drop-shadow(0 0 4px #e7a84c);
+      animation: dust-breathe 10s ease-in-out -3s infinite;
+    }
+    .horizon-glow {
+      position: absolute;
+      z-index: 2;
+      inset: 57% -4% 13%;
+      background: radial-gradient(ellipse at 50% 100%, rgba(236, 168, 68, .31), rgba(185, 111, 49, .12) 29%, transparent 71%);
+      filter: blur(18px);
+      animation: glow-breathe 10s ease-in-out infinite;
+    }
+    .ridge {
+      position: absolute;
+      z-index: 3;
+      left: -3%; right: -3%; bottom: -1%;
+      height: 25%;
+      background: linear-gradient(180deg, #18171a, #08090d 58%);
+      clip-path: polygon(0 71%, 8% 59%, 15% 66%, 24% 39%, 30% 51%, 38% 21%, 44% 45%, 52% 31%, 58% 54%, 66% 36%, 75% 64%, 82% 42%, 89% 57%, 95% 35%, 100% 51%, 100% 100%, 0 100%);
+      filter: drop-shadow(0 -4px 14px rgba(232, 170, 81, .14));
+    }
+    .vignette { position: absolute; z-index: 4; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 44%, transparent 40%, rgba(2, 4, 10, .25) 100%); }
+    @keyframes stars-breathe { 0%,100% { opacity: .72; } 50% { opacity: 1; } }
+    @keyframes milky-drift { 0%,100% { transform: rotate(-18deg) translateX(-1.2%); opacity: .57; } 50% { transform: rotate(-17deg) translateX(1.2%); opacity: .72; } }
+    @keyframes nebula-breathe { 0%,100% { transform: translate3d(-.5%, 0, 0) scale(1); opacity: .75; } 50% { transform: translate3d(.5%, -1%, 0) scale(1.025); opacity: .9; } }
+    @keyframes dust-breathe { 0%,100% { opacity: .25; } 50% { opacity: .4; } }
+    @keyframes glow-breathe { 0%,100% { opacity: .78; } 50% { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <main class="scene" aria-label="Golden starry night sky above a dark mountain ridge">
+    <div class="stars"></div>
+    <div class="milky-way"></div>
+    <div class="nebula"></div>
+    <div class="dust"></div>
+    <div class="horizon-glow"></div>
+    <div class="ridge"></div>
+    <div class="vignette"></div>
+  </main>
+</body>
+</html>
