@@ -48,6 +48,11 @@
         <img src="./assets/app-icons/note.png" class="appiconimg" draggable="false"s>
         <p class="apptext">Notes</p>
       </div>
+      <!-- games app -->
+      <div class="appicon" onclick="opengames()">
+        <img src="./assets/app-icons/games.png" class="appiconimg" draggable="false"s>
+        <p class="apptext">Games</p>
+      </div>
     </div>
 
     <!-- desktop/welcomewindow -->
@@ -159,6 +164,21 @@
       </div>
       <div class="window-box">
         <iframe class="app-frame" src="apps/notes.html"></iframe>
+      </div>
+    </div>
+    <!-- games app -->
+    <div class="window app-window" id="games" style="display: none;">
+      <div class="windowheader">
+        <div class="windowdrag"> 
+          <img class="windowicon" src="./assets/app-icons/games.png" alt="" draggable="false"/>
+          <span class="windowtitle">Games</span>
+        </div>
+        <div class="closebutton">
+          <img src="./assets/windowbar/close.png" alt="Close window"/>
+        </div>
+      </div>
+      <div class="window-box">
+        <iframe class="app-frame" src="apps/games.html"></iframe>
       </div>
     </div>
     <!-- window taskbar script -->

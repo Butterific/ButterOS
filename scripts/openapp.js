@@ -4,6 +4,7 @@ var music = document.getElementById("music");
 var info = document.getElementById("info");
 var cmd = document.getElementById("cmd");
 var notes = document.getElementById("notes");
+var games = document.getElementById("games");
 var counter = 1
 // open simply epic
 function opensimplyepic() {
@@ -40,4 +41,10 @@ function opennotes() {
     counter += 1;
     notes.style.display = "flex";
     notes.style.zIndex = counter;
+}
+// open games
+function opengames() {
+    counter += 1;
+    games.style.display = "flex";
+    games.style.zIndex = counter;
 }
