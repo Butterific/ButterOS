@@ -179,7 +179,7 @@ iframe {
       </div>
     </section>
     <iframe 
-      src="https://streamables.butterlabs.app/embed/playlist/test1" 
+      src="https://streamables.blrc.me/embed/equinoxtds" 
       title="Playlist test1" 
       allow="autoplay"
       referrerpolicy="no-referrer">
@@ -195,7 +195,7 @@ const iframe = document.querySelector("iframe");
 btn.addEventListener("click", () => {
     const playlistname = inpt.value.trim();
     if (playlistname) {
-        iframe.src = `https://streamables.butterlabs.app/embed/playlist/${playlistname}`;
+        iframe.src = `https://streamables.blrc.me/embed/playlist/${playlistname}`;
     } else {
         alert("Enter a valid playlist name");
     }
@@ -203,7 +203,7 @@ btn.addEventListener("click", () => {
 btn2.addEventListener("click", () => {
     const trackname = inpt2.value.trim();
     if (trackname) {
-        iframe.src = `https://streamables.butterlabs.app/embed/${trackname}`;
+        iframe.src = `https://streamables.blrc.me/embed/${trackname}`;
     } else {
         alert("Enter a valid track name");
     }
@@ -217,11 +217,11 @@ btn3.addEventListener("click", async () => {
         if (!name2) return;
         formData.append("name", name2);
         formData.append("protected", "false");
-        await fetch("https://streamables.butterlabs.app/upload", {
+        await fetch("https://streamables.blrc.me/upload", {
             method: "POST",
             body: formData
         });
-        iframe.src=`https://streamables.butterlabs.app/embed/${name2}`;
+        iframe.src=`https://streamables.blrc.me/embed/${name2}`;
         saveSongToCache(name2);
         // alert upload errors
         alert("Track uploaded successfully!");
@@ -243,7 +243,7 @@ const renderSongList = () => {
         songItem.className = "cached-song";
         songItem.textContent = key;
         songItem.addEventListener("click", () => {
-            iframe.src = `https://streamables.butterlabs.app/embed/${key}`;
+            iframe.src = `https://streamables.blrc.me/embed/${key}`;
         });
         songList.appendChild(songItem);
     });
@@ -267,7 +267,7 @@ window.addEventListener("load", () => {
     // load the first song in the cache if it exists
     if (songCache.size > 0) {
         const firstSongId = songCache.keys().next().value;
-        iframe.src = `https://streamables.butterlabs.app/embed/${firstSongId}`;
+        iframe.src = `https://streamables.blrc.me/embed/${firstSongId}`;
     }
     renderSongList();
 });
