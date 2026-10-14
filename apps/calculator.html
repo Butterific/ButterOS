@@ -3,9 +3,14 @@
 <html>
 <head>
     <title>ButterOS Calculator</title>
-    <link rel="stylesheet" href="calc/calculator.css">
     <style>
-        body {
+:root{
+    --accent-color: #dcde93;
+    --accent-gradient: linear-gradient(135deg, #dcde93, #dea193);
+    --accent-dark: #75764d;
+    --accent-gradient-dark: linear-gradient(135deg, #75764d, #88635a);
+}
+body {
     margin: 0;
     height: 100vh;
     overflow: hidden;
@@ -28,7 +33,7 @@
     text-align: right;
     background-color: #000000;
     font-family: "Comic Sans MS", cursive, sans-serif;
-    color:#1cd880;
+    color: var(--accent-color);
 }
 #keys{
     flex: 1;
@@ -39,6 +44,13 @@
     grid-template-rows: repeat(5, minmax(0, 1fr));
     gap: 10px;
     padding: 25px;
+}
+#themebar {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
 }
 button {
     min-height: 0;
@@ -85,6 +97,7 @@ button:active {
     <div class="calculator">
         <input id="display" pattern="[0-9\s!@#$%^&*()_\-+={[}\]|:;'<>,.?\/~`]+" 
   oninput="this.value = this.value.replace(/[^0-9!@#$%^&*()_\-+={[}\]|:;'<>,.?\/~`]/g, '');">
+        <br class="themebar">
         <div id="keys">
             <button onclick="appendtodisplay('+')" class="operator-btn">+</button>
             <button onclick="appendtodisplay('7')">7</button>
@@ -116,7 +129,7 @@ function appendtodisplay(input) {
     if (display.value.includes('undefined')) { 
     display.value = display.value.replace('undefined', ''); 
     }
-    display.style.color = '#1cd880';
+    display.style.color = 'var(--accent-color)';
     display.value += input;
 }
 function calculate() { 
@@ -125,7 +138,7 @@ function calculate() {
         display.value = '';
     }
     try {   
-    display.style.color = '#1cd880';
+    display.style.color = 'var(--accent-color)';
     display.value = eval(display.value);
     } catch (error) {
         display.style.color = 'red';
@@ -133,7 +146,7 @@ function calculate() {
     }
 }
 function clearDisplay() {
-    display.style.color = '#1cd880';
+    display.style.color = 'var(--accent-color)';
     display.value = '';
 }
 
