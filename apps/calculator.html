@@ -1,5 +1,5 @@
 <!-- https://youtu.be/I5kj-YsmWjM?t=151-->
- <doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>ButterOS Calculator</title>
@@ -22,7 +22,7 @@ body {
     height: 100%;
     box-sizing: border-box;
     font-family: "Comic Sans MS", cursive, sans-serif;
-    background-color: #1cd880;
+    background-image: var(--accent-gradient-dark);
     overflow: hidden;
 }
 #display {
@@ -56,40 +56,45 @@ button {
     min-height: 0;
     width: 100%;
     height: 100%;
-    /* border-radius: 50px; */
-    border: rgb(14, 177, 14) 5px inset;
-    background-color:#1cd880 ;
-    color: darkgreen;
+    border: 5px solid transparent;
+    border-image: var(--accent-gradient) 1;
+    background-color: #222519;
+    color: rgb(250, 250, 250);
     font-size: 60px;
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-weight: bold;
     cursor: pointer;
 }
 button:hover {
-    background-color: #8fbca7;
-    color: darkgreen;
-    border: rgb(14, 177, 14) 5px outset;
-    
+    background-color: rgb(47, 54, 32);
+    color: var(--accent-dark);
+    border: 5px solid transparent;
+    border-image: var(--accent-gradient) 1;
 }
 button:active {
-    background-color: #2fd81c;
-    color: darkgreen;
-    border: rgb(14, 177, 14) 5px inset;
+    background-color: #6e714d;
+    color: var(--accent-color);
+    border: 5px solid transparent;
+    border-image: var(--accent-gradient) 1;
 }
 .operator-btn {
     background-color: #1ccbd8;
-    color: rgb(3, 64, 231);
-    border: rgb(14, 177, 14) 5px inset;
+    color: var(--accent-color);
+    border: 5px solid transparent;
+    border-image: var(--accent-gradient) 1;
+    background-color: #000000;
 }
 .operator-btn:hover {
-    background-color: #0e83c6;
-    color: rgb(21, 221, 191);
-    border: rgb(14, 177, 14) 5px outset;
+    background-color: rgb(47, 54, 32);
+    color: var(--accent-dark);
+    border: 5px solid transparent;
+    border-image: var(--accent-gradient) 1;
 }
 .operator-btn:active { 
-    background-color: #1f1cd8;
-    color: rgb(42, 10, 156);
-    border: rgb(14, 177, 14) 5px inset;
+    background-color: #6e714d;
+    color: var(--accent-color);
+    border: 5px solid transparent;
+    border-image: var(--accent-gradient) 1;
 }
     </style>
 </head>
