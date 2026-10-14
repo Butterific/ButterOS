@@ -1,146 +1,269 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Notes</title>
   <style>
+    :root {
+      --accent-color: #dcde93;
+      --accent-gradient: linear-gradient(135deg, #dcde93, #dea193);
+      --accent-dark: #75764d;
+      --accent-gradient-dark: linear-gradient(135deg, #75764d, #88635a);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Comic Sans MS, sans-serif;
-      margin: 20px;
-      background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgb(242, 255, 0) 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 30px;
+      min-height: 100vh;
+      background-image: var(--accent-gradient-dark);
+      background-attachment: fixed;
+      color: #333;
     }
+
+    .main-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .input-card {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 16px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
     #noteInput {
-      width: 300px;
-      padding: 10px;
-      margin-bottom: 10px;
-      padding: 10px;
+      flex: 1 1 100%;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      padding: 8px 0;
+      background: transparent;
+      color: #202124;
     }
+
+    #noteInput::placeholder {
+      color: #70757a;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+      width: 100%;
+      justify-content: flex-end;
+    }
+
+    button {
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
     #saveNoteButton { 
-      border: solid 1px #ccc;
-      border-radius: 5px;
-      padding: 10px;
+      background: var(--accent-color);
+      color: #2d2e1b;
     }
-    #deleteNoteButton { 
-      border: solid 1px #ccc;
-      border-radius: 5px;
-      color: white;
-      background-color: red;
-      padding: 10px;
-    }
+
     #saveNoteButton:hover { 
-      border: solid 1px #ccc;
-      border-radius: 5px;
-      background-color: rgb(50, 181, 50);
-      color: white;
+      background-color: #cbcd7f;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
-    #deleteNoteButton:hover { 
-      border: solid 1px #ccc;
-      border-radius: 5px;
-      color: white;
-      background-color: rgb(181, 50, 50);
-    }
+
     #saveNoteButton:active { 
-      border: solid 1px #ccc;
-      border-radius: 5px;
-      background-color: rgb(28, 99, 28);
+      background-color: var(--accent-dark);
       color: white;
     }
+
+    #deleteNoteButton { 
+      background-color: rgba(217, 48, 37, 0.1);
+      color: #d93025;
+    }
+
+    #deleteNoteButton:hover { 
+      background-color: #d93025;
+      color: white;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
     #deleteNoteButton:active { 
-      border: solid 1px #ccc;
-      border-radius: 5px;
+      background-color: #a51d15;
       color: white;
-      background-color: rgb(112, 31, 31);
     }
+
+    /* Keep-style list container */
     #sidebar {
-      padding: 10px;
-      width: 200px;
-      float: left;
-      margin-right: 20px;
-      border-radius: 25px;
-      background-color: rgba(0,0, 0,0.1);
+      width: 320px;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 20px;
+      color: var(--accent-color);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #sidebar h3 {
+      margin: 0 0 4px 0;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+    }
+
+    #sidebar h6 {
+      margin: 0 0 16px 0;
+      font-weight: normal;
+      opacity: 0.8;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    #notesList {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #notesList li {
+      background: rgba(255, 255, 255, 0.95);
+      color: #202124;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      word-break: break-word;
+      border: 2px solid transparent;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+
+    #notesList li:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.18);
+    }
+
+    #notesList li.selected {
+      border-color: var(--accent-dark);
+      background: #ffffff;
+      box-shadow: 0 0 0 1px var(--accent-dark), 0 4px 10px rgba(0,0,0,0.15);
     }
   </style>
 </head>
 <body> 
-    <input type="text" id="noteInput" placeholder="Type your note here...">
-    <button id="saveNoteButton">Save Note</button>
-    <button id="deleteNoteButton">Delete Note</button>
+
+  <div class="main-container">
+    <div class="input-card">
+      <input type="text" id="noteInput" placeholder="Type your note here...">
+      <div class="button-group">
+        <button id="saveNoteButton">Save Note</button>
+        <button id="deleteNoteButton">Delete Note</button>
+      </div>
+    </div>
+
     <sidebar id="sidebar">
-        <h3>Notes</h3>
-        <h6>Enter a note and click "Save Note" to add it to the list.</h6>
-        <ul id="notesList"></ul>
+      <h3>Notes</h3>
+      <h6>Enter a note and click "Save Note" to add it to the list.</h6>
+      <ul id="notesList"></ul>
     </sidebar>
-    <script>
-const noteInput = document.getElementById('noteInput');
-const saveNoteButton = document.getElementById('saveNoteButton');
-const deleteNoteButton = document.getElementById('deleteNoteButton');
-const notesList = document.getElementById('notesList');
+  </div>
 
-function savenotestocache() {
-  const notes = [];
-  notesList.querySelectorAll('li').forEach((li) => {
-    notes.push(li.dataset.note);
-  });
-  localStorage.setItem('notes', JSON.stringify(notes));
-}
+  <script>
+    const noteInput = document.getElementById('noteInput');
+    const saveNoteButton = document.getElementById('saveNoteButton');
+    const deleteNoteButton = document.getElementById('deleteNoteButton');
+    const notesList = document.getElementById('notesList');
 
-function addNoteToList(note) {
-  const li = document.createElement('li');
-  li.dataset.note = note;
-  li.textContent = note;
-  notesList.appendChild(li);
-  renumberNotes();
-}
+    function savenotestocache() {
+      const notes = [];
+      notesList.querySelectorAll('li').forEach((li) => {
+        notes.push(li.dataset.note);
+      });
+      localStorage.setItem('notes', JSON.stringify(notes));
+    }
 
-function renumberNotes() {
-  notesList.querySelectorAll('li').forEach((li, index) => {
-    li.textContent = `${index + 1}. ${li.dataset.note}`;
-  });
-}
+    function addNoteToList(note) {
+      const li = document.createElement('li');
+      li.dataset.note = note;
+      li.textContent = note;
+      notesList.appendChild(li);
+      renumberNotes();
+    }
 
-function loadNotesFromCache() {
-  const cachedNotes = localStorage.getItem('notes');
-  if (!cachedNotes) {
-    return;
-  }
+    function renumberNotes() {
+      notesList.querySelectorAll('li').forEach((li, index) => {
+        li.textContent = `${index + 1}. ${li.dataset.note}`;
+      });
+    }
 
-  const notes = JSON.parse(cachedNotes);
-  if (!Array.isArray(notes)) {
-    return;
-  }
+    function loadNotesFromCache() {
+      const cachedNotes = localStorage.getItem('notes');
+      if (!cachedNotes) {
+        return;
+      }
 
-  notes.forEach((note) => {
-    addNoteToList(note);
-  });
-}
+      const notes = JSON.parse(cachedNotes);
+      if (!Array.isArray(notes)) {
+        return;
+      }
 
-saveNoteButton.addEventListener('click', () => {
-  const note = noteInput.value;
-  if (note) {
-    addNoteToList(note);
-    noteInput.value = '';
-    savenotestocache();
-  }
-});
-deleteNoteButton.addEventListener('click', () => {
-  const noteNumber = Number.parseInt(noteInput.value.trim(), 10);
-  const selectedNote = Number.isInteger(noteNumber) && noteNumber > 0
-    ? notesList.querySelectorAll('li')[noteNumber - 1]
-    : notesList.querySelector('li.selected');
-  if (selectedNote) {
-    notesList.removeChild(selectedNote);
-    renumberNotes();
-    noteInput.value = '';
-    savenotestocache();
-  }
-});
-notesList.addEventListener('click', (event) => {
-  if (event.target.tagName === 'LI') {
-    notesList.querySelectorAll('li').forEach((li) => {
-      li.classList.remove('selected');
+      notes.forEach((note) => {
+        addNoteToList(note);
+      });
+    }
+
+    saveNoteButton.addEventListener('click', () => {
+      const note = noteInput.value;
+      if (note) {
+        addNoteToList(note);
+        noteInput.value = '';
+        savenotestocache();
+      }
     });
-    event.target.classList.add('selected');
-  }
-});
-loadNotesFromCache();
 
-    </script>
+    deleteNoteButton.addEventListener('click', () => {
+      const noteNumber = Number.parseInt(noteInput.value.trim(), 10);
+      const selectedNote = Number.isInteger(noteNumber) && noteNumber > 0
+        ? notesList.querySelectorAll('li')[noteNumber - 1]
+        : notesList.querySelector('li.selected');
+      if (selectedNote) {
+        notesList.removeChild(selectedNote);
+        renumberNotes();
+        noteInput.value = '';
+        savenotestocache();
+      }
+    });
+
+    notesList.addEventListener('click', (event) => {
+      if (event.target.tagName === 'LI') {
+        notesList.querySelectorAll('li').forEach((li) => {
+          li.classList.remove('selected');
+        });
+        event.target.classList.add('selected');
+      }
+    });
+
+    loadNotesFromCache();
+  </script>
 </body>
+</html>
