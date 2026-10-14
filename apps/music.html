@@ -11,9 +11,13 @@
   --border: #2a3645;
   --text: #f2f7fb;
   --muted: #d8d0d0;
-  --accent: #289d4f;
-  --accent-hover: #20c75a;
+  --accent: #dcde93;
+  --accent-hover: var(--accent-dark);
   --focus: rgba(45, 220, 104, 0.28);
+    --accent-color: #dcde93;
+    --accent-gradient: linear-gradient(135deg, #dcde93, #dea193);
+    --accent-dark: #75764d;
+    --accent-gradient-dark: linear-gradient(135deg, #75764d, #88635a);
 }
 
 * {
@@ -27,7 +31,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: var(--bg);
+  background-image: var(--accent-gradient-dark);
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -67,12 +71,12 @@ input::placeholder {
 }
 
 input:hover {
-  background: var(--surface-hover);
+  background: var(--accent-dark);
 }
 
 input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 4px var(--focus);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px var(--accent-dark);
 }
 
 .inputbtn {
@@ -80,7 +84,7 @@ input:focus {
   padding: 12px 20px;
   border: 0;
   border-radius: 100px;
-  background: var(--accent);
+  background: var(--accent-dark);
   color: #fffefe;
   cursor: pointer;
   font: inherit;
@@ -102,7 +106,7 @@ input:focus {
 }
 
 .inputbtn:focus-visible {
-  outline: 3px solid var(--focus);
+  outline: 3px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -163,7 +167,7 @@ iframe {
     <!-- playlist input -->
     <input type="text" class="inputbtn" id="playlistinput" placeholder="Enter playlist name">
     <button id="loadplaylistbutton">Load Playlist</button> 
-     <h6 style="color: gray;">Playlists can be created and managed at <a href="https://streamables.butterlabs.app/" target="_blank" rel="noopener noreferrer">Streamables</a></h6>
+     <h6 style="color: rgb(255, 255, 255);">Playlists can be created and managed at <a href="https://streamables.butterlabs.app/" target="_blank" rel="noopener noreferrer">Streamables</a></h6>
      <!-- indiv track input -->
     <input type="text" class="inputbtn" id="trackinput" placeholder="Enter track name">
     <button id="loadtrackbutton">Load Track</button> 
@@ -171,7 +175,6 @@ iframe {
     <input type="file" accept=".mp3,audio/mpeg" class="inputbtn" id="fileinput" placeholder="Enter playlist name">
     <button  id="musicupload">Upload Music</button> 
     <!-- reminder -->
-    <h6 style="color: gray;">Note down your track names inorder to load them later!</h6>
     <section id="cached-songs" aria-labelledby="cached-songs-title">
       <h2 id="cached-songs-title">Cached Songs</h2>
       <div id="songlist">
