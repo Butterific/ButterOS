@@ -1,3 +1,9 @@
+:root{
+    --accent-color: #dcde93;
+    --accent-gradient: linear-gradient(135deg, #dcde93, #dea193);
+    --accent-dark: #75764d;
+    --accent-gradient-dark: linear-gradient(135deg, #75764d, #88635a);
+}
 body {
     background-size: cover; 
     font-family: 'Comic Sans MS', 'Comic Sans';
@@ -12,7 +18,7 @@ body {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    z-index: -1; /* Places the video behind all other content */
+    z-index: -1; 
 }
 html, body {
   cursor: url('assets/cursor/hand.cur'), auto !important;
@@ -48,7 +54,7 @@ button, a, .appicon, .closebutton, [id*="header"] {
     display: flex; 
     justify-content: space-between; 
     backdrop-filter: blur(10px); 
-    background-color: rgba(0, 0, 0, 0.25); 
+    background-image: var(--accent-gradient-dark);
     border-radius: 12px;
     user-select: none;
     z-index: 9999;
