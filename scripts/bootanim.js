@@ -9,7 +9,18 @@ function closebootanim() {
         bootanimscreen.remove();
     }, 1000);
 }
-if (sessionStorage.getItem("bootanimplayed") === "true") {
+
+function skipBootAnimImmediately() {
+    if (!bootanimscreen) return;
+    sessionStorage.setItem("bootanimplayed", "true");
+    bootanimscreen.remove();
+}
+
+const shouldSkipBoot = localStorage.getItem('skipBootAnim') === 'true';
+
+if (shouldSkipBoot) {
+    skipBootAnimImmediately();
+} else if (sessionStorage.getItem("bootanimplayed") === "true") {
     closebootanim();
 } else {
     fetch("debug.json")
