@@ -8,6 +8,7 @@
     --accent-gradient: linear-gradient(135deg, #dcde93, #dea193);
     --accent-dark: #75764d;
     --accent-gradient-dark: linear-gradient(135deg, #75764d, #88635a);
+    --accent-gradient-settings: linear-gradient(135deg, #ffffff, #dea193);
     font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
@@ -45,6 +46,17 @@ body {
     padding: 12px 24px;
     border: 1px solid rgba(255, 255, 255, 0.15);
 }
+.settings-label-box {
+    border-radius: 20px;
+    display: flex;  
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px); 
+    background-color: rgba(0, 0, 0, 0.35); 
+    padding: 12px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    gap: 15px; /* Adds space between text and the switch container */
+}
 
 .settings-label span {
     background: var(--accent-gradient);
@@ -55,6 +67,79 @@ body {
     font-weight: bold;
     font-size: 1.2rem;
 }
+.settings-label-box .setting-text {
+    background: var(--accent-gradient-settings);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.switch-container {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.switch-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-track {
+  --switch-width: 50px;
+  --switch-height: 28px;
+  --thumb-size: 22px;
+  --track-padding: 3px;
+
+  position: relative;
+  display: inline-block;
+  width: var(--switch-width);
+  height: var(--switch-height);
+  background-color: #000000; 
+  border-radius: var(--switch-height);
+  transition: background 0.25s ease;
+}
+
+.switch-track::after {
+  content: "";
+  position: absolute;
+  top: var(--track-padding);
+  left: var(--track-padding);
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+.switch-input:checked + .switch-track {
+  background: var(--accent-gradient);
+}
+
+.switch-input:checked + .switch-track::after {
+  transform: translateX(calc(var(--switch-width) - var(--thumb-size) - (var(--track-padding) * 2)));
+}
+
+.switch-input:focus-visible + .switch-track {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;         
+    width: 100%;       
+    max-width: 400px;  
+    margin-top: 20px; 
+}
+
     </style>
 </head>
 <body>
@@ -62,6 +147,35 @@ body {
 <div class="center">
     <div class="settings-label">
         <span>Settings</span>
+    </div>
+    <br>
+    <div class="settings-label-box">
+        <span class="setting-text">Skip Boot Anim</span>
+        <label class="switch-container">
+            <input type="checkbox" class="switch-input">
+            <span class="switch-track"></span>
+        </label>
+    </div>
+        <div class="settings-label-box">
+        <span class="setting-text">Skip Boot Anim</span>
+        <label class="switch-container">
+            <input type="checkbox" class="switch-input">
+            <span class="switch-track"></span>
+        </label>
+    </div>
+        <div class="settings-label-box">
+        <span class="setting-text">Skip Boot Anim</span>
+        <label class="switch-container">
+            <input type="checkbox" class="switch-input">
+            <span class="switch-track"></span>
+        </label>
+    </div>
+        <div class="settings-label-box">
+        <span class="setting-text">Skip Boot Anim</span>
+        <label class="switch-container">
+            <input type="checkbox" class="switch-input">
+            <span class="switch-track"></span>
+        </label>
     </div>
 </div>
      
