@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ButterOS Settings</title>
+    <style>
+:root {
+    --accent-color: #dcde93;
+    --accent-gradient: linear-gradient(135deg, #dcde93, #dea193);
+    --accent-dark: #75764d;
+    --accent-gradient-dark: linear-gradient(135deg, #75764d, #88635a);
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+body {
+    background-image: var(--accent-gradient-dark);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center {
+    border-radius: 20px;
+    color: #ffffff; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(10px); 
+    background-color: rgba(0, 0, 0, 0.35); 
+    padding: 20px;
+    width: 90vw;
+    height: 90vh;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-sizing: border-box;
+}
+
+.settings-label {
+    border-radius: 20px;
+    display: flex;  
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px); 
+    background-color: rgba(0, 0, 0, 0.35); 
+    padding: 12px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.settings-label span {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+    </style>
+</head>
+<body>
+
+<div class="center">
+    <div class="settings-label">
+        <span>Settings</span>
+    </div>
+</div>
+     
+</body>
+</html>
