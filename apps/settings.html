@@ -55,7 +55,7 @@ body {
     background-color: rgba(0, 0, 0, 0.35); 
     padding: 12px 24px;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    gap: 15px; /* Adds space between text and the switch container */
+    gap: 15px;
 }
 
 .settings-label span {
@@ -143,41 +143,44 @@ body {
     </style>
 </head>
 <body>
-
-<div class="center">
+    <div class="center">
     <div class="settings-label">
         <span>Settings</span>
     </div>
-    <br>
-    <div class="settings-label-box">
-        <span class="setting-text">Skip Boot Anim</span>
-        <label class="switch-container">
-            <input type="checkbox" class="switch-input">
-            <span class="switch-track"></span>
-        </label>
-    </div>
+    <div class="settings-list">
         <div class="settings-label-box">
-        <span class="setting-text">Skip Boot Anim</span>
-        <label class="switch-container">
-            <input type="checkbox" class="switch-input">
-            <span class="switch-track"></span>
-        </label>
-    </div>
+            <span class="setting-text">Skip Boot Anim</span>
+            <label class="switch-container">
+                <input type="checkbox" id="skipBootAnim" class="switch-input">
+                <span class="switch-track"></span>
+            </label>
+        </div>
+
         <div class="settings-label-box">
-        <span class="setting-text">Skip Boot Anim</span>
-        <label class="switch-container">
-            <input type="checkbox" class="switch-input">
-            <span class="switch-track"></span>
-        </label>
-    </div>
-        <div class="settings-label-box">
-        <span class="setting-text">Skip Boot Anim</span>
-        <label class="switch-container">
-            <input type="checkbox" class="switch-input">
-            <span class="switch-track"></span>
-        </label>
+            <span class="setting-text">Enable Dark Mode</span>
+            <label class="switch-container">
+                <input type="checkbox" id="enableDarkMode" class="switch-input">
+                <span class="switch-track"></span>
+            </label>
+        </div>
     </div>
 </div>
-     
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const switches = document.querySelectorAll('.switch-input');
+
+        switches.forEach(sw => {
+            const storedValue = localStorage.getItem(sw.id);
+            if (storedValue !== null) {
+                sw.checked = storedValue === 'true';
+            }
+
+            sw.addEventListener('change', (e) => {
+                localStorage.setItem(e.target.id, e.target.checked);
+            });
+        });
+    });
+</script>
 </body>
 </html>
