@@ -1,0 +1,68 @@
+[
+  {
+    "name": "test",
+    "url": "projects.html",
+    "description": "test",
+    "color": "#FFFFFF"
+  },
+  {
+    "name": "RobVBob",
+    "url": "https://robvbob.butterlabs.app/",
+    "description": "my first ever p5,js game",
+    "color": "#FFFFFF"
+  },
+  {
+    "name": "StereoXDS Extended",
+    "url": "https://stereoxdsextended.butterlabs.app/",
+    "description": "song search with 30sec previews idk why i made this",
+    "color": "#39FF14"
+  },
+  {
+    "name": "PixelSpace",
+    "url": "https://pixel.butterlabs.app/",
+    "description": "global pixel canvas",
+    "color": "#ffffff"
+  },
+  {
+    "name": "ORBit",
+    "url": "https://orbit.butterlabs.app",
+    "description": "Dots form shapes lol",
+    "color": "#39ff14"
+  },
+  {
+    "name": "particle-storm",
+    "url": "https://particle-storm.butterlabs.app",
+    "description": "particle-storm gen",
+    "color": "#ffee8c"
+  },
+  {
+    "name": "PanX3D",
+    "url": "https://panx3d.butterlabs.app",
+    "description": "Panoramic image/video viewer in 3D space.",
+    "color": "#66cfff"
+  },
+  {
+    "name": "Laboxia",
+    "url": "https://laboxia.butterlabs.app",
+    "description": "ai rpg game with procedural worlds and characters.",
+    "color": "#fa5053"
+  },
+  {
+    "name": "Voxnet",
+    "url": "https://voxnet.butterlabs.app",
+    "description": "image to 3d voxel scene with gemini",
+    "color": "#cfcfcf"
+  },
+  {
+    "name": "dancse",
+    "url": "https://dancse.butterlabs.app",
+    "description": "dancse",
+    "color": "#6cf0a5"
+  },
+  {
+    "name": "Tonight We Steal The Moon",
+    "url": "https://tonightwestealthemoon.butterlabs.app",
+    "description": "TONIGHT WE STEAL THE MOON",
+    "color": "#6cf0a5"
+  }
+]
