@@ -1,9 +1,3 @@
-:root{
-    --accent-color: #dcde93;
-    --accent-gradient: linear-gradient(135deg, #dcde93, #dea193);
-    --accent-dark: #75764d;
-    --accent-gradient-dark: linear-gradient(135deg, #75764d, #88635a);
-}
 body {
     background-size: cover; 
     font-family: 'Comic Sans MS', 'Comic Sans';
@@ -54,7 +48,7 @@ button, a, .appicon, .closebutton, [id*="header"] {
     display: flex; 
     justify-content: space-between; 
     backdrop-filter: blur(10px); 
-    background-image: var(--accent-gradient-dark);
+    background-color: rgba(0, 0, 0, 0.25); 
     border-radius: 12px;
     user-select: none;
     z-index: 9999;
