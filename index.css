@@ -4,15 +4,7 @@ body {
     background-repeat: no-repeat;
     min-height: 100vh;
     overflow: hidden;
-}
-#bg-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1; 
+    background-image: url('assets/background-loop.png');
 }
 html, body {
   cursor: url('assets/cursor/hand.cur'), auto !important;
