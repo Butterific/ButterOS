@@ -22,22 +22,6 @@ if (shouldSkipBoot) {
     skipBootAnimImmediately();
 } else if (sessionStorage.getItem("bootanimplayed") === "true") {
     closebootanim();
-} else {
-    fetch("debug.json")
-        .then(function(response) {
-            if (!response.ok) throw new Error("config not found");
-            return response.json();
-        })
-        .then(function(data) {
-            if (data.bootAnimationDisabled === true || data["boot animation disabled"] === true) {
-                closebootanim();
-            } else {
-                startBootAnimation();
-            }
-        })
-        .catch(function(error) {
-            startBootAnimation();
-        });
 }
 
 function startBootAnimation() {
