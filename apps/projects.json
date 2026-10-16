@@ -10,5 +10,11 @@
     "url": "https://temusonic.butterlabs.app/",
     "description": "sonic vs temu sonic, a game made in p5.js",
     "color": "#FFFFFF"
+  },
+  {
+    "name": "HexGL",
+    "url": "https://hexgl.blrc.me/",
+    "description": "a fast-paced racing game made by bkcore",
+    "color": "#90d5ff"
   }
 ]
