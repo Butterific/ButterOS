@@ -3,10 +3,28 @@ var calcapp = document.getElementById("calcapp");
 var music = document.getElementById("music");
 var info = document.getElementById("info");
 var cmd = document.getElementById("cmd");
+var cmdLauncher = document.getElementById("cmdLauncher");
 var notes = document.getElementById("notes");
 var games = document.getElementById("games");
 var settings = document.getElementById("settings");
 var counter = 1
+
+function isTerminalEnabled() {
+    return localStorage.getItem("enableTerminal") === "true";
+}
+
+function updateTerminalAvailability() {
+    if (cmdLauncher) {
+        cmdLauncher.style.display = isTerminalEnabled() ? "flex" : "none";
+    }
+    if (!isTerminalEnabled() && cmd) {
+        cmd.style.display = "none";
+    }
+}
+
+updateTerminalAvailability();
+window.addEventListener("storage", updateTerminalAvailability);
+
 // open simply epic
 function opensimplyepic() {
     counter += 1;
@@ -33,6 +51,10 @@ function openinfo() {
 }
 // open cmd
 function opencmd() {
+    if (!isTerminalEnabled()) {
+        updateTerminalAvailability();
+        return;
+    }
     counter += 1;
     cmd.style.display = "flex";
     cmd.style.zIndex = counter;

@@ -157,9 +157,9 @@ body {
         </div>
 
         <div class="settings-label-box">
-            <span class="setting-text">Enable File System</span>
+            <span class="setting-text">Enable Terminal</span>
             <label class="switch-container">
-                <input type="checkbox" id="enableFileSystem" class="switch-input">
+                <input type="checkbox" id="enableTerminal" class="switch-input">
                 <span class="switch-track"></span>
             </label>
         </div>
@@ -178,6 +178,9 @@ body {
 
             sw.addEventListener('change', (e) => {
                 localStorage.setItem(e.target.id, e.target.checked);
+                if (e.target.id === 'enableTerminal' && window.parent !== window) {
+                    window.parent.updateTerminalAvailability();
+                }
             });
         });
     });
