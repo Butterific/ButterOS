@@ -20,9 +20,10 @@ const shouldSkipBoot = localStorage.getItem('skipBootAnim') === 'true';
 
 if (shouldSkipBoot) {
     skipBootAnimImmediately();
-} else if (sessionStorage.getItem("bootanimplayed") === "true") {
-    closebootanim();
-}
+} 
+// else if (sessionStorage.getItem("bootanimplayed") === "true") {
+//     closebootanim();
+// }
 
 function startBootAnimation() {
     bootlogo.addEventListener("ended", closebootanim, { once: true });
