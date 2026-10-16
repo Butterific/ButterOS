@@ -156,6 +156,7 @@ button, a, .appicon, .closebutton, [id*="header"] {
 }
 #desktopApps {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: 8px;
   padding: 16px;
