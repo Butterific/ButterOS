@@ -140,6 +140,31 @@ body {
     margin-top: 20px; 
 }
 
+.settings-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+@media (max-width: 480px) {
+    .center {
+        width: 94vw;
+        padding: 16px;
+    }
+
+    .settings-label-box {
+        padding: 12px 24px;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -148,30 +173,33 @@ body {
         <span>Settings</span>
     </div>
     <div class="settings-list">
-        <!-- skip boot animation setting -->
-        <div class="settings-label-box">
-            <span class="setting-text">Skip Boot Anim</span>
-            <label class="switch-container">
-                <input type="checkbox" id="skipBootAnim" class="switch-input">
-                <span class="switch-track"></span>
-            </label>
-        </div>
-        <!-- enable terminal setting -->
-        <div class="settings-label-box">
-            <span class="setting-text">Enable Terminal</span>
-            <label class="switch-container">
-                <input type="checkbox" id="enableTerminal" class="switch-input">
-                <span class="switch-track"></span>
-            </label>
-        </div>
-        <!-- store songs in streamables (cloud) -->
-        <div class="settings-label-box">
-            <span class="setting-text">Store Songs in Cloud</span>
-            <label class="switch-container">
-                <input type="checkbox" id="storeSongsInCloud" class="switch-input" checked>
-                <span class="switch-track"></span>
-            </label>
-        </div>
+        <section class="settings-section" aria-labelledby="system-settings-title">
+            <h2 class="section-title" id="system-settings-title">System</h2>
+            <div class="settings-label-box">
+                <span class="setting-text">Skip Boot Animation</span>
+                <label class="switch-container" aria-label="Skip Boot Animation">
+                    <input type="checkbox" id="skipBootAnim" class="switch-input">
+                    <span class="switch-track"></span>
+                </label>
+            </div>
+            <div class="settings-label-box">
+                <span class="setting-text">Enable Terminal</span>
+                <label class="switch-container" aria-label="Enable Terminal">
+                    <input type="checkbox" id="enableTerminal" class="switch-input">
+                    <span class="switch-track"></span>
+                </label>
+            </div>
+        </section>
+        <section class="settings-section" aria-labelledby="music-settings-title">
+            <h2 class="section-title" id="music-settings-title">Music</h2>
+            <div class="settings-label-box">
+                <span class="setting-text">Store Songs in Cloud</span>
+                <label class="switch-container" aria-label="Store Songs in Cloud">
+                    <input type="checkbox" id="storeSongsInCloud" class="switch-input" checked>
+                    <span class="switch-track"></span>
+                </label>
+            </div>
+        </section>
     </div>
 </div>
 
