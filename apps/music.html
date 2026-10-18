@@ -195,6 +195,31 @@ const btn = document.getElementById("loadplaylistbutton");
 const btn2 = document.getElementById("loadtrackbutton");
 const btn3 = document.getElementById("musicupload");
 const iframe = document.querySelector("iframe");
+const LOCAL_SONG_CACHE = "butteros-local-songs-v1";
+const LOCAL_SONG_PREFIX = "local-song:";
+
+const getCloudStorageEnabled = () => localStorage.getItem("storeSongsInCloud") !== "false";
+
+const openLocalSongCache = () => caches.open(LOCAL_SONG_CACHE);
+
+const localSongUrl = (id) => new URL(`./.butteros-local-songs/${encodeURIComponent(id)}`, window.location.href).href;
+
+const loadLocalSong = async (id) => {
+    const cache = await openLocalSongCache();
+    const response = await cache.match(localSongUrl(id));
+    if (!response) return;
+    const blob = await response.blob();
+    iframe.src = URL.createObjectURL(blob);
+};
+
+const playSong = (songId) => {
+    if (songId.startsWith(LOCAL_SONG_PREFIX)) {
+        loadLocalSong(songId.slice(LOCAL_SONG_PREFIX.length));
+    } else {
+        iframe.src = `https://streamables.blrc.me/embed/${encodeURIComponent(songId)}`;
+    }
+};
+
 btn.addEventListener("click", () => {
     const playlistname = inpt.value.trim();
     if (playlistname) {
@@ -214,20 +239,59 @@ btn2.addEventListener("click", () => {
 btn3.addEventListener("click", async () => {
     const file = inpt3.files[0];
     if (file) {
-        const formData = new FormData();
-        formData.append("file", file);
         const name2 = prompt("Enter a name for your track:");
         if (!name2) return;
-        formData.append("name", name2);
-        formData.append("protected", "false");
-        await fetch("https://streamables.blrc.me/upload", {
-            method: "POST",
-            body: formData
-        });
-        iframe.src=`https://streamables.blrc.me/embed/${name2}`;
-        saveSongToCache(name2);
-        // alert upload errors
-        alert("Track uploaded successfully!");
+        if (getCloudStorageEnabled()) {
+            try {
+                const formData = new FormData();
+                formData.append("file", file);
+                formData.append("name", name2);
+                formData.append("protected", "false");
+                const response = await fetch("https://streamables.blrc.me/upload", {
+                    method: "POST",
+                    body: formData
+                });
+                if (!response.ok) throw new Error("Cloud upload failed");
+                iframe.src = `https://streamables.blrc.me/embed/${encodeURIComponent(name2)}`;
+                try {
+                    saveSongToCache(name2);
+                } catch (error) {
+                    console.warn("Uploaded track, but could not save it to the song list", error);
+                }
+                alert("Track uploaded successfully!");
+            } catch (error) {
+                console.error(error);
+                alert("Cloud upload failed. Check your connection and try again.");
+            }
+        } else {
+            try {
+                const localId = `${Date.now()}-${crypto.randomUUID()}`;
+                const songBytes = await file.arrayBuffer();
+                if (songBytes.byteLength !== file.size) {
+                    throw new Error("The complete song could not be read");
+                }
+                const cache = await openLocalSongCache();
+                await cache.put(localSongUrl(localId), new Response(songBytes, {
+                    headers: {
+                        "Content-Type": file.type || "audio/mpeg",
+                        "Content-Length": String(songBytes.byteLength),
+                        "X-Song-Name": encodeURIComponent(name2),
+                        "X-Song-Size": String(songBytes.byteLength)
+                    }
+                }));
+                const storedSong = await cache.match(localSongUrl(localId));
+                if (!storedSong || (await storedSong.arrayBuffer()).byteLength !== file.size) {
+                    await cache.delete(localSongUrl(localId));
+                    throw new Error("The complete song was not saved to browser cache");
+                }
+                saveSongToCache(`${LOCAL_SONG_PREFIX}${localId}`, name2);
+                await loadLocalSong(localId);
+                alert(`Entire track saved locally (${file.size} bytes).`);
+            } catch (error) {
+                console.error(error);
+                alert("Could not save the track locally. Check available browser storage and try again.");
+            }
+        }
     } else {
         alert("Please select a file to upload.");
     }
@@ -244,9 +308,9 @@ const renderSongList = () => {
         const songItem = document.createElement("button");
         songItem.type = "button";
         songItem.className = "cached-song";
-        songItem.textContent = key;
+        songItem.textContent = value.name || key;
         songItem.addEventListener("click", () => {
-            iframe.src = `https://streamables.blrc.me/embed/${key}`;
+            playSong(key);
         });
         songList.appendChild(songItem);
     });
@@ -259,24 +323,29 @@ const renderSongList = () => {
     }
 };
 // load song ids from cache on page load
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
     const cachedSongs = localStorage.getItem("songs");
     if (cachedSongs) {
-        const songIds = JSON.parse(cachedSongs);
-        songIds.forEach((id) => {
-            songCache.set(id, true);
-        });
+        try {
+            const songIds = JSON.parse(cachedSongs);
+            songIds.forEach((song) => {
+                if (typeof song === "string") songCache.set(song, { name: song });
+                else if (song && song.id) songCache.set(song.id, song);
+            });
+        } catch (error) {
+            console.error("Could not read saved song list", error);
+        }
     }
     // load the first song in the cache if it exists
     if (songCache.size > 0) {
         const firstSongId = songCache.keys().next().value;
-        iframe.src = `https://streamables.blrc.me/embed/${firstSongId}`;
+        playSong(firstSongId);
     }
     renderSongList();
 });
-const saveSongToCache = (songId) => {
-    songCache.set(songId, true);
-    const songIds = Array.from(songCache.keys());
+const saveSongToCache = (songId, name = songId) => {
+    songCache.set(songId, { name });
+    const songIds = Array.from(songCache, ([id, song]) => ({ id, name: song.name }));
     localStorage.setItem("songs", JSON.stringify(songIds));
     renderSongList();
 };
