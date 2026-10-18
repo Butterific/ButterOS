@@ -46,7 +46,7 @@ This WebOS currently features `8` apps:
  - [Stardance project](https://stardance.hackclub.com/projects/61558)
 ## AI Usage
  - mostly vs code autofill
- - calculator css
+ - a decent bit of boring css
  - terminal file system
 ## Gallery
 ![Image1](assets/readme/image.png)
