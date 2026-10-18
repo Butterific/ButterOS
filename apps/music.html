@@ -308,7 +308,12 @@ const renderSongList = () => {
         const songItem = document.createElement("button");
         songItem.type = "button";
         songItem.className = "cached-song";
-        songItem.textContent = value.name || key;
+        const isCloudSong = !key.startsWith(LOCAL_SONG_PREFIX);
+        const storageIcon = isCloudSong ? "☁️" : "💾";
+        const storageLabel = isCloudSong ? "Stored in the cloud" : "Stored locally";
+        songItem.textContent = `${storageIcon} ${value.name || key}`;
+        songItem.title = storageLabel;
+        songItem.setAttribute("aria-label", `${value.name || key}, ${storageLabel.toLowerCase()}`);
         songItem.addEventListener("click", () => {
             playSong(key);
         });
@@ -344,7 +349,7 @@ window.addEventListener("load", async () => {
     renderSongList();
 });
 const saveSongToCache = (songId, name = songId) => {
-    songCache.set(songId, { name });
+    songCache.set(songId, { name, storage: songId.startsWith(LOCAL_SONG_PREFIX) ? "local" : "cloud" });
     const songIds = Array.from(songCache, ([id, song]) => ({ id, name: song.name }));
     localStorage.setItem("songs", JSON.stringify(songIds));
     renderSongList();
