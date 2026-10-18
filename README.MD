@@ -19,13 +19,15 @@ The website/WebOS is powered by 2 key components, the windowdrag and appopen scr
 
 
 ## Apps
-This WebOS currently features `6` apps:
+This WebOS currently features `8` apps:
  - `Calculator` - Calculates stuff 
  - `SimplyEpic` - Google search but no ai and only searches academic sites (3 to be exact)
  - `ButterOS Music` - Cloud based music app
  - `Info` - Returns info about the project
  - `CMD` - The butterOS command line
  - `Notes` - The butterOS notes app
+ - `Games` - Games iv made along with other ones too
+ - `Settings` - Settings for the OS
 
 ## Future Plans
  - Remake the toolbar from scratch because its not much different from the guide
