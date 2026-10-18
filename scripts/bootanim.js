@@ -3,6 +3,7 @@ var bootlogo = document.querySelector(".bootlogo");
 
 function closebootanim() {
     if (!bootanimscreen) return;
+    if (bootanimscreen.classList.contains("fadeout")) return;
     bootanimscreen.classList.add("fadeout");
     sessionStorage.setItem("bootanimplayed", "true");
     setTimeout(function() {
@@ -26,7 +27,12 @@ else if (sessionStorage.getItem("bootanimplayed") === "true") {
 }
 
 function startBootAnimation() {
+    if (!bootanimscreen || !bootlogo) return;
     bootlogo.addEventListener("ended", closebootanim, { once: true });
     bootlogo.addEventListener("error", closebootanim, { once: true });
     bootlogo.play().catch(closebootanim);
+}
+
+if (!shouldSkipBoot && sessionStorage.getItem("bootanimplayed") !== "true") {
+    startBootAnimation();
 }
