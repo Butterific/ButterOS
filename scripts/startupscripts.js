@@ -38,7 +38,6 @@
   const originalSetItem = localStorage.setItem.bind(localStorage);
   localStorage.setItem = function (key, value) {
     originalSetItem(key, value);
-
     if (key === 'eurdaEnabled') {
       if (String(value) === 'true') {
         loadEruda();
@@ -47,4 +46,24 @@
       }
     }
   };
+
+  document.addEventListener('change', (e) => {
+    if (e.target && e.target.id === 'eurdaEnabled') {
+      if (e.target.checked) {
+        loadEruda();
+      } else {
+        removeEruda();
+      }
+    }
+  });
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'eurdaEnabled') {
+      if (e.newValue === 'true') {
+        loadEruda();
+      } else {
+        removeEruda();
+      }
+    }
+  });
 })();
