@@ -234,6 +234,13 @@ body {
                     <span class="switch-track"></span>
                 </label>
             </div>
+            <div class="settings-label-box">
+                <span class="setting-text">Hide Welcome Window</span>
+                <label class="switch-container" aria-label="Hide Welcome Window">
+                    <input type="checkbox" id="hideWelcomeWindow" class="switch-input">
+                    <span class="switch-track"></span>
+                </label>
+            </div>
         </section>
         <section class="settings-section" aria-labelledby="music-settings-title">
             <h2 class="section-title" id="music-settings-title">Music</h2>
@@ -282,6 +289,9 @@ body {
                 localStorage.setItem(e.target.id, e.target.checked);
                 if (e.target.id === 'enableTerminal' && window.parent !== window) {
                     window.parent.updateTerminalAvailability();
+                }
+                if (e.target.id === 'hideWelcomeWindow' && window.parent !== window) {
+                    window.parent.updateWelcomeAvailability();
                 }
             });
         });

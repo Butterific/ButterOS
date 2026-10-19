@@ -1,4 +1,5 @@
 var sepic = document.getElementById("sepic");
+var welcome = document.querySelector(".welcome");
 var calcapp = document.getElementById("calcapp");
 var music = document.getElementById("music");
 var info = document.getElementById("info");
@@ -21,9 +22,18 @@ function updateTerminalAvailability() {
         cmd.style.display = "none";
     }
 }
-
+function isWelcomeEnabled() {
+    return localStorage.getItem("hideWelcomeWindow") === "true";
+}
+function updateWelcomeAvailability() {
+    if (welcome) {
+        welcome.style.display = isWelcomeEnabled() ? "none" : "flex";
+    }
+}
 updateTerminalAvailability();
+updateWelcomeAvailability();
 window.addEventListener("storage", updateTerminalAvailability);
+window.addEventListener("storage", updateWelcomeAvailability);
 
 // open simply epic
 function opensimplyepic() {
