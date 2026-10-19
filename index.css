@@ -103,36 +103,43 @@ button, a, .appicon, .closebutton, [id*="header"] {
 }
 .windowheader {
   box-sizing: border-box;
-  backdrop-filter: blur(10px); 
-  background-color: rgba(0, 0, 0, 0.25); 
-  padding: 5px; 
+  position: relative;
+  min-height: 42px;
+  padding: 6px 8px 6px 10px;
   width: 100%;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   cursor: url('assets/cursor/move.cur'), move;
   justify-content: space-between;
-  border-radius: 12px;
-  background-color: silver;
-  backdrop-filter: blur(4px);
+  gap: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-bottom-color: rgba(74, 57, 66, 0.3);
+  border-radius: 12px 12px 8px 8px;
+  background: linear-gradient(135deg, rgba(220, 222, 147, 0.92), rgba(222, 161, 147, 0.9));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 3px 10px rgba(42, 27, 36, 0.2);
+  backdrop-filter: blur(12px) saturate(1.15);
 }
 .windowdrag {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   min-width: 0;
   flex: 1;
 }
 .windowicon {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(53, 38, 44, 0.25));
 }
 .windowtitle {
   overflow: hidden;
-  color: #202020;
+  color: #3b3036;
+  font-size: 0.98rem;
   font-weight: 700;
+  letter-spacing: 0.01em;
   text-overflow: ellipsis;
   white-space: nowrap;
   user-select: none;
@@ -175,20 +182,28 @@ button, a, .appicon, .closebutton, [id*="header"] {
   cursor: url('assets/cursor/move.cur'), move;
 }
 .closebutton {
-  background-color: rgba(256, 256, 256, 0.125); 
-  padding: 4px 12px; 
-  border-radius: 16px;
-  width: 20px;
-  height: 20px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid rgba(115, 54, 55, 0.2);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
   cursor: url('assets/cursor/Wii_hand3.cur'), pointer;
+  transition: background-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
 }
 .closebutton:hover {
-    background-color: darkred;
+    background-color: rgba(177, 48, 55, 0.88);
+    box-shadow: 0 2px 7px rgba(98, 28, 35, 0.3);
+    transform: scale(1.05);
     cursor: url('assets/cursor/Wii_hand4.cur'), pointer;
 }
 .closebutton img {
-  width: 100%;
-  height: 100%;
+  width: 16px;
+  height: 16px;
   display: block;
 }
 /* apps */
