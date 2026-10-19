@@ -83,6 +83,26 @@ body {
   cursor: pointer;
 }
 
+.setting-button {
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 10px;
+    padding: 8px 12px;
+    color: #ffffff;
+    background: var(--accent-gradient-dark);
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.setting-button:hover {
+    filter: brightness(1.15);
+}
+
+.setting-button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
 .switch-input {
   position: absolute;
   opacity: 0;
@@ -241,6 +261,10 @@ body {
                     <span class="switch-track"></span>
                 </label>
             </div>
+            <div class="settings-label-box">
+                <span class="setting-text">Bring All Windows to the Center</span>
+                <button type="button" class="setting-button" id="centerWindows">Center</button>
+            </div>
         </section>
         <section class="settings-section" aria-labelledby="music-settings-title">
             <h2 class="section-title" id="music-settings-title">Music</h2>
@@ -278,6 +302,7 @@ body {
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const switches = document.querySelectorAll('.switch-input');
+        const centerWindowsButton = document.getElementById('centerWindows');
 
         switches.forEach(sw => {
             const storedValue = localStorage.getItem(sw.id);
@@ -294,6 +319,12 @@ body {
                     window.parent.updateWelcomeAvailability();
                 }
             });
+        });
+
+        centerWindowsButton.addEventListener('click', () => {
+            if (window.parent !== window && typeof window.parent.bringAllWindowsToCenter === 'function') {
+                window.parent.bringAllWindowsToCenter();
+            }
         });
     });
 </script>

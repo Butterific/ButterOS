@@ -35,6 +35,17 @@ updateWelcomeAvailability();
 window.addEventListener("storage", updateTerminalAvailability);
 window.addEventListener("storage", updateWelcomeAvailability);
 
+function bringAllWindowsToCenter() {
+    document.querySelectorAll(".window").forEach(windowElement => {
+        const left = Math.max(0, (window.innerWidth - windowElement.offsetWidth) / 2);
+        const top = Math.max(0, (window.innerHeight - windowElement.offsetHeight) / 2);
+
+        windowElement.style.left = `${left}px`;
+        windowElement.style.top = `${top}px`;
+        windowElement.style.transform = "none";
+    });
+}
+
 // open simply epic
 function opensimplyepic() {
     counter += 1;
