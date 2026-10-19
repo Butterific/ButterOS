@@ -46,6 +46,16 @@ function bringAllWindowsToCenter() {
     });
 }
 
+async function clearMusicCache() {
+    await caches.delete("butteros-local-songs-v1");
+    localStorage.removeItem("songs");
+
+    const musicFrame = music?.querySelector("iframe");
+    if (musicFrame?.contentWindow) {
+        musicFrame.contentWindow.location.reload();
+    }
+}
+
 // open simply epic
 function opensimplyepic() {
     counter += 1;

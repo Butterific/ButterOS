@@ -275,6 +275,10 @@ body {
                     <span class="switch-track"></span>
                 </label>
             </div>
+            <div class="settings-label-box">
+                <span class="setting-text">Clear Music Cache</span>
+                <button type="button" class="setting-button" id="clearMusicCache">Clear</button>
+            </div>
         </section>
         <section class="settings-section" aria-labelledby="notes-settings-title">
             <h2 class="section-title" id="notes-settings-title">Notes</h2>
@@ -303,6 +307,7 @@ body {
     document.addEventListener("DOMContentLoaded", () => {
         const switches = document.querySelectorAll('.switch-input');
         const centerWindowsButton = document.getElementById('centerWindows');
+        const clearMusicCacheButton = document.getElementById('clearMusicCache');
 
         switches.forEach(sw => {
             const storedValue = localStorage.getItem(sw.id);
@@ -324,6 +329,12 @@ body {
         centerWindowsButton.addEventListener('click', () => {
             if (window.parent !== window && typeof window.parent.bringAllWindowsToCenter === 'function') {
                 window.parent.bringAllWindowsToCenter();
+            }
+        });
+
+        clearMusicCacheButton.addEventListener('click', async () => {
+            if (window.parent !== window && typeof window.parent.clearMusicCache === 'function') {
+                await window.parent.clearMusicCache();
             }
         });
     });
