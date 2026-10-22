@@ -35,7 +35,6 @@ This WebOS currently features `8` apps:
  - add a working timer app
  - add a pong app/game
  - add some more apps in general because it kind of feels empty
- - revamp the design 
  - add a file system app that connects to the file system in the cmd
 ## Credits
   - Special thanks to [Brocode](https://youtu.be/I5kj-YsmWjM) for the calculator guide!
