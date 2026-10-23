@@ -55,6 +55,10 @@ async function clearMusicCache() {
         musicFrame.contentWindow.location.reload();
     }
 }
+// center all windows
+function centerAllWindows() {
+    window.parent.bringAllWindowsToCenter();
+}
 
 // open simply epic
 function opensimplyepic() {
@@ -108,3 +112,4 @@ function opensettings() {
     settings.style.display = "flex";
     settings.style.zIndex = counter;
 }
+
