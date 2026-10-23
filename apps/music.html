@@ -164,10 +164,6 @@ iframe {
     </style>
   </head>
   <body>
-    <!-- playlist input -->
-    <input type="text" class="inputbtn" id="playlistinput" placeholder="Enter playlist name">
-    <button id="loadplaylistbutton">Load Playlist</button> 
-     <h6 style="color: rgb(255, 255, 255);">Playlists can be created and managed at <a href="https://streamables.butterlabs.app/" target="_blank" rel="noopener noreferrer">Streamables</a></h6>
      <!-- indiv track input -->
     <input type="text" class="inputbtn" id="trackinput" placeholder="Enter track name">
     <button id="loadtrackbutton">Load Track</button> 
@@ -188,10 +184,8 @@ iframe {
       referrerpolicy="no-referrer">
     </iframe>
     <script>
-      const inpt = document.getElementById("playlistinput");
 const inpt2 = document.getElementById("trackinput");
 const inpt3 = document.getElementById("fileinput");
-const btn = document.getElementById("loadplaylistbutton");
 const btn2 = document.getElementById("loadtrackbutton");
 const btn3 = document.getElementById("musicupload");
 const iframe = document.querySelector("iframe");
@@ -219,15 +213,6 @@ const playSong = (songId) => {
         iframe.src = `https://streamables.blrc.me/embed/${encodeURIComponent(songId)}`;
     }
 };
-
-btn.addEventListener("click", () => {
-    const playlistname = inpt.value.trim();
-    if (playlistname) {
-        iframe.src = `https://streamables.blrc.me/embed/playlist/${playlistname}`;
-    } else {
-        alert("Enter a valid playlist name");
-    }
-});
 btn2.addEventListener("click", () => {
     const trackname = inpt2.value.trim();
     if (trackname) {
