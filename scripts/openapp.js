@@ -30,10 +30,23 @@ function updateWelcomeAvailability() {
         welcome.style.display = isWelcomeEnabled() ? "none" : "flex";
     }
 }
+function updateQuickButtonsAvailability() {
+    const quickButtons = document.querySelectorAll(".quick-button");
+    const showQuickButtons = localStorage.getItem("showQuickButtons") !== "false";
+    quickButtons.forEach(button => {
+        button.style.display = showQuickButtons ? "" : "none";
+    });
+}
 updateTerminalAvailability();
 updateWelcomeAvailability();
+updateQuickButtonsAvailability();
 window.addEventListener("storage", updateTerminalAvailability);
 window.addEventListener("storage", updateWelcomeAvailability);
+window.addEventListener("storage", event => {
+    if (event.key === "showQuickButtons") {
+        updateQuickButtonsAvailability();
+    }
+});
 
 function bringAllWindowsToCenter() {
     document.querySelectorAll(".window").forEach(windowElement => {

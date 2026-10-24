@@ -260,11 +260,7 @@ body {
                     <input type="checkbox" id="hideWelcomeWindow" class="switch-input">
                     <span class="switch-track"></span>
                 </label>
-            </div>
-            <div class="settings-label-box">
-                <span class="setting-text">Bring All Windows to the Center</span>
-                <button type="button" class="setting-button" id="centerWindows">Center</button>
-            </div>
+            </div>       
         </section>
         <section class="settings-section" aria-labelledby="music-settings-title">
             <h2 class="section-title" id="music-settings-title">Music</h2>
@@ -299,6 +295,13 @@ body {
                     <span class="switch-track"></span>
                 </label>
             </div>
+            <div class="settings-label-box">
+                <span class="setting-text">Show Quick Buttons in Toolbar</span>
+                <label class="switch-container" aria-label="Show Quick Buttons in Toolbar">
+                    <input type="checkbox" id="showQuickButtons" class="switch-input">
+                    <span class="switch-track"></span>
+                </label>
+            </div>
         </section>
     </div>
 </div>
@@ -323,13 +326,10 @@ body {
                 if (e.target.id === 'hideWelcomeWindow' && window.parent !== window) {
                     window.parent.updateWelcomeAvailability();
                 }
+                if (e.target.id === 'showQuickButtons' && window.parent !== window) {
+                    window.parent.updateQuickButtonsAvailability();
+                }
             });
-        });
-
-        centerWindowsButton.addEventListener('click', () => {
-            if (window.parent !== window && typeof window.parent.bringAllWindowsToCenter === 'function') {
-                window.parent.bringAllWindowsToCenter();
-            }
         });
 
         clearMusicCacheButton.addEventListener('click', async () => {
