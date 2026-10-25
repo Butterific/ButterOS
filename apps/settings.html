@@ -321,12 +321,12 @@ body {
                 </label>
             </div>
         </section>
-        <section class="settings-section" aria-labelledby="???">
-            <h2 class="section-title" id="???-settings-title">???</h2>
+        <section class="settings-section" aria-labelledby="qwerty-settings-title">
+            <h2 class="section-title" id="qwerty-settings-title">Qwerty</h2>
             <div class="settings-label-box">
-                <span class="setting-text">???</span>
-                <label class="switch-container" aria-label="???">
-                    <input type="checkbox" id="???" class="switch-input">
+                <span class="setting-text">Qwerty Mode</span>
+                <label class="switch-container" aria-label="Qwerty Mode">
+                    <input type="checkbox" id="qwertyMode" class="switch-input">
                     <span class="switch-track"></span>
                 </label>
             </div>
@@ -335,6 +335,28 @@ body {
 </div>
 
 <script>
+    function replacePageTextWithQwerty(root) {
+        const walker = root.createTreeWalker(root.body, NodeFilter.SHOW_TEXT);
+        let node;
+
+        while ((node = walker.nextNode())) {
+            if (!node.nodeValue.trim()) continue;
+
+            node.nodeValue = node.nodeValue.replace(/[^\s]+/g, 'qwerty');
+        }
+    }
+
+    function applyQwertyMode(root) {
+        root.querySelectorAll('img').forEach(image => {
+            if (!image.dataset.qwertyOriginalSrc) {
+                image.dataset.qwertyOriginalSrc = image.getAttribute('src') || '';
+            }
+            image.src = new URL('../assets/qwerty.png', root.location.href).href;
+        });
+
+        replacePageTextWithQwerty(root);
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
         const switches = document.querySelectorAll('.switch-input');
         const centerWindowsButton = document.getElementById('centerWindows');
@@ -358,6 +380,31 @@ body {
                     window.parent.updateQuickButtonsAvailability();
                 }
             });
+        });
+
+        if (document.getElementById('qwertyMode').checked) {
+            applyQwertyMode(document);
+            if (window.parent !== window && typeof window.parent.applyQwertyMode === 'function') {
+                window.parent.applyQwertyMode(window.parent.document);
+            }
+        }
+
+        document.getElementById('qwertyMode').addEventListener('change', (event) => {
+            if (event.target.checked) {
+                applyQwertyMode(document);
+                if (window.parent !== window && typeof window.parent.applyQwertyMode === 'function') {
+                    window.parent.applyQwertyMode(window.parent.document);
+                    window.parent.document.querySelectorAll('iframe').forEach(frame => {
+                        try {
+                            if (frame.contentDocument) window.parent.applyQwertyMode(frame.contentDocument);
+                        } catch (error) {
+                            // Embedded cross-origin documents cannot be modified.
+                        }
+                    });
+                }
+            } else {
+                window.location.reload();
+            }
         });
 
         clearMusicCacheButton.addEventListener('click', async () => {

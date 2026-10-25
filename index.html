@@ -213,5 +213,33 @@
     <script src="scripts/bootanim.js"></script>
     <!-- startup scripts -->
     <script src="scripts/startupscripts.js"></script>
+    <script>
+      (() => {
+        const qwertyImagePath = './assets/qwerty.png';
+
+        function applyQwertyMode(root) {
+          root.querySelectorAll('img').forEach(image => {
+            if (!image.dataset.qwertyOriginalSrc) {
+              image.dataset.qwertyOriginalSrc = image.getAttribute('src') || '';
+            }
+            image.src = qwertyImagePath;
+          });
+
+          const walker = root.createTreeWalker(root.body, NodeFilter.SHOW_TEXT);
+          let node;
+          while ((node = walker.nextNode())) {
+            if (node.nodeValue.trim()) {
+              node.nodeValue = node.nodeValue.replace(/[^\s]+/g, 'qwerty');
+            }
+          }
+        }
+
+        window.applyQwertyMode = applyQwertyMode;
+
+        if (localStorage.getItem('qwertyMode') === 'true') {
+          applyQwertyMode(document);
+        }
+      })();
+    </script>
   </body>
 </html>
