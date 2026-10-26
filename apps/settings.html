@@ -128,6 +128,60 @@ body {
     outline-offset: 2px;
 }
 
+.wallpaper-upload {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.wallpaper-upload input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.wallpaper-upload-label {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 8px;
+    background: var(--accent-gradient-dark);
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: filter 0.18s ease, transform 0.18s ease;
+}
+
+.wallpaper-upload-label:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+}
+
+.wallpaper-upload input[type="file"]:focus-visible + .wallpaper-upload-label {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+.wallpaper-file-name {
+    min-width: 0;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.82rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .switch-input {
   position: absolute;
   opacity: 0;
@@ -278,7 +332,15 @@ body {
                     <input type="checkbox" id="hideWelcomeWindow" class="switch-input">
                     <span class="switch-track"></span>
                 </label>
-            </div>       
+            </div> 
+            <div class="settings-label-box">
+                <span class="setting-text">Change wallpaper</span>
+                <div class="wallpaper-upload">
+                    <input type="file" id="changeWallpaper" accept="image/*">
+                    <label class="wallpaper-upload-label" for="changeWallpaper">Choose image</label>
+                    <span class="wallpaper-file-name" id="wallpaperFileName">No image selected</span>
+                </div>
+            </div>         
         </section>
         <section class="settings-section" aria-labelledby="music-settings-title">
             <h2 class="section-title" id="music-settings-title">Music</h2>
@@ -361,6 +423,14 @@ body {
         const switches = document.querySelectorAll('.switch-input');
         const centerWindowsButton = document.getElementById('centerWindows');
         const clearMusicCacheButton = document.getElementById('clearMusicCache');
+        const wallpaperInput = document.getElementById('changeWallpaper');
+        const wallpaperFileName = document.getElementById('wallpaperFileName');
+
+        wallpaperInput.addEventListener('change', () => {
+            wallpaperFileName.textContent = wallpaperInput.files.length > 0
+                ? wallpaperInput.files[0].name
+                : 'No image selected';
+        });
 
         switches.forEach(sw => {
             const storedValue = localStorage.getItem(sw.id);
