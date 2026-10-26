@@ -427,9 +427,17 @@ body {
         const wallpaperFileName = document.getElementById('wallpaperFileName');
 
         wallpaperInput.addEventListener('change', () => {
-            wallpaperFileName.textContent = wallpaperInput.files.length > 0
-                ? wallpaperInput.files[0].name
+            const selectedFile = wallpaperInput.files[0];
+            wallpaperFileName.textContent = selectedFile
+                ? selectedFile.name
                 : 'No image selected';
+
+            if (selectedFile && window.parent !== window
+                && typeof window.parent.setWallpaper === 'function') {
+                window.parent.setWallpaper(selectedFile).catch(() => {
+                    wallpaperFileName.textContent = 'Could not save image';
+                });
+            }
         });
 
         switches.forEach(sw => {

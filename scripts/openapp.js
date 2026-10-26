@@ -9,6 +9,49 @@ var games = document.getElementById("games");
 var settings = document.getElementById("settings");
 var counter = 1
 
+const wallpaperCacheName = "butteros-wallpaper-v1";
+const wallpaperCacheKey = new URL("./wallpaper-cache", window.location.href).href;
+let wallpaperObjectUrl = null;
+
+function applyWallpaperImage(imageUrl) {
+    document.body.style.backgroundImage = `url("${imageUrl}")`;
+}
+
+async function setWallpaper(file) {
+    if (!file || !file.type.startsWith("image/")) {
+        return;
+    }
+
+    const cache = await caches.open(wallpaperCacheName);
+    await cache.put(wallpaperCacheKey, new Response(file, {
+        headers: { "Content-Type": file.type }
+    }));
+
+    if (wallpaperObjectUrl) {
+        URL.revokeObjectURL(wallpaperObjectUrl);
+    }
+    wallpaperObjectUrl = URL.createObjectURL(file);
+    applyWallpaperImage(wallpaperObjectUrl);
+}
+
+async function loadWallpaper() {
+    try {
+        const cache = await caches.open(wallpaperCacheName);
+        const cachedWallpaper = await cache.match(wallpaperCacheKey);
+        if (!cachedWallpaper) {
+            return;
+        }
+
+        const wallpaperBlob = await cachedWallpaper.blob();
+        wallpaperObjectUrl = URL.createObjectURL(wallpaperBlob);
+        applyWallpaperImage(wallpaperObjectUrl);
+    } catch (error) {
+        console.warn("Unable to load cached wallpaper.", error);
+    }
+}
+
+loadWallpaper();
+
 function isWelcomeEnabled() {
     return localStorage.getItem("hideWelcomeWindow") === "true";
 }
