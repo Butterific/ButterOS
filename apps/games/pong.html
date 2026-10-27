@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pong</title>
+    <style>
+:root {
+    --accent-color: #dcde93;
+    --accent-pink: #dea193;
+    --accent-gradient: linear-gradient(135deg, var(--accent-color), #dea193);
+    --accent-dark: #75764d;
+    --accent-pink-dark: #88635a;
+    --accent-gradient-dark: linear-gradient(135deg, var(--accent-dark), #88635a);
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background-image: var(--accent-gradient-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board {
+    height: 85vh;
+    width: 80vw;
+    background-image: linear-gradient(135deg, var(--accent-dark), var(--accent-pink));
+    border-radius: 14px;
+    position: relative;
+}
+
+.ball {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    position: fixed;
+    top: calc(50% - 15px);
+    left: calc(50% - 15px);
+}
+
+.ball_effect {
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    box-shadow: inset 0 0 18px #fff,
+        inset 6px 0 18px var(--accent-pink-dark),
+        inset -6px 0 18px var(--accent-color),
+        inset 6px 0 30px var(--accent-pink-dark),
+        inset -6px 0 30px var(--accent-color),
+        0 0 18px #fff, -4px 0 18px
+        var(--accent-pink-dark), 4px 0 18px var(--accent-color);
+}
+
+.paddle {
+    height: 100px;
+    width: 18px;
+    border-radius: 50%;
+    position: fixed;
+}
+
+@keyframes rotateBarColors {
+    0%, 100% {
+        box-shadow: 
+            inset 0 0 12px #fff,
+            inset -4px -6px 20px var(--accent-pink-dark),
+            inset 4px 6px 20px var(--accent-color),
+            0 0 14px #fff,
+            -4px -6px 20px var(--accent-pink-dark),
+            4px 6px 20px var(--accent-color);
+    }
+    25% {
+        box-shadow: 
+            inset 0 0 12px #fff,
+            inset 4px -6px 20px var(--accent-pink-dark),
+            inset -4px 6px 20px var(--accent-color),
+            0 0 14px #fff,
+            4px -6px 20px var(--accent-pink-dark),
+            -4px 6px 20px var(--accent-color);
+    }
+    50% {
+        box-shadow: 
+            inset 0 0 12px #fff,
+            inset 4px 6px 20px var(--accent-pink-dark),
+            inset -4px -6px 20px var(--accent-color),
+            0 0 14px #fff,
+            4px 6px 20px var(--accent-pink-dark),
+            -4px -6px 20px var(--accent-color);
+    }
+    75% {
+        box-shadow: 
+            inset 0 0 12px #fff,
+            inset -4px 6px 20px var(--accent-pink-dark),
+            inset 4px -6px 20px var(--accent-color),
+            0 0 14px #fff,
+            -4px 6px 20px var(--accent-pink-dark),
+            -4px -6px 20px var(--accent-color);
+    }
+}
+
+.paddle_1 {
+    top: calc(7.5vh + 55px);
+    left: calc(10vw + 30px);
+    width: 20px;          
+    height: 120px;
+    border-radius: 10px;  
+    animation: rotateBarColors 4s linear infinite;
+}
+
+.paddle_2 {
+    top: calc(7.5vh + 55px);
+    right: calc(10vw + 30px);
+    width: 20px;          
+    height: 120px;
+    border-radius: 10px;  
+    animation: rotateBarColors 4s linear infinite;
+}
+
+.player_1_score {
+    height: 50px;
+    width: 50px;
+    color: var(--accent-color);
+    position: fixed;
+    left: 30vw;
+    margin-top: 30px;
+}
+
+.player_2_score {
+    height: 50px;
+    width: 50px;
+    color: var(--accent-color);
+    position: fixed;
+    left: 70vw;
+    margin-top: 30px;
+}
+
+.message {
+    position: fixed;
+    height: 10vh;
+    width: 30vw;
+    color: var(--accent-color);
+    left: 38vw;
+    margin: 30px auto auto auto;
+}
+    </style>
+</head>
+
+<body>
+    <div class="board">
+        <div class='ball'>
+            <div class="ball_effect"></div>
+        </div>
+        <div class="paddle_1 paddle"></div>
+        <div class="paddle_2 paddle"></div>
+        <h1 class="player_1_score">0</h1>
+        <h1 class="player_2_score">0</h1>
+        <h1 class="message">
+            Press Enter to Play Pong
+        </h1>
+    </div>
+    
+    <script>
+        const elements = {
+            p1: document.querySelector('.paddle_1'),
+            p2: document.querySelector('.paddle_2'),
+            board: document.querySelector('.board'),
+            ball: document.querySelector('.ball'),
+            score1: document.querySelector('.player_1_score'),
+            score2: document.querySelector('.player_2_score'),
+            msg: document.querySelector('.message')
+        };
+
+        const state = {
+            status: 'start',
+            ballVel: { x: 0, y: 0 },
+            ballDir: { x: 1, y: 1 },
+            initialPos: null,
+            aiSpeed: 5
+        };
+
+        window.addEventListener('load', () => {
+            state.initialPos = elements.ball.getBoundingClientRect();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                toggleGameState();
+            }
+
+            if (state.status === 'play') {
+                const boardRect = elements.board.getBoundingClientRect();
+                const p1Rect = elements.p1.getBoundingClientRect();
+                const step = window.innerHeight * 0.06;
+
+                if (e.key.toLowerCase() === 'w') {
+                    const nextTop = Math.max(boardRect.top, p1Rect.top - step);
+                    elements.p1.style.top = `${nextTop}px`;
+                } else if (e.key.toLowerCase() === 's') {
+                    const nextTop = Math.min(boardRect.bottom - p1Rect.height, p1Rect.top + step);
+                    elements.p1.style.top = `${nextTop}px`;
+                }
+            }
+        });
+
+        function toggleGameState() {
+            state.status = state.status === 'start' ? 'play' : 'start';
+
+            if (state.status === 'play') {
+                elements.msg.innerHTML = 'Game Started';
+                elements.msg.style.left = '42vw';
+                
+                state.ballVel.x = Math.floor(Math.random() * 4) + 3;
+                state.ballVel.y = Math.floor(Math.random() * 4) + 3;
+                state.ballDir.x = Math.random() > 0.5 ? 1 : -1;
+                state.ballDir.y = Math.random() > 0.5 ? 1 : -1;
+
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        function updateAI(ballRect, boardRect) {
+            const p2Rect = elements.p2.getBoundingClientRect();
+            const ballCenterY = ballRect.top + ballRect.height / 2;
+            const p2CenterY = p2Rect.top + p2Rect.height / 2;
+            const diff = ballCenterY - p2CenterY;
+
+            if (Math.abs(diff) > 5) {
+                const moveAmount = Math.sign(diff) * Math.min(Math.abs(diff), state.aiSpeed);
+                const targetTop = p2Rect.top + moveAmount;
+                const clampedTop = Math.max(boardRect.top, Math.min(boardRect.bottom - p2Rect.height, targetTop));
+                elements.p2.style.top = `${clampedTop}px`;
+            }
+        }
+
+        function gameLoop() {
+            if (state.status !== 'play') return;
+
+            let ballRect = elements.ball.getBoundingClientRect();
+            const boardRect = elements.board.getBoundingClientRect();
+            const p1Rect = elements.p1.getBoundingClientRect();
+            const p2Rect = elements.p2.getBoundingClientRect();
+
+            updateAI(ballRect, boardRect);
+
+            if (ballRect.top <= boardRect.top) state.ballDir.y = 1;
+            if (ballRect.bottom >= boardRect.bottom) state.ballDir.y = -1;
+
+            if (ballRect.left <= p1Rect.right && 
+                ballRect.top >= p1Rect.top && 
+                ballRect.bottom <= p1Rect.bottom) {
+                state.ballDir.x = 1;
+                state.ballVel.x = Math.floor(Math.random() * 4) + 3;
+                state.ballVel.y = Math.floor(Math.random() * 4) + 3;
+            }
+
+            if (ballRect.right >= p2Rect.left && 
+                ballRect.top >= p2Rect.top && 
+                ballRect.bottom <= p2Rect.bottom) {
+                state.ballDir.x = -1;
+                state.ballVel.x = Math.floor(Math.random() * 4) + 3;
+                state.ballVel.y = Math.floor(Math.random() * 4) + 3;
+            }
+
+            if (ballRect.left <= boardRect.left || ballRect.right >= boardRect.right) {
+                if (ballRect.left <= boardRect.left) {
+                    elements.score2.textContent = +elements.score2.textContent + 1;
+                } else {
+                    elements.score1.textContent = +elements.score1.textContent + 1;
+                }
+
+                state.status = 'start';
+                elements.ball.style.top = `${state.initialPos.top}px`;
+                elements.ball.style.left = `${state.initialPos.left}px`;
+                elements.msg.textContent = 'Press Enter to Play Pong';
+                elements.msg.style.left = '38vw';
+                return;
+            }
+
+            elements.ball.style.top = `${ballRect.top + state.ballVel.y * state.ballDir.y}px`;
+            elements.ball.style.left = `${ballRect.left + state.ballVel.x * state.ballDir.x}px`;
+
+            requestAnimationFrame(gameLoop);
+        }
+    </script>
+</body>
+</html>
