@@ -97,6 +97,11 @@ async function clearMusicCache() {
         musicFrame.contentWindow.location.reload();
     }
 }
+
+async function clearCache() {
+    const cacheNames = await caches.keys();
+    await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
+}
 // center all windows
 function centerAllWindows() {
     window.parent.bringAllWindowsToCenter();

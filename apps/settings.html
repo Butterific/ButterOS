@@ -382,6 +382,10 @@ body {
                     <span class="switch-track"></span>
                 </label>
             </div>
+            <div class="settings-label-box">
+                <span class="setting-text">Clear Cache</span>
+                <button type="button" class="setting-button" id="ClearCache">Clear</button>
+            </div>
         </section>
         <section class="settings-section" aria-labelledby="qwerty-settings-title">
             <h2 class="section-title" id="qwerty-settings-title">Qwerty</h2>
@@ -423,6 +427,7 @@ body {
         const switches = document.querySelectorAll('.switch-input');
         const centerWindowsButton = document.getElementById('centerWindows');
         const clearMusicCacheButton = document.getElementById('clearMusicCache');
+        const clearCacheButton = document.getElementById('ClearCache');
         const wallpaperInput = document.getElementById('changeWallpaper');
         const wallpaperFileName = document.getElementById('wallpaperFileName');
 
@@ -439,7 +444,6 @@ body {
                 });
             }
         });
-
         switches.forEach(sw => {
             const storedValue = localStorage.getItem(sw.id);
             if (storedValue !== null) {
@@ -476,7 +480,6 @@ body {
                         try {
                             if (frame.contentDocument) window.parent.applyQwertyMode(frame.contentDocument);
                         } catch (error) {
-                            // Embedded cross-origin documents cannot be modified.
                         }
                     });
                 }
@@ -485,11 +488,20 @@ body {
             }
         });
 
-        clearMusicCacheButton.addEventListener('click', async () => {
-            if (window.parent !== window && typeof window.parent.clearMusicCache === 'function') {
-                await window.parent.clearMusicCache();
-            }
-        });
+            clearMusicCacheButton.addEventListener('click', async () => {
+                if (window.parent !== window && typeof window.parent.clearMusicCache === 'function') {
+                    await window.parent.clearMusicCache();
+                }
+            });
+            clearCacheButton.addEventListener('click', async () => {
+                if (window.parent !== window && typeof window.parent.clearCache === 'function') {
+                    await window.parent.clearCache();
+                } else {
+                    const cacheNames = await caches.keys();
+                    await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
+                }
+                alert('Cache cleared successfully.');
+            });
     });
 </script>
 </body>
