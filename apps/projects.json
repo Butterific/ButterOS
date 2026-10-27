@@ -19,13 +19,13 @@
   },
   {
     "name": "Pong",
-    "url": "https://butteros.blrc.me/apps/game/pong.html",
+    "url": "https://butteros.blrc.me/apps/games/pong.html",
     "description": "pong, a classic arcade game",
     "color": "#FF007F"
   },
     {
     "name": "Block Breaker",
-    "url": "https://butteros.blrc.me/apps/game/blockbreaker.html",
+    "url": "https://butteros.blrc.me/apps/games/blockbreaker.html",
     "description": "block blast but worse",
     "color": "#0095FD"
   }
