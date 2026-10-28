@@ -6,27 +6,9 @@
     "color": "#FFFFFF"
   },
   {
-    "name": "Sonic Vs Temu Sonic",
-    "url": "https://temusonic.butterlabs.app/",
-    "description": "sonic vs temu sonic, a game made in p5.js",
+    "name": "RobVBob",
+    "url": "https://robvbob.butterlabs.app/",
+    "description": "first ever game",
     "color": "#FFFFFF"
-  },
-  {
-    "name": "HexGL",
-    "url": "https://hexgl.blrc.me/",
-    "description": "a fast-paced racing game made by bkcore",
-    "color": "#90d5ff"
-  },
-  {
-    "name": "Pong",
-    "url": "https://butteros.blrc.me/apps/games/pong.html",
-    "description": "pong, a classic arcade game",
-    "color": "#FF007F"
-  },
-    {
-    "name": "Block Breaker",
-    "url": "https://butteros.blrc.me/apps/games/blockbreaker.html",
-    "description": "block blast but worse",
-    "color": "#0095FD"
   }
 ]
