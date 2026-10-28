@@ -14,6 +14,39 @@
         scrollbar-width: none;
       }
       body { margin: 0; min-height: 100vh; }
+      .not-found-message {
+        position: fixed;
+        z-index: 2;
+        left: 50%;
+        bottom: clamp(24px, 7vh, 64px);
+        transform: translateX(-50%);
+        display: grid;
+        justify-items: center;
+        gap: 12px;
+        color: #dcde93;
+        font-family: Consolas, "Courier New", monospace;
+        text-align: center;
+        text-shadow: 0 2px 14px #000;
+      }
+      .not-found-message h1 {
+        margin: 0;
+        font-size: clamp(2.5rem, 7vw, 5rem);
+        line-height: 1;
+      }
+      .not-found-message a {
+        padding: 10px 16px;
+        border: 1px solid #dcde93;
+        border-radius: 6px;
+        color: #dcde93;
+        background: #000b;
+        font: inherit;
+        text-decoration: none;
+      }
+      .not-found-message a:hover,
+      .not-found-message a:focus-visible {
+        color: #000;
+        background: linear-gradient(135deg, #dcde93, #dea193);
+      }
       #ascii-output {
         position: fixed;
         inset: 0;
@@ -39,6 +72,10 @@
   </head>
 
   <body class="bg-gray-900 text-gray-300 font-sans desktop-locked">
+    <main class="not-found-message">
+      <h1>404</h1>
+      <a href="/">Return to homepage</a>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
