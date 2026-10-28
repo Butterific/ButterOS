@@ -30,11 +30,8 @@ This WebOS currently features `8` apps:
  - `Settings` - Settings for the OS
 
 ## Future Plans
- - Remake the toolbar from scratch because its not much different from the guide
  - add support for connecting to other butterlabs services 
  - add a working timer app
- - add a pong app/game
- - add some more apps in general because it kind of feels empty
  - add a file system app that connects to the file system in the cmd
 ## Credits
   - Special thanks to [Brocode](https://youtu.be/I5kj-YsmWjM) for the calculator guide!
