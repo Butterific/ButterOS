@@ -14,7 +14,7 @@ A working server with static html/css/js support
 (Recommnded to use github/cloudflare pages)
 
 ## How it Works
-The website/WebOS is powered by 2 key components, the windowdrag and appopen script files. whenever you click on a app button, it uses a function to change the display property for all windows to show them. All windows are loaded by defualt when you launch the page!
+The website/WebOS is powered by 2 key components, the windowdrag and appopen script files. whenever you click on a app button, it uses a function to change the display property for all windows to show them. All windows are loaded when you launch the page!
 
 
 
