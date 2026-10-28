@@ -50,7 +50,7 @@ scene.add(pointLight1);
 const stlLoader = new THREE.STLLoader();
 stlLoader.setCrossOrigin('anonymous');
 
-const MODEL_URL = 'model.stl';
+const MODEL_URL = 'assets/404.stl';
 
 
 const material = new THREE.MeshStandardMaterial({ flatShading: true, side: THREE.DoubleSide });
