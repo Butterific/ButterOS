@@ -38,7 +38,7 @@ This WebOS currently features `8` apps:
  - add a file system app that connects to the file system in the cmd
 ## Credits
   - Special thanks to [Brocode](https://youtu.be/I5kj-YsmWjM) for the calculator guide!
-  - Special thanks to [this](https://jams.hackclub.com/batch/webOS) guide for the basic guide on making the toolbar and windows (however the app system and window open/close were made custom by me) 
+  - Special thanks to [this Stardance guide for the base of the os!](https://jams.hackclub.com/batch/webOS) guide for the basic guide on making the toolbar and windows (however the app system and window open/close were made custom by me) 
   - HUGE thanks to [this github project](https://github.com/nploc1209/TeXpress/blob/main/README.md) for helping me model my readme
 
 ## Important Links
@@ -48,13 +48,9 @@ This WebOS currently features `8` apps:
  - a decent bit of boring css
  - terminal file system
 ## Gallery
-![Image1](assets/readme/image.png)
-![Image2](assets/readme/image2.png)
-![Image2](assets/readme/image3.png)
-![Image3](assets/readme/image4.png)
-![Image4](assets/readme/image5.png)
-![Image6](assets/readme/image6.png)
-
+![Image of the main desktop](assets/readme/image2.png)
+![Image with a few apps open](assets/readme/image3.png)
+![Image with the music app](assets/readme/image4.png)
 
 
 # This website was made for HackClub Stardance 2026
