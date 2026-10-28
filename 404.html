@@ -9,9 +9,28 @@
     <style>
       html, body {
         font-family: "Comic Sans MS", "Comic Sans", cursive;
+        background: #000;
         -ms-overflow-style: none;
         scrollbar-width: none;
       }
+      body { margin: 0; min-height: 100vh; }
+      #ascii-output {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        background: #000;
+      }
+      #ascii-output table {
+        width: 100%;
+        height: 100%;
+        border-collapse: collapse;
+        background: linear-gradient(135deg, #dcde93, #dea193);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      #ascii-output td { padding: 0; border: 0; }
       html::-webkit-scrollbar,
       body::-webkit-scrollbar {
         display: none;
@@ -99,7 +118,7 @@ let characters = ' .:-+*=%@#';
 let effect;
 const effectSize = { amount: 0.205 };
 let backgroundColor = 'black';
-let ASCIIColor = 'white';
+const ASCIIGradient = 'linear-gradient(135deg, #dcde93, #dea193)';
 
 const isMobileDevice = () => {
     if (typeof window !== 'undefined' && window.matchMedia) {
@@ -130,9 +149,12 @@ function setExperienceShell(isMobile) {
 function createEffect() {
     effect = new THREE.AsciiEffect(renderer, characters, { invert: true, resolution: effectSize.amount });
     effect.setSize(sizes.width, sizes.height);
-    effect.domElement.style.color = ASCIIColor;
+    effect.domElement.style.color = '#dcde93';
     effect.domElement.style.backgroundColor = backgroundColor;
+    effect.domElement.style.backgroundImage = `linear-gradient(black, black), ${ASCIIGradient}`;
+    effect.domElement.style.backgroundBlendMode = 'normal, normal';
     const el = effect.domElement;
+    el.id = 'ascii-output';
     el.style.position = 'absolute';
     el.style.left = '0';
     el.style.top = '0';
@@ -538,7 +560,6 @@ if (shouldRenderAscii) {
         tick();
     });
 }
-
 
 if (shouldRenderAscii) {
     window.addEventListener('resize', onWindowResize);
